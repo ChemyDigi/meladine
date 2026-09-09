@@ -4,6 +4,7 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import SplashScreen from "@/components/SplashScreen";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -48,6 +49,7 @@ export default function RootLayout({
       className={`${inter.variable} ${bebasNeue.variable} ${caveat.variable} ${signatureScript.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-zinc-900 font-sans">
+        <SplashScreen />
         <SmoothScroll>
           <Navigation />
           <main className="flex-1 w-full bg-white">{children}</main>
