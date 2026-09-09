@@ -12,49 +12,57 @@ export default function FeaturedMentor() {
   });
 
   React.useEffect(() => {
-    const checkVisibility = () => {
-      const elements = [
+    const handleScroll = () => {
+      const vh = window.innerHeight || 800;
+      const targets = [
         { id: "mentor1", el: document.getElementById("mentor-block-1") },
         { id: "mentor2", el: document.getElementById("next-mentor") },
         { id: "mentor3", el: document.getElementById("mentor-block-3") },
       ];
 
-      elements.forEach(({ id, el }) => {
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight * 0.92) {
-            setVisible((prev) => ({ ...prev, [id]: true }));
+      targets.forEach(({ id, el }) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        // Visible when top is within 82% of viewport height and bottom hasn't scrolled off top
+        const isVisible = rect.top < vh * 0.82 && rect.bottom > 80;
+        setVisible((prev) => {
+          if (prev[id] !== isVisible) {
+            return { ...prev, [id]: isVisible };
           }
-        }
+          return prev;
+        });
       });
     };
 
-    checkVisibility();
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute("data-mentor");
-            if (id) {
-              setVisible((prev) => ({ ...prev, [id]: true }));
-            }
+          const id = entry.target.getAttribute("data-mentor");
+          if (id) {
+            setVisible((prev) => {
+              if (prev[id] !== entry.isIntersecting) {
+                return { ...prev, [id]: entry.isIntersecting };
+              }
+              return prev;
+            });
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
 
     const blocks = document.querySelectorAll("[data-mentor]");
     blocks.forEach((el) => observer.observe(el));
 
-    const timer = setTimeout(() => {
-      setVisible({ mentor1: true, mentor2: true, mentor3: true });
-    }, 1200);
-
     return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
       observer.disconnect();
-      clearTimeout(timer);
     };
   }, []);
 
@@ -96,7 +104,7 @@ export default function FeaturedMentor() {
 
             {/* Hand-drawn Loopy Arrow + "meet Saliya Illangasinghe" handwriting on TOP of the description */}
             <div className="absolute left-[70%] sm:left-[72%] md:left-[74%] bottom-[62%] sm:bottom-[64%] md:bottom-[66%] lg:bottom-[68%] z-30 flex flex-col items-start pointer-events-none">
-              <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.96]"}`}>
+              <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.93]"}`}>
                 <div className="w-24 sm:w-32 md:w-40 lg:w-44 rotate-[190deg]">
                   <DoodleArrow className="w-full h-auto drop-shadow-sm" />
                 </div>
@@ -111,7 +119,7 @@ export default function FeaturedMentor() {
 
             {/* Description Block placed right BELOW the Arrow & Handwriting */}
             <div className="absolute left-[88%] sm:left-[92%] md:left-[96%] lg:left-[100%] bottom-[32%] sm:bottom-[35%] md:bottom-[38%] lg:bottom-[41%] z-30 w-[350px] sm:w-[460px] md:w-[580px] lg:w-[680px] xl:w-[760px] pointer-events-auto">
-              <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]"}`}>
+              <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <p className="text-xs sm:text-sm md:text-base font-light text-neutral-700 leading-relaxed">
                   The Meladine Music Conservatory, founded by &quot;Wings&quot; band co-founder and guitarist <strong className="font-semibold text-neutral-950">Saliya Illangasinghe</strong>, has been offering a range of music-focused courses for the past 16 years.
                 </p>
@@ -122,7 +130,7 @@ export default function FeaturedMentor() {
               </div>
 
               {/* Metrics Placed Below Descriptive Text */}
-              <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]"}`}>
+              <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <div className="flex items-center gap-8 sm:gap-10">
                   {/* Metric 1: 16+ Years Teaching */}
                   <div className="flex flex-col group cursor-default">
@@ -229,7 +237,7 @@ export default function FeaturedMentor() {
 
             {/* Handwriting + Arrow pointing right towards chair */}
             <div className="flex items-center gap-2 sm:gap-3 pointer-events-none">
-              <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.96]"} flex items-center gap-2 sm:gap-3`}>
+              <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.93]"} flex items-center gap-2 sm:gap-3`}>
                 <div className="flex flex-col items-end text-right translate-x-10 sm:translate-x-14 md:translate-x-18 lg:translate-x-22 xl:translate-x-26">
                   <div className="font-handwriting text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-950 font-bold -rotate-2 tracking-wide select-none drop-shadow-xs whitespace-nowrap hover:scale-105 transition-transform cursor-default">
                     meet Dileepa Liyanage
@@ -246,7 +254,7 @@ export default function FeaturedMentor() {
 
             {/* Description Block placed right below the handwriting */}
             <div className="mt-4 sm:mt-5 w-[330px] sm:w-[440px] md:w-[540px] lg:w-[620px] xl:w-[680px] text-right -translate-x-3 sm:-translate-x-5 md:-translate-x-7 lg:-translate-x-9 xl:-translate-x-12">
-              <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]"}`}>
+              <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <p className="text-xs sm:text-sm md:text-base font-light text-neutral-700 leading-relaxed">
                   With a rich background in piano performance and contemporary harmony, <strong className="font-semibold text-neutral-950">Dileepa Liyanage</strong> guides students through classical mastery, chord voicings, and modern keyboard techniques.
                 </p>
@@ -257,7 +265,7 @@ export default function FeaturedMentor() {
               </div>
 
               {/* Metrics Placed Below Descriptive Text */}
-              <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]"}`}>
+              <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <div className="flex items-center justify-end gap-8 sm:gap-10">
                   {/* Metric 1: 12+ Years Teaching */}
                   <div className="flex flex-col items-end text-right group cursor-default">
@@ -316,7 +324,7 @@ export default function FeaturedMentor() {
 
             {/* Hand-drawn Loopy Arrow + "meet Dileepa Liyanage" handwriting on TOP of the description */}
             <div className="absolute left-[70%] sm:left-[72%] md:left-[74%] bottom-[52%] sm:bottom-[54%] md:bottom-[56%] lg:bottom-[58%] z-30 flex flex-col items-start pointer-events-none">
-              <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.96]"}`}>
+              <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.93]"}`}>
                 <div className="w-24 sm:w-32 md:w-40 lg:w-44 rotate-[190deg]">
                   <DoodleArrow className="w-full h-auto drop-shadow-sm" />
                 </div>
@@ -331,7 +339,7 @@ export default function FeaturedMentor() {
 
             {/* Description Block placed right BELOW the Arrow & Handwriting with tight gap */}
             <div className="absolute left-[88%] sm:left-[92%] md:left-[96%] lg:left-[100%] bottom-[28%] sm:bottom-[30%] md:bottom-[32%] lg:bottom-[34%] z-30 w-[350px] sm:w-[460px] md:w-[580px] lg:w-[680px] xl:w-[760px] pointer-events-auto">
-              <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]"}`}>
+              <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <p className="text-xs sm:text-sm md:text-base font-light text-neutral-700 leading-relaxed">
                   Dedicated to unlocking each singer&apos;s natural resonance and authentic expression, our vocal coaching blends diaphragmatic breath control with contemporary phrasing and pitch precision.
                 </p>
@@ -342,7 +350,7 @@ export default function FeaturedMentor() {
               </div>
 
               {/* Metrics Placed Below Descriptive Text */}
-              <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]"}`}>
+              <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <div className="flex items-center gap-8 sm:gap-10">
                   {/* Metric 1: 10+ Years Teaching */}
                   <div className="flex flex-col group cursor-default">
