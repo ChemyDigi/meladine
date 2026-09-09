@@ -15,8 +15,8 @@ export default function HomePage() {
       {/* Modular Home Sections */}
       <About />
       <Disciplines />
-      <Events />
       <Mentors />
+      <Events />
       <Contact />
     </div>
   );

@@ -137,12 +137,10 @@ export default function About() {
       {/* Main Content Stage: Header, Large Scroll Text, Metadata      */}
       {/* ============================================================ */}
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center justify-between text-center">
-        {/* Top Architectural Header - Centered in Handwriting Font (Scaled Down) */}
-        <div className="flex items-center justify-center mb-4 sm:mb-6 md:mb-8">
-          <span className="font-handwriting text-lg sm:text-xl md:text-2xl font-bold tracking-wide flex items-center gap-1.5 select-none -rotate-1">
-            <span className="inline-block w-1 h-1 rounded-full bg-[#ed1438] animate-pulse shrink-0" />
-            <span className="text-neutral-950">about</span>
-            <span className="text-[#ed1438]">Meladine</span>
+        {/* Top Architectural Header */}
+        <div className="flex items-center justify-center mb-4 sm:mb-6 md:mb-8 select-none">
+          <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold">
+            {"// 01 ABOUT MELADINE"}
           </span>
         </div>
 
