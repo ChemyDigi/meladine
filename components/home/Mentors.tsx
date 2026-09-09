@@ -9,7 +9,7 @@ export default function Mentors() {
   return (
     <section
       id="mentors"
-      className="relative w-full bg-white py-20 sm:py-28 md:py-32 px-6 sm:px-10 lg:px-14 border-t border-neutral-100 overflow-hidden"
+      className="relative w-full bg-white py-20 sm:py-28 md:py-32 px-6 sm:px-10 lg:px-14 overflow-hidden"
     >
       {/* Background Architectural Hairline Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-25 z-0">

@@ -2,9 +2,7 @@ import React from "react";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Disciplines from "@/components/home/Disciplines";
-import Events from "@/components/home/Events";
 import Mentors from "@/components/home/Mentors";
-import Contact from "@/components/home/Contact";
 
 export default function HomePage() {
   return (
@@ -16,8 +14,6 @@ export default function HomePage() {
       <About />
       <Disciplines />
       <Mentors />
-      <Events />
-      <Contact />
     </div>
   );
 }
