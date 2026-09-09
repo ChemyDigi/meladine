@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import AboutTimelineSection from "@/components/about/AboutTimelineSection";
 
 export const metadata: Metadata = {
   title: "About — Meladine Sound Collective",
@@ -34,8 +35,8 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24 px-6 sm:px-10 lg:px-14">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
         
         {/* Page Tag & Title */}
         <div className="border-b border-neutral-200 pb-12">
@@ -70,6 +71,12 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Black Background CD Timeline Section */}
+      <AboutTimelineSection />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Core Pillars */}
         <div className="py-20 border-b border-neutral-200">
