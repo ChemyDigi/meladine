@@ -189,9 +189,6 @@ export default function AboutTimelineSection() {
                     className="object-contain"
                   />
                 </div>
-                <span className="text-[10px] sm:text-xs font-mono tracking-[0.25em] text-black uppercase font-bold block leading-tight">
-                  MELADINE
-                </span>
               </div>
             </div>
 
