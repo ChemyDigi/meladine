@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,7 +33,9 @@ export default function RootLayout({
       className={`${inter.variable} ${bebasNeue.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-white text-zinc-900 font-sans">
-        {children}
+        <Navigation />
+        <main className="flex-1 w-full bg-white">{children}</main>
+        <Footer />
       </body>
     </html>
   );

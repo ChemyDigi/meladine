@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface CurtainMenuProps {
@@ -10,11 +9,11 @@ interface CurtainMenuProps {
 }
 
 const NAV_LINKS = [
-  { label: "HOME", href: "#home" },
-  { label: "ABOUT", href: "#about" },
-  { label: "EVENTS", href: "#events" },
-  { label: "MENTORS", href: "#mentors" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/about" },
+  { label: "EVENTS", href: "/events" },
+  { label: "MENTORS", href: "/mentors" },
+  { label: "CONTACT", href: "/contact" },
 ];
 
 export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
@@ -43,7 +42,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
       aria-modal="true"
       aria-label="Site Navigation"
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-50 overflow-hidden select-none transition-[visibility,opacity] duration-500 ${
+      className={`fixed inset-0 z-40 overflow-hidden select-none transition-[visibility,opacity] duration-500 ${
         isOpen
           ? "visible opacity-100 pointer-events-auto"
           : "invisible opacity-0 pointer-events-none delay-500"
@@ -85,54 +84,12 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
         Fades and slides smoothly into view once curtain begins dropping
       */}
       <div
-        className={`relative z-10 w-full h-full flex flex-col justify-between px-6 sm:px-10 lg:px-14 py-6 md:py-8 transition-all duration-500 ${
+        className={`relative z-10 w-full h-full flex flex-col justify-between px-6 sm:px-10 lg:px-14 pt-28 sm:pt-32 pb-6 md:pb-8 transition-all duration-500 ${
           isOpen ? "opacity-100 translate-y-0 delay-200" : "opacity-0 -translate-y-4 delay-0"
         }`}
       >
-        {/* TOP BAR: Logo (Left) + Close Button (Right) */}
-        <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
-          <Link
-            href="#home"
-            onClick={onClose}
-            className="group flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-lg"
-            aria-label="Meladine Home"
-          >
-            <div className="relative h-9 md:h-11 w-7 md:w-9 flex items-center shrink-0">
-              <Image
-                src="/images/LOGO.png"
-                alt="Meladine Logo"
-                fill
-                className="object-contain brightness-0 transition-transform duration-300 group-hover:scale-105"
-                priority
-              />
-            </div>
-            <span className="font-display text-2xl md:text-3xl tracking-wider text-black select-none">
-              MELADINE
-            </span>
-          </Link>
-
-          {/* Close 'X' Button in Black Box (Matching Reference Image) */}
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close Navigation Menu"
-            id="curtain-close-btn"
-            className="w-10 h-10 sm:w-11 sm:h-11 bg-black text-white flex items-center justify-center rounded-xs hover:bg-neutral-900 active:scale-95 transition-transform duration-200 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
-          >
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
+        {/* Top spacer to preserve alignment with the fixed top navbar */}
+        <div className="w-full max-w-7xl mx-auto h-4" aria-hidden="true" />
 
         {/* 
           CENTER NAVIGATION LINKS

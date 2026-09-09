@@ -18,15 +18,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Top Meta Bar under Navbar */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-b border-neutral-100 pb-4 text-xs font-mono tracking-widest text-neutral-500 uppercase">
-        <div className="flex items-center gap-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#ed1438] animate-ping" />
-          <span className="font-semibold text-neutral-800">MELADINE COLLECTIVE</span>
-        </div>
-        <div>6°55&apos;55&quot;N 79°51&apos;52&quot;E // SOUND CULTURE &amp; EXPERIENCES</div>
-        <div className="hidden md:block">SEASON 2026 / VOL. IV</div>
-      </div>
 
       {/* Main Center Hero Headline & Composition */}
       <div className="relative z-10 w-full max-w-7xl mx-auto my-auto py-12 md:py-16 flex flex-col items-start justify-center">
@@ -55,13 +46,13 @@ export default function Hero() {
           {/* Action CTAs */}
           <div className="lg:col-span-5 flex flex-wrap items-center gap-4 lg:justify-end">
             <Link
-              href="#events"
+              href="/events"
               className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-black text-white text-xs md:text-sm font-semibold tracking-wider uppercase hover:bg-[#ed1438] transition-all duration-300 shadow-sm hover:shadow-lg active:scale-95"
             >
               Explore Events
             </Link>
             <Link
-              href="#about"
+              href="/about"
               className="inline-flex items-center justify-center px-7 py-3.5 rounded-full border border-neutral-300 text-neutral-900 text-xs md:text-sm font-semibold tracking-wider uppercase hover:border-black hover:bg-neutral-50 transition-all duration-300 active:scale-95"
             >
               Our Manifesto
