@@ -16,12 +16,12 @@ export default function Footer() {
             INSTAGRAM
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-black transition-colors"
           >
-            LINKEDIN
+            FACEBOOK
           </a>
           <a href="mailto:hello@meladine.com" className="hover:text-black transition-colors">
             CONTACT

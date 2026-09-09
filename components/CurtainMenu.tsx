@@ -145,12 +145,12 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
           </a>
           <span className="hidden sm:inline text-black/30">•</span>
           <a
-            href="https://linkedin.com"
+            href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white transition-colors duration-200"
           >
-            LinkedIn
+            Facebook
           </a>
           <span className="hidden sm:inline text-black/30">•</span>
           <a

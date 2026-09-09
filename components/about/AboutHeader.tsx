@@ -55,7 +55,7 @@ export default function AboutHeader() {
   }, []);
 
   return (
-    <div className="pb-28 sm:pb-36 text-center flex flex-col items-center">
+    <div className="pb-4 sm:pb-8 text-center flex flex-col items-center">
 
       {/* Giant "ABOUT MELADINE" with signature popped-up letters & staggered entrance */}
       <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-display uppercase tracking-tight text-black leading-[0.88] select-none text-center cursor-default pt-2 sm:pt-4 pb-4 sm:pb-8 flex flex-wrap justify-center gap-x-4 sm:gap-x-8">
@@ -149,7 +149,7 @@ export default function AboutHeader() {
               key={index}
               className={`inline-block transition-colors duration-200 mr-[0.28em] ${
                 isHighlighted
-                  ? "text-black font-normal"
+                  ? "text-black"
                   : "text-neutral-300"
               }`}
             >

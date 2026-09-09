@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Disciplines3D, {
   DisciplineCategory,
   CATEGORIES,
@@ -36,6 +36,50 @@ const DISCIPLINES: Record<DisciplineCategory, DisciplineData> = {
 
 export default function Disciplines() {
   const [activeCategory, setActiveCategory] = useState<DisciplineCategory>("guitar");
+  const containerTrackRef = useRef<HTMLElement>(null);
+
+  // Scroll pinning & scroll-driven category switching
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerTrackRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      const totalScrollable = container.offsetHeight - windowH;
+
+      if (totalScrollable <= 0) return;
+
+      // Scrolled distance within the pinned runway
+      const scrolled = -rect.top;
+      const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
+
+      // Pacing thresholds across the 3 disciplines:
+      // 0.00 - 0.33 : Guitar (01) — generous scroll distance to inspect Guitar
+      // 0.33 - 0.67 : Piano (02) — requires substantial scroll to reach and explore Piano
+      // 0.67 - 1.00 : Vocals (03) — requires substantial scroll to reach and explore Vocals before continuing down
+      if (progress < 0.33) {
+        setActiveCategory("guitar");
+      } else if (progress < 0.67) {
+        setActiveCategory("piano");
+      } else {
+        setActiveCategory("vocals");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    if (window.__lenis) {
+      window.__lenis.on("scroll", handleScroll);
+    }
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (window.__lenis) {
+        window.__lenis.off("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   const currentIdx = CATEGORIES.indexOf(activeCategory);
   const prevIdx = (currentIdx - 1 + CATEGORIES.length) % CATEGORIES.length;
@@ -48,14 +92,49 @@ export default function Disciplines() {
   const leftData = DISCIPLINES[leftCategory];
   const rightData = DISCIPLINES[rightCategory];
 
-  const handlePrev = () => setActiveCategory(leftCategory);
-  const handleNext = () => setActiveCategory(rightCategory);
+  // Smooth scroll to category when user clicks arrow buttons or models
+  const scrollToCategory = useCallback((cat: DisciplineCategory) => {
+    setActiveCategory(cat);
+
+    const idx = CATEGORIES.indexOf(cat);
+    if (idx === -1) return;
+
+    const container = containerTrackRef.current;
+    if (!container) return;
+
+    const windowH = window.innerHeight;
+    const totalScrollable = container.offsetHeight - windowH;
+    if (totalScrollable <= 0) return;
+
+    // Center of each stage: Guitar: 0.16, Piano: 0.50, Vocals: 0.84
+    const targetProgress =
+      idx === 0 ? 0.16 : idx === 1 ? 0.50 : 0.84;
+    const containerTop = window.scrollY + container.getBoundingClientRect().top;
+    const targetScroll = containerTop + totalScrollable * targetProgress;
+
+    if (window.__lenis) {
+      window.__lenis.scrollTo(targetScroll, { duration: 1.6 });
+    } else {
+      window.scrollTo({ top: targetScroll, behavior: "smooth" });
+    }
+  }, []);
+
+  const handlePrev = () => scrollToCategory(leftCategory);
+  const handleNext = () => scrollToCategory(rightCategory);
 
   return (
     <section
       id="disciplines"
-      className="relative w-full bg-white text-neutral-900 pt-20 sm:pt-28 md:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden select-none"
+      ref={containerTrackRef}
+      className="relative w-full h-[800vh] bg-white text-neutral-900 select-none"
     >
+      {/* 
+        Sticky Viewport:
+        Holds the screen frozen in place while the user scrolls through the 320vh runway.
+        As the user scrolls further, the 3D models smoothly rotate & swap.
+        Once the runway ends, normal scrolling resumes down to the next section.
+      */}
+      <div className="sticky top-0 w-full h-screen min-h-[640px] max-h-screen bg-white text-neutral-900 overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
       {/* Background Architectural Grid Lines */}
       <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
         <div className="curtain-grid-columns h-full">
@@ -65,19 +144,19 @@ export default function Disciplines() {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-between items-center min-h-0">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-6 sm:mb-10 z-20">
-          <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold mb-1.5">
+        <div className="flex flex-col items-center text-center mb-1 sm:mb-2 z-20 shrink-0">
+          <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold mb-1">
             {"// 02 ACADEMY"}
           </span>
-          <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.9]">
+          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.9]">
             CORE DISCIPLINES
           </h2>
         </div>
 
         {/* 3D Showcase Arena */}
-        <div className="relative w-full max-w-7xl mx-auto flex flex-col items-center">
+        <div className="relative w-full flex-1 flex flex-col items-center justify-center min-h-0">
           {/* ============================================================ */}
           {/* Subtle Background Concentric Acoustic Resonance Circles     */}
           {/* ============================================================ */}
@@ -101,75 +180,11 @@ export default function Disciplines() {
             <div className="hidden lg:block absolute w-[1280px] h-[1280px] rounded-full border border-neutral-100/40" />
           </div>
 
-          {/* Standalone Hand-Drawn Hatched Left Arrowhead (Black) */}
-          <button
-            type="button"
-            onClick={handlePrev}
-            aria-label="Previous Instrument"
-            className="absolute left-2 sm:left-6 md:left-10 lg:left-14 top-[42%] -translate-y-1/2 z-30 p-2 text-neutral-950 hover:text-[#ed1438] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group focus:outline-none"
-          >
-            <svg
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-transform duration-200 group-hover:-translate-x-1 rotate-180 drop-shadow-xs"
-              viewBox="0 0 80 80"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 18 16 L 70 40 L 16 64 Q 26 40 18 16 Z"
-                stroke="currentColor"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="white"
-              />
-              <path
-                d="M 28 24 L 27 56
-                   M 38 29 L 37 51
-                   M 48 34 L 47 46
-                   M 58 38 L 58 42"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
 
-          {/* Standalone Hand-Drawn Hatched Right Arrowhead (Black) */}
-          <button
-            type="button"
-            onClick={handleNext}
-            aria-label="Next Instrument"
-            className="absolute right-2 sm:right-6 md:right-10 lg:right-14 top-[42%] -translate-y-1/2 z-30 p-2 text-neutral-950 hover:text-[#ed1438] hover:scale-115 active:scale-95 transition-all duration-200 cursor-pointer group focus:outline-none"
-          >
-            <svg
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-transform duration-200 group-hover:translate-x-1 drop-shadow-xs"
-              viewBox="0 0 80 80"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 18 16 L 70 40 L 16 64 Q 26 40 18 16 Z"
-                stroke="currentColor"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="white"
-              />
-              <path
-                d="M 28 24 L 27 56
-                   M 38 29 L 37 51
-                   M 48 34 L 47 46
-                   M 58 38 L 58 42"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
 
           {/* Handwriting Annotation: Positioned below right arrow */}
           <div className="absolute right-2 sm:right-6 md:right-10 lg:right-14 top-[58%] sm:top-[60%] md:top-[62%] z-30 flex flex-col items-end text-right -rotate-2 sm:-rotate-3 select-none pointer-events-none pr-1">
-            <span className="font-handwriting text-lg sm:text-xl md:text-2xl lg:text-[1.75rem] text-neutral-950 font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight">
+            <span className="font-handwriting text-lg sm:text-xl md:text-2xl lg:text-[1.75rem] text-neutral-950 font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight transition-all duration-300">
               interactive 3D {activeCategory === "guitar" ? "electric guitar" : activeCategory === "piano" ? "stage keyboard" : "studio mic"}
             </span>
             <span className="-mt-0.5 sm:-mt-1 font-handwriting text-xs sm:text-sm md:text-base lg:text-[1.15rem] text-[#ed1438] font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight">
@@ -178,13 +193,13 @@ export default function Disciplines() {
           </div>
 
           {/* Three.js Interactive 3D Canvas */}
-          <div className="w-full relative z-10">
+          <div className="w-full relative z-10 flex-1 flex items-center justify-center">
             <Disciplines3D
               activeCategory={activeCategory}
-              onSelectCategory={setActiveCategory}
+              onSelectCategory={scrollToCategory}
             />
           </div>
-
+        </div>
           {/* The Iconic 3-Item Typography Bar */}
           <div className="relative z-20 w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto grid grid-cols-[1fr_auto_1fr] items-end justify-center gap-3 sm:gap-6 md:gap-8 pt-2 sm:pt-4 pb-4">
             {/* Left Flanking Label */}

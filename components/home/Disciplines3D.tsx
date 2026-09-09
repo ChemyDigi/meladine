@@ -22,10 +22,17 @@ export default function Disciplines3D({
   const activeCategoryRef = useRef(activeCategory);
   activeCategoryRef.current = activeCategory;
 
-  // Track manual drag rotation of the center model
+  const onSelectCategoryRef = useRef(onSelectCategory);
+  onSelectCategoryRef.current = onSelectCategory;
+
   const userRotationYRef = useRef(0);
   const isDraggingRef = useRef(false);
   const previousPointerXRef = useRef(0);
+
+  // Reset any manual drag rotation smoothly when instrument changes
+  useEffect(() => {
+    userRotationYRef.current = 0;
+  }, [activeCategory]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -353,7 +360,7 @@ export default function Disciplines3D({
           const hit = clickableMeshes.find((m) => m.mesh === intersects[0].object);
           if (hit && hit.category !== activeCategoryRef.current) {
             userRotationYRef.current = 0;
-            onSelectCategory(hit.category);
+            onSelectCategoryRef.current(hit.category);
           }
         }
       }
@@ -407,18 +414,18 @@ export default function Disciplines3D({
           targetRot.set(...cfg.rightRot);
         }
 
-        // Interpolations
-        grp.position.x += (targetX - grp.position.x) * 0.08;
-        grp.position.y += (targetY - grp.position.y) * 0.08;
-        grp.position.z += (targetZ - grp.position.z) * 0.08;
+        // Interpolations - gentler easing for smooth, stately transitions
+        grp.position.x += (targetX - grp.position.x) * 0.05;
+        grp.position.y += (targetY - grp.position.y) * 0.05;
+        grp.position.z += (targetZ - grp.position.z) * 0.05;
 
         const currentScale = grp.scale.x;
-        const newScale = currentScale + (targetScale - currentScale) * 0.08;
+        const newScale = currentScale + (targetScale - currentScale) * 0.05;
         grp.scale.setScalar(newScale);
 
-        grp.rotation.x += (targetRot.x - grp.rotation.x) * 0.08;
-        grp.rotation.y += (targetRot.y - grp.rotation.y) * 0.08;
-        grp.rotation.z += (targetRot.z - grp.rotation.z) * 0.08;
+        grp.rotation.x += (targetRot.x - grp.rotation.x) * 0.05;
+        grp.rotation.y += (targetRot.y - grp.rotation.y) * 0.05;
+        grp.rotation.z += (targetRot.z - grp.rotation.z) * 0.05;
 
         // Smoothly interpolate white fill and reduced opacity for non-active models
         const isActive = slot === "center";
@@ -433,7 +440,8 @@ export default function Disciplines3D({
               : [mesh.material];
             mats.forEach((mat) => {
               // Smooth opacity transition
-              mat.opacity += (targetOpacity - mat.opacity) * 0.08;
+              mat.opacity += (targetOpacity - mat.opacity) * 0.05;
+              mat.depthWrite = isActive;
 
               // Smooth white emissive fill
               const stdMat = mat as THREE.MeshStandardMaterial;
@@ -442,7 +450,7 @@ export default function Disciplines3D({
                   stdMat.userData.currentWhite = 0;
                 }
                 stdMat.userData.currentWhite +=
-                  (targetWhiteFill - stdMat.userData.currentWhite) * 0.08;
+                  (targetWhiteFill - stdMat.userData.currentWhite) * 0.05;
                 const w = stdMat.userData.currentWhite;
                 stdMat.emissive.setRGB(w, w, w);
               }
@@ -503,10 +511,10 @@ export default function Disciplines3D({
         container.removeChild(renderer.domElement);
       }
     };
-  }, [onSelectCategory]);
+  }, []);
 
   return (
-    <div className="relative w-full h-[420px] sm:h-[480px] md:h-[520px] flex items-center justify-center select-none overflow-visible">
+    <div className="relative w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[500px] max-h-[55vh] flex items-center justify-center select-none overflow-visible">
       {/* Loading Pulse */}
       {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
