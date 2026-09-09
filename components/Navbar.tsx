@@ -52,14 +52,14 @@ export default function Navbar({ isMenuOpen, onToggleMenu }: NavbarProps) {
             Contact Us
           </Link>
 
-          {/* Menu Toggle Button: Hamburger when closed, Close 'X' in black box when open */}
+          {/* Menu Toggle Button: Always a circle (rounded-full) */}
           <button
             type="button"
             onClick={onToggleMenu}
-            className={`group flex items-center justify-center transition-all duration-300 shadow-xs hover:shadow-md active:scale-95 focus:outline-none cursor-pointer ${
+            className={`group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full transition-all duration-300 shadow-xs hover:shadow-md active:scale-95 focus:outline-none cursor-pointer ${
               isMenuOpen
-                ? "w-10 h-10 sm:w-11 sm:h-11 bg-black text-white rounded-xs hover:bg-neutral-900 border border-black focus-visible:ring-2 focus-visible:ring-white"
-                : "w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-black/80 bg-white/80 backdrop-blur-xs text-black hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-black"
+                ? "bg-black text-white hover:bg-neutral-900 border border-black focus-visible:ring-2 focus-visible:ring-white"
+                : "border border-black/80 bg-white/80 backdrop-blur-xs text-black hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-black"
             }`}
             aria-label={isMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
             aria-expanded={isMenuOpen}
