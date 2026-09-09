@@ -115,7 +115,7 @@ export default function AboutTimelineSection() {
         Sticky Viewport:
         Holds the screen in place while the user scrolls through the 500vh runway
       */}
-      <div className="sticky top-0 w-full h-screen min-h-[720px] max-h-screen bg-white text-neutral-900 overflow-hidden select-none flex flex-col justify-between py-10 px-6 sm:px-12 lg:px-20 border-t border-neutral-200">
+      <div className="sticky top-0 w-full h-screen min-h-[720px] max-h-screen bg-white text-neutral-900 overflow-hidden select-none flex flex-col justify-between py-10 px-6 sm:px-12 lg:px-20">
 
         {/* Subtle radial ambient background */}
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_50%,rgba(245,245,247,0.9)_0%,rgba(255,255,255,1)_70%)]" />

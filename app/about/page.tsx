@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import AboutTimelineSection from "@/components/about/AboutTimelineSection";
+import AboutHeader from "@/components/about/AboutHeader";
+import DriftWallSection from "@/components/about/DriftWallSection";
 
 export const metadata: Metadata = {
   title: "About — Meladine Sound Collective",
@@ -35,42 +37,20 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+    <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24 px-6 sm:px-10 lg:px-14">
+      <div className="max-w-7xl mx-auto">
 
-        {/* Page Tag & Title */}
-        <div className="border-b border-neutral-200 pb-12">
-          <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-display uppercase tracking-tight text-black leading-[0.88]">
-            ABOUT MELADINE
-          </h1>
-          <p className="mt-8 text-xl sm:text-2xl md:text-3xl font-light text-neutral-800 max-w-4xl leading-snug">
-            Meladine is an independent underground sound laboratory and creative collective uniting music producers, acoustic scientists, and visual innovators.
-          </p>
-        </div>
-
-        {/* Narrative & Origin Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-20 border-b border-neutral-200">
-          <div className="lg:col-span-4">
-            <span className="text-xs font-mono tracking-widest text-neutral-400 uppercase block mb-2">
-              ORIGINS &bull; 2022&ndash;PRESENT
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-display uppercase text-black">
-              BORN IN CONCRETE &amp; VOLTAGE
-            </h2>
-          </div>
-          <div className="lg:col-span-8 flex flex-col gap-6 text-base sm:text-lg text-neutral-600 font-normal leading-relaxed">
-            <p>
-              Founded in 2022 as a subterranean gathering of sound designers in repurposed industrial spaces, Meladine emerged from a singular conviction: that modern electronic music had become sanitized by digital perfection.
-            </p>
-            <p>
-              We established acoustic laboratories equipped with modular Eurorack systems, restored vintage consoles, and high-displacement sub-bass arrays designed to test the physical thresholds of sound. Today, Meladine operates across Berlin, Colombo, Tokyo, and London as a beacon for uncompromised underground culture.
-            </p>
-          </div>
-        </div>
+        {/* Animated Page Header */}
+        <AboutHeader />
       </div>
 
-      {/* Black Background CD Timeline Section */}
-      <AboutTimelineSection />
+      {/* CD Timeline Section with clean spacing */}
+      <div className="py-8 sm:py-16">
+        <AboutTimelineSection />
+      </div>
+
+      {/* Interactive 3D DriftWall Gallery */}
+      <DriftWallSection />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
 
