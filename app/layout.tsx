@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue, Caveat } from "next/font/google";
+import { Inter, Bebas_Neue, Caveat, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -25,6 +25,13 @@ const caveat = Caveat({
   display: "swap",
 });
 
+const signatureScript = Great_Vibes({
+  weight: ["400"],
+  variable: "--font-signature",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Meladine — Underground Sound & Experience",
   description: "Meladine turns emotion into sound, crafting experiences beyond borders.",
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${bebasNeue.variable} ${caveat.variable} h-full antialiased`}
+      className={`${inter.variable} ${bebasNeue.variable} ${caveat.variable} ${signatureScript.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-zinc-900 font-sans">
         <SmoothScroll>
