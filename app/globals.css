@@ -14,11 +14,36 @@
   --font-display: var(--font-bebas), Impact, "Arial Narrow", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   background-color: #ffffff;
   color: #111111;
   overflow-x: hidden;
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Lenis Smooth Momentum Scroll Engine */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 /* Custom Utility for giant condensed headings */

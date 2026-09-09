@@ -17,18 +17,23 @@ const NAV_LINKS = [
 ];
 
 export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
-  // Lock body scroll and listen for ESC key when menu is open
+  // Lock body scroll, pause Lenis, and listen for ESC key when menu is open
   useEffect(() => {
     if (isOpen) {
+      window.__lenis?.stop();
       document.body.style.overflow = "hidden";
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") onClose();
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => {
+        window.__lenis?.start();
         document.body.style.overflow = "";
         window.removeEventListener("keydown", handleKeyDown);
       };
+    } else {
+      window.__lenis?.start();
+      document.body.style.overflow = "";
     }
   }, [isOpen, onClose]);
 
