@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import MentorsHeader from "@/components/mentors/MentorsHeader";
 import FeaturedMentor from "@/components/mentors/FeaturedMentor";
 
 export const metadata: Metadata = {
@@ -11,15 +12,8 @@ export const metadata: Metadata = {
 export default function MentorsPage() {
   return (
     <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24">
-      {/* Header Block */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 pb-12 text-center flex flex-col items-center">
-        <h1 className="text-7xl sm:text-9xl md:text-[10rem] lg:text-[13rem] xl:text-[15rem] font-display uppercase tracking-tight text-black leading-[0.85]">
-          MENTORS
-        </h1>
-        <p className="mt-6 text-sm sm:text-base md:text-lg lg:text-xl font-light text-neutral-600 max-w-2xl leading-relaxed mx-auto">
-          Learn directly from seasoned artists and dedicated masters across guitar, vocals, and keyboard nurturing technique, musicality, and artistic expression.
-        </p>
-      </div>
+      {/* Header Block with Unique Elastic Letter Pop-up Animation */}
+      <MentorsHeader />
 
       {/* Featured Mentor Showcase Section (Saliya Illangasinghe) - Full Width */}
       <FeaturedMentor />
