@@ -37,13 +37,9 @@ export default function AboutPage() {
   return (
     <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
-        
+
         {/* Page Tag & Title */}
         <div className="border-b border-neutral-200 pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 text-xs font-mono tracking-widest text-[#ed1438] uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ed1438]" />
-            COLLECTIVE MANIFESTO // VOL. IV
-          </div>
           <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-display uppercase tracking-tight text-black leading-[0.88]">
             ABOUT MELADINE
           </h1>
