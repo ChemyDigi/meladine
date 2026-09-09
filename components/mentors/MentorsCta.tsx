@@ -19,10 +19,12 @@ export default function MentorsCta() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
+    window.__lenis?.on("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
+      window.__lenis?.off("scroll", handleScroll);
     };
   }, []);
 
