@@ -25,8 +25,6 @@ export default function Hero() {
   const [revealed, setRevealed] = useState(false);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeClickIdx, setActiveClickIdx] = useState<number | null>(null);
-  const [waveActive, setWaveActive] = useState(false);
-  const [waveIdx, setWaveIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,29 +45,10 @@ export default function Hero() {
     }, 280);
   };
 
-  // Sequential audio-wave arpeggio ripple across all 8 letters
-  const triggerWave = () => {
-    if (waveActive) return;
-    setWaveActive(true);
-
-    LETTERS.forEach((_, i) => {
-      setTimeout(() => {
-        setWaveIdx(i);
-        playPianoSound(PIANO_NOTES[i], 0.32);
-        if (i === LETTERS.length - 1) {
-          setTimeout(() => {
-            setWaveIdx(null);
-            setWaveActive(false);
-          }, 260);
-        }
-      }, i * 75);
-    });
-  };
-
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full bg-white flex flex-col justify-between pt-28 sm:pt-32 pb-12 px-6 sm:px-10 lg:px-14 overflow-hidden"
+      className="relative min-h-screen w-full bg-white flex flex-col justify-center pt-28 sm:pt-32 pb-12 px-6 sm:px-10 lg:px-14 overflow-hidden"
     >
       {/* Background Architectural Subtle Grid (Pure White Theme) */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
@@ -83,26 +62,15 @@ export default function Hero() {
       {/* Main Center Hero Headline & Composition (Dummy Text) */}
       <div className="relative z-10 w-full max-w-7xl mx-auto my-auto py-12 md:py-20 flex flex-col items-center justify-center text-center">
         
-        {/* Dummy Tag */}
-        <div
-          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-neutral-200 bg-neutral-50 text-xs font-mono tracking-widest text-[#ed1438] uppercase mb-6 transition-all duration-700 ${
-            revealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
-          }`}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#ed1438] animate-pulse" />
-          UNDERGROUND SOUND LAB // DUMMY HERO
-        </div>
 
         {/* Giant Hero Title in Condensed Display Typography with Piano Sound & Elastic Letter Pop */}
         <h1
-          onClick={triggerWave}
-          className="w-full text-neutral-950 font-display text-7xl sm:text-9xl md:text-[11rem] lg:text-[14rem] leading-[0.85] tracking-tight uppercase select-none text-center cursor-pointer group whitespace-nowrap pt-4 sm:pt-6 pb-2 sm:pb-4"
+          className="w-full text-neutral-950 font-display text-7xl sm:text-9xl md:text-[11rem] lg:text-[14rem] leading-[0.85] tracking-tight uppercase select-none text-center whitespace-nowrap pt-4 sm:pt-6 pb-2 sm:pb-4"
           title="Click each letter to play piano notes"
         >
           {LETTERS.map((letter, i) => {
             const isDirectlyHovered = hoveredIdx === i;
             const isNeighborHovered = hoveredIdx !== null && Math.abs(hoveredIdx - i) === 1;
-            const isWaveCurrent = waveIdx === i;
             const isClicked = activeClickIdx === i;
 
             let transformStyle = "";
@@ -113,7 +81,7 @@ export default function Hero() {
               transformStyle = `translateY(-28px) scale(1.18) rotate(${ROTATIONS[i] * 1.5}deg)`;
               colorClass = "text-[#ed1438]";
               filterStyle = "drop-shadow(0 20px 26px rgba(237, 20, 56, 0.35))";
-            } else if (isDirectlyHovered || isWaveCurrent) {
+            } else if (isDirectlyHovered) {
               transformStyle = `translateY(-20px) scale(1.12) rotate(${ROTATIONS[i]}deg)`;
               colorClass = "text-[#ed1438]";
               filterStyle = "drop-shadow(0 16px 20px rgba(237, 20, 56, 0.22))";
@@ -127,7 +95,7 @@ export default function Hero() {
             }
 
             const delayStyle =
-              revealed && (isDirectlyHovered || isNeighborHovered || isWaveCurrent || isClicked)
+              revealed && (isDirectlyHovered || isNeighborHovered || isClicked)
                 ? "0ms"
                 : `${i * 55}ms`;
 
@@ -142,7 +110,7 @@ export default function Hero() {
                   filter: filterStyle || undefined,
                   transitionDelay: delayStyle,
                 }}
-                className={`inline-block transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform ${colorClass} ${
+                className={`inline-block cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform ${colorClass} ${
                   revealed ? "opacity-100" : "opacity-0"
                 }`}
               >
@@ -181,43 +149,6 @@ export default function Hero() {
             </Link>
           </div>
         </div>
-
-        {/* Minimal Audio Frequency Bars */}
-        <div className="mt-14 w-full flex items-center justify-between gap-6 pt-6 border-t border-neutral-100 max-w-5xl">
-          <div className="flex items-center gap-1.5 h-6">
-            <span className="w-1 bg-neutral-300 h-2 animate-pulse" />
-            <span className="w-1 bg-neutral-800 h-5 animate-pulse" style={{ animationDelay: "150ms" }} />
-            <span className="w-1 bg-neutral-400 h-3 animate-pulse" style={{ animationDelay: "300ms" }} />
-            <span className="w-1 bg-neutral-900 h-6 animate-pulse" style={{ animationDelay: "75ms" }} />
-            <span className="w-1 bg-neutral-300 h-4 animate-pulse" style={{ animationDelay: "200ms" }} />
-            <span className="w-1 bg-neutral-600 h-3 animate-pulse" style={{ animationDelay: "400ms" }} />
-            <span className="text-xs font-mono text-neutral-400 ml-2">FREQUENCY: 128.0 BPM</span>
-          </div>
-          
-          <div className="text-xs font-mono text-neutral-400 hidden sm:block">
-            01 // SOUND &bull; 02 // SHOWCASES &bull; 03 // MENTORSHIP
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Hero Anchor / Scroll Indicator */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between text-xs font-mono text-neutral-400 uppercase tracking-widest pt-6 border-t border-neutral-100">
-        <div>&copy; {new Date().getFullYear()} MELADINE ARCHIVE</div>
-        <Link
-          href="/about"
-          className="group flex items-center gap-2 text-neutral-600 hover:text-black transition-colors"
-        >
-          <span>EXPLORE ARCHIVE</span>
-          <svg
-            className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </Link>
       </div>
     </section>
   );
