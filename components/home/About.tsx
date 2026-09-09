@@ -1,50 +1,182 @@
-import React from "react";
+"use client";
+
+import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+
+interface WordItem {
+  text: string;
+  isHighlight?: boolean;
+}
+
+const WORDS: WordItem[] = [
+  { text: "MELADINE", isHighlight: true },
+  { text: "IS" },
+  { text: "A" },
+  { text: "LIVING" },
+  { text: "CONSERVATORY" },
+  { text: "FOUNDED" },
+  { text: "BY" },
+  { text: "TOURING", isHighlight: true },
+  { text: "ARTISTS", isHighlight: true },
+  { text: "—" },
+  { text: "CULTIVATING" },
+  { text: "REAL" },
+  { text: "STAGECRAFT,", isHighlight: true },
+  { text: "ANALOG" },
+  { text: "TONE," },
+  { text: "AND" },
+  { text: "FEARLESS" },
+  { text: "SONIC", isHighlight: true },
+  { text: "FREEDOM.", isHighlight: true },
+];
+
+interface CharData {
+  char: string;
+  globalIndex: number;
+  isHighlight?: boolean;
+}
+
+interface WordWithChars {
+  word: string;
+  isHighlight?: boolean;
+  chars: CharData[];
+}
+
+let runningIndex = 0;
+const PROCESSED_WORDS: WordWithChars[] = WORDS.map((item) => {
+  const chars: CharData[] = Array.from(item.text).map((char) => {
+    const charObj: CharData = {
+      char,
+      globalIndex: runningIndex,
+      isHighlight: item.isHighlight,
+    };
+    runningIndex++;
+    return charObj;
+  });
+
+  return {
+    word: item.text,
+    isHighlight: item.isHighlight,
+    chars,
+  };
+});
+
+const TOTAL_CHARS = runningIndex;
 
 export default function About() {
+  const textRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateScrollProgress = () => {
+      if (!textRef.current) return;
+      const rect = textRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || 800;
+
+      // Start coloring immediately as the top of the text enters the lower screen
+      const startY = windowHeight * 0.85;
+      // Complete coloring as the text reaches the upper third of the screen
+      const endY = windowHeight * 0.22;
+
+      // Calculate real-time progress during scroll
+      const rawProgress = (startY - rect.top) / (startY - endY);
+      const clamped = Math.max(0, Math.min(1, rawProgress));
+
+      setScrollProgress(clamped);
+    };
+
+    const handleScroll = () => {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(updateScrollProgress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    updateScrollProgress();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
   return (
     <section
       id="about"
-      className="w-full bg-white py-24 sm:py-32 px-6 sm:px-10 lg:px-14 border-t border-neutral-100"
+      className="relative w-full bg-white pt-10 sm:pt-14 md:pt-16 pb-28 sm:pb-36 px-6 sm:px-10 lg:px-16 border-t border-neutral-100 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
-            <span className="text-xs font-mono tracking-widest text-[#ed1438] uppercase font-bold">
-              // 01 ARCHIVE &amp; MISSION
-            </span>
-            <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-black mt-2">
-              ABOUT MELADINE
-            </h2>
-          </div>
-          <p className="max-w-md text-neutral-600 font-normal leading-relaxed text-sm md:text-base">
-            Born at the intersection of raw underground techno and audio-visual engineering, Meladine cultivates sonic freedom and uncompromised sound fidelity.
-          </p>
+      {/* ============================================================ */}
+      {/* Background Architectural Hairline Grid Overlay               */}
+      {/* ============================================================ */}
+      <div className="absolute inset-0 pointer-events-none opacity-25 z-0">
+        <div className="curtain-grid-columns h-full">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div key={i} className="border-r border-neutral-100 h-full" />
+          ))}
+        </div>
+      </div>
+
+      {/* ============================================================ */}
+      {/* Architectural Watermark Drawing: Microphone Blueprint Sketch */}
+      {/* ============================================================ */}
+      <div className="absolute -right-12 sm:-right-16 md:-right-20 top-6 sm:top-10 z-0 pointer-events-none select-none opacity-[0.07] rotate-12 transition-opacity">
+        <div className="relative w-[340px] sm:w-[460px] md:w-[560px] aspect-[1122/1402]">
+          <Image
+            src="/images/Mentors/Microphone.png"
+            alt="Microphone Architectural Sketch Watermark"
+            fill
+            className="object-contain"
+          />
+        </div>
+      </div>
+
+      {/* ============================================================ */}
+      {/* Main Content Stage: Header, Large Scroll Text, Metadata      */}
+      {/* ============================================================ */}
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center justify-between text-center">
+        {/* Top Architectural Header - Centered in Handwriting Font (Scaled Down) */}
+        <div className="flex items-center justify-center mb-4 sm:mb-6 md:mb-8">
+          <span className="font-handwriting text-lg sm:text-xl md:text-2xl font-bold tracking-wide flex items-center gap-1.5 select-none -rotate-1">
+            <span className="inline-block w-1 h-1 rounded-full bg-[#ed1438] animate-pulse shrink-0" />
+            <span className="text-neutral-950">about</span>
+            <span className="text-[#ed1438]">Meladine</span>
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-neutral-200">
-          <div className="p-8 rounded-2xl bg-neutral-50 border border-neutral-200/80">
-            <span className="text-3xl font-display text-[#ed1438]">01</span>
-            <h3 className="text-2xl font-display uppercase mt-4 mb-2">Sonic Experiments</h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              Analog synthesizers, modular rigs, and custom acoustics engineered for deep frequency immersion.
-            </p>
-          </div>
+        {/* Center: Large Bebas Neue Display Text Revealing Color Letter-by-Letter */}
+        <div ref={textRef} className="my-auto max-w-6xl mx-auto py-4 sm:py-8 text-center">
+          <p className="font-display uppercase tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[6rem] leading-[0.98] sm:leading-[0.95] select-none text-center">
+            {PROCESSED_WORDS.map((wordItem, wordIdx) => (
+              <span key={wordIdx} className="inline-block whitespace-nowrap mx-[0.16em]">
+                {wordItem.chars.map((charObj) => {
+                  const charThreshold = charObj.globalIndex / TOTAL_CHARS;
+                  const isColored = scrollProgress >= charThreshold;
 
-          <div className="p-8 rounded-2xl bg-neutral-50 border border-neutral-200/80">
-            <span className="text-3xl font-display text-[#ed1438]">02</span>
-            <h3 className="text-2xl font-display uppercase mt-4 mb-2">Curated Showcases</h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              Intimate venue takeovers, warehouse performances, and borderless electronic music gatherings.
-            </p>
-          </div>
+                  let colorStyle = "text-neutral-300 opacity-25";
 
-          <div className="p-8 rounded-2xl bg-neutral-50 border border-neutral-200/80">
-            <span className="text-3xl font-display text-[#ed1438]">03</span>
-            <h3 className="text-2xl font-display uppercase mt-4 mb-2">Global Community</h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              Uniting producers, sound designers, and visualists across continents through shared frequency.
-            </p>
-          </div>
+                  if (isColored) {
+                    if (charObj.isHighlight) {
+                      colorStyle = "text-[#ed1438] opacity-100 drop-shadow-xs";
+                    } else {
+                      colorStyle = "text-neutral-950 opacity-100";
+                    }
+                  }
+
+                  return (
+                    <span
+                      key={charObj.globalIndex}
+                      className={`inline-block transition-colors duration-75 ease-out will-change-transform ${colorStyle}`}
+                    >
+                      {charObj.char}
+                    </span>
+                  );
+                })}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
     </section>
