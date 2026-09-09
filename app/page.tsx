@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
+import Disciplines from "@/components/home/Disciplines";
 import Events from "@/components/home/Events";
 import Mentors from "@/components/home/Mentors";
 import Contact from "@/components/home/Contact";
@@ -13,6 +14,7 @@ export default function HomePage() {
 
       {/* Modular Home Sections */}
       <About />
+      <Disciplines />
       <Events />
       <Mentors />
       <Contact />

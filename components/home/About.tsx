@@ -106,7 +106,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative w-full bg-white pt-10 sm:pt-14 md:pt-16 pb-28 sm:pb-36 px-6 sm:px-10 lg:px-16 overflow-hidden"
+      className="relative w-full bg-white pt-20 sm:pt-28 md:pt-36 lg:pt-40 pb-6 sm:pb-8 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
       {/* ============================================================ */}
       {/* Background Architectural Hairline Grid Overlay               */}
@@ -122,7 +122,7 @@ export default function About() {
       {/* ============================================================ */}
       {/* Architectural Watermark Drawing: Microphone Blueprint Sketch */}
       {/* ============================================================ */}
-      <div className="absolute -right-12 sm:-right-16 md:-right-20 top-6 sm:top-10 z-0 pointer-events-none select-none opacity-[0.07] rotate-12 transition-opacity">
+      <div className="absolute -right-12 sm:-right-16 md:-right-20 top-12 sm:top-16 md:top-20 z-0 pointer-events-none select-none opacity-[0.07] rotate-12 transition-opacity">
         <div className="relative w-[340px] sm:w-[460px] md:w-[560px] aspect-[1122/1402]">
           <Image
             src="/images/Mentors/Microphone.png"
