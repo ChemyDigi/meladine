@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface WordItem {
   text: string;
@@ -176,6 +177,17 @@ export default function About() {
               </span>
             ))}
           </p>
+
+          {/* CTA Redirecting to /about */}
+          <div className="mt-10 sm:mt-14 flex items-center justify-center">
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-neutral-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-[#ed1438] hover:shadow-lg hover:shadow-[#ed1438]/20 active:scale-95 transition-all duration-200 cursor-pointer group shadow-sm"
+            >
+              <span>Explore Our Story</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-1 text-base">&rarr;</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
