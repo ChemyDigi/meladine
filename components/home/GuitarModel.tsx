@@ -66,7 +66,7 @@ export default function GuitarModel() {
     rimLight.position.set(0, -2, -3);
     scene.add(rimLight);
 
-    // 6. Ground Shadow Plane
+    // 6. Ground Shadow Plane (Reduced spread and opacity)
     const targetHeight = 2.65;
     const canvas = document.createElement("canvas");
     canvas.width = 256;
@@ -74,18 +74,19 @@ export default function GuitarModel() {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-      gradient.addColorStop(0, "rgba(0, 0, 0, 0.25)");
-      gradient.addColorStop(0.35, "rgba(0, 0, 0, 0.09)");
+      gradient.addColorStop(0, "rgba(0, 0, 0, 0.20)");
+      gradient.addColorStop(0.25, "rgba(0, 0, 0, 0.05)");
+      gradient.addColorStop(0.6, "rgba(0, 0, 0, 0)");
       gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 256, 256);
     }
     const shadowTexture = new THREE.CanvasTexture(canvas);
-    const shadowGeo = new THREE.PlaneGeometry(2.15, 2.15);
+    const shadowGeo = new THREE.PlaneGeometry(1.25, 1.25);
     const shadowMat = new THREE.MeshBasicMaterial({
       map: shadowTexture,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.45,
       depthWrite: false,
     });
     const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);

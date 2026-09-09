@@ -18,7 +18,6 @@ const WORDS: WordItem[] = [
   { text: "BY" },
   { text: "TOURING", isHighlight: true },
   { text: "ARTISTS", isHighlight: true },
-  { text: "—" },
   { text: "CULTIVATING" },
   { text: "REAL" },
   { text: "STAGECRAFT,", isHighlight: true },
@@ -106,7 +105,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative w-full bg-white pt-10 sm:pt-14 md:pt-16 pb-28 sm:pb-36 px-6 sm:px-10 lg:px-16 border-t border-neutral-100 overflow-hidden"
+      className="relative w-full bg-white pt-10 sm:pt-14 md:pt-16 pb-28 sm:pb-36 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
       {/* ============================================================ */}
       {/* Background Architectural Hairline Grid Overlay               */}
