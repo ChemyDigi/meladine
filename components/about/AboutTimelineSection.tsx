@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
 interface Milestone {
@@ -47,9 +47,117 @@ const MILESTONES: Milestone[] = [
 
 export default function AboutTimelineSection() {
   const [activeIdx, setActiveIdx] = useState(0);
-  const [continuousRotation, setContinuousRotation] = useState(0);
+  const [scrollRotation, setScrollRotation] = useState(0);
+  const [idleRotation, setIdleRotation] = useState(0);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const containerTrackRef = useRef<HTMLDivElement>(null);
+  const audioMapRef = useRef<{ [key: number]: HTMLAudioElement }>({});
+  const transitionAudioRef = useRef<HTMLAudioElement | null>(null);
+  const currentActiveIdxRef = useRef(0);
+  const isInViewRef = useRef(false);
 
+  // Subtle continuous slow auto-rotation (e.g. gentle ambient disc spin)
+  useEffect(() => {
+    let animId: number;
+    let lastTime = performance.now();
+
+    const loop = (time: number) => {
+      const delta = Math.min((time - lastTime) / 1000, 0.1);
+      lastTime = time;
+
+      // Gentle continuous spin (~12 degrees per second)
+      setIdleRotation((prev) => (prev + 12 * delta) % 360);
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  // Preload and initialize audio tracks for each milestone + transition chime
+  useEffect(() => {
+    const audios: { [key: number]: HTMLAudioElement } = {};
+    const milestoneYears = ["2010", "2012", "2015", "2018", "2020"];
+
+    milestoneYears.forEach((year, idx) => {
+      const audio = new Audio(`/audio/milestone-${year}.wav`);
+      audio.loop = true;
+      audio.volume = 0.75; // Increased crisp volume
+      audio.preload = "auto";
+      audios[idx] = audio;
+    });
+
+    const trans = new Audio("/audio/milestone-transition.wav");
+    trans.volume = 0.85;
+    trans.preload = "auto";
+    transitionAudioRef.current = trans;
+
+    audioMapRef.current = audios;
+
+    return () => {
+      Object.values(audios).forEach((a) => {
+        a.pause();
+        a.currentTime = 0;
+      });
+      if (transitionAudioRef.current) {
+        transitionAudioRef.current.pause();
+      }
+    };
+  }, []);
+
+  // Function to switch music when milestone changes
+  const switchTrackTo = useCallback(
+    (newIdx: number, playTransition = true) => {
+      const audios = audioMapRef.current;
+      if (!audios) return;
+
+      const oldIdx = currentActiveIdxRef.current;
+      currentActiveIdxRef.current = newIdx;
+
+      if (!isInViewRef.current || !isAudioEnabled) {
+        return;
+      }
+
+      // Play milestone transition scratch/chime sound
+      if (playTransition && oldIdx !== newIdx && transitionAudioRef.current) {
+        const trans = transitionAudioRef.current;
+        trans.currentTime = 0;
+        trans.play().catch(() => {});
+      }
+
+      // Cross-fade tracks smoothly
+      Object.entries(audios).forEach(([idxStr, audio]) => {
+        const idx = Number(idxStr);
+        if (idx === newIdx) {
+          audio.volume = 0.75; // Increased sound volume
+          if (audio.paused) {
+            audio.play().catch(() => {});
+          }
+        } else {
+          // Pause others
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    },
+    [isAudioEnabled]
+  );
+
+  const playCurrentAudio = useCallback(() => {
+    if (!isAudioEnabled) return;
+    const currentAudio = audioMapRef.current[currentActiveIdxRef.current];
+    if (currentAudio && currentAudio.paused) {
+      currentAudio.volume = 0.75;
+      currentAudio.play().catch(() => {});
+    }
+  }, [isAudioEnabled]);
+
+  const pauseAllAudio = useCallback(() => {
+    Object.values(audioMapRef.current).forEach((a) => a.pause());
+  }, []);
+
+  // Standard scroll speed tracking milestones + audio track switching
   useEffect(() => {
     const handleScroll = () => {
       const container = containerTrackRef.current;
@@ -61,20 +169,44 @@ export default function AboutTimelineSection() {
 
       if (totalScrollable <= 0) return;
 
+      // Check if user is currently inside the CD timeline section
+      const inView = rect.top <= windowH * 0.45 && rect.bottom >= windowH * 0.15;
+      if (inView !== isInViewRef.current) {
+        isInViewRef.current = inView;
+        if (inView && isAudioEnabled) {
+          playCurrentAudio();
+        } else {
+          pauseAllAudio();
+        }
+      }
+
       const scrolled = -rect.top;
       const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
-      // Smooth CD rotation from 0 to -210 degrees
+      // Normal scroll progression rotation to milestones (0 to -210 degrees)
       const rotation = progress * -210;
-      setContinuousRotation(rotation);
+      setScrollRotation(rotation);
 
       // Select active milestone based on scroll position
       const step = progress * (MILESTONES.length - 1);
       const rounded = Math.min(Math.round(step), MILESTONES.length - 1);
-      setActiveIdx(rounded);
+
+      if (rounded !== currentActiveIdxRef.current) {
+        setActiveIdx(rounded);
+        switchTrackTo(rounded, true);
+      }
+    };
+
+    // User interaction will unlock audio if user is scrolled in view
+    const handleUserInteraction = () => {
+      if (isInViewRef.current && isAudioEnabled) {
+        playCurrentAudio();
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("click", handleUserInteraction, { passive: true });
+    window.addEventListener("touchstart", handleUserInteraction, { passive: true });
     if (window.__lenis) {
       window.__lenis.on("scroll", handleScroll);
     }
@@ -82,16 +214,32 @@ export default function AboutTimelineSection() {
     handleScroll();
 
     return () => {
+      pauseAllAudio();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("touchstart", handleUserInteraction);
       if (window.__lenis) {
         window.__lenis.off("scroll", handleScroll);
       }
     };
-  }, []);
+  }, [isAudioEnabled, playCurrentAudio, pauseAllAudio, switchTrackTo]);
+
+  const toggleAudio = () => {
+    const nextState = !isAudioEnabled;
+    setIsAudioEnabled(nextState);
+    if (nextState && isInViewRef.current) {
+      playCurrentAudio();
+    } else {
+      pauseAllAudio();
+    }
+  };
 
   const currentMilestone = MILESTONES[activeIdx];
 
   const scrollToMilestone = (idx: number) => {
+    if (idx !== activeIdx) {
+      switchTrackTo(idx, true);
+    }
     if (!containerTrackRef.current) return;
     const distance = containerTrackRef.current.offsetHeight - window.innerHeight;
     const targetScroll = containerTrackRef.current.offsetTop + (distance * idx) / (MILESTONES.length - 1);
@@ -118,7 +266,7 @@ export default function AboutTimelineSection() {
       <div className="sticky top-0 w-full h-screen min-h-[720px] max-h-screen bg-white text-neutral-900 overflow-hidden select-none flex flex-col justify-between py-10 px-6 sm:px-12 lg:px-20">
 
         {/* Subtle radial ambient background */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_50%,rgba(245,245,247,0.9)_0%,rgba(255,255,255,1)_70%)]" />
+
 
         {/* Main Center Stage */}
         <div className="relative z-10 w-full flex-1 flex items-center justify-center">
@@ -136,6 +284,45 @@ export default function AboutTimelineSection() {
               From a small dream to a global sound. <br />Scroll through the years and see <br />how music brought us here.
             </p>
 
+            {/* Interactive Audio Visualizer & Status Toggle */}
+            <div className="mt-8 flex items-center gap-3">
+              <button
+                onClick={toggleAudio}
+                className="flex items-center gap-3 px-4 py-2 rounded-full border border-neutral-300 hover:border-black bg-white/90 shadow-sm hover:shadow transition-all text-xs font-mono tracking-wider uppercase text-neutral-900 cursor-pointer"
+                title={isAudioEnabled ? "Mute soundtrack" : "Play soundtrack"}
+              >
+                {/* Equalizer Wave Animation */}
+                <div className="flex items-end gap-[3px] h-3.5 w-4">
+                  <span
+                    className={`w-[2.5px] bg-[#ed1438] rounded-full transition-all duration-200 ${
+                      isAudioEnabled ? "animate-pulse h-3.5" : "h-1 bg-neutral-300"
+                    }`}
+                  />
+                  <span
+                    className={`w-[2.5px] bg-[#ed1438] rounded-full transition-all duration-300 ${
+                      isAudioEnabled ? "animate-bounce h-2.5" : "h-1 bg-neutral-300"
+                    }`}
+                  />
+                  <span
+                    className={`w-[2.5px] bg-[#ed1438] rounded-full transition-all duration-150 ${
+                      isAudioEnabled ? "animate-pulse h-3" : "h-1 bg-neutral-300"
+                    }`}
+                  />
+                  <span
+                    className={`w-[2.5px] bg-[#ed1438] rounded-full transition-all duration-250 ${
+                      isAudioEnabled ? "animate-bounce h-2" : "h-1 bg-neutral-300"
+                    }`}
+                  />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="font-bold">{isAudioEnabled ? "PLAYING" : "MUTED"}</span>
+                  <span className="text-neutral-400">/</span>
+                  <span className="text-[#ed1438] font-bold">{currentMilestone.year} MIX</span>
+                </div>
+              </button>
+            </div>
+
           </div>
 
           {/* Center Stage: Large CD Disc + Orbit Ring (Sized to fit perfectly within viewport height) */}
@@ -146,8 +333,8 @@ export default function AboutTimelineSection() {
 
             {/* The Large CD Disc */}
             <div
-              className="relative w-full h-full rounded-full overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.22),0_10px_30px_rgba(0,0,0,0.12)] transition-transform duration-200 ease-out z-20 cursor-pointer"
-              style={{ transform: `rotate(${continuousRotation}deg)` }}
+              className="relative w-full h-full rounded-full overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.22),0_10px_30px_rgba(0,0,0,0.12)] will-change-transform z-20 cursor-pointer"
+              style={{ transform: `rotate(${scrollRotation + idleRotation}deg)` }}
               onClick={() => scrollToMilestone((activeIdx + 1) % MILESTONES.length)}
               title="Click or scroll to rotate to next milestone"
             >
