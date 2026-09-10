@@ -53,14 +53,11 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
           : "invisible opacity-0 pointer-events-none delay-750"
       }`}
     >
-      {/* Solid red underlay while menu is fully open to ensure zero subpixel line bleed */}
-      {isOpen && <div className="absolute inset-0 bg-[#ed1438] pointer-events-none z-0" />}
-
       {/* 
         CURTAIN BACKGROUND PANELS (TOP TO BOTTOM ANIMATION)
         Staggered vertical blinds dropping from top to bottom like a closing curtain
       */}
-      <div className="absolute inset-0 flex w-full h-full pointer-events-none z-0">
+      <div className="absolute inset-0 flex w-full h-full pointer-events-none">
         {columns.map((_, index) => {
           const delayMs = isOpen ? index * 35 : (columnCount - 1 - index) * 20;
           return (
