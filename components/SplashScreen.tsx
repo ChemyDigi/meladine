@@ -81,9 +81,12 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       id="site-splash-screen"
       aria-label="Loading Meladine Academy"
       className={`fixed inset-0 z-[9999] overflow-hidden select-none pointer-events-auto ${
-        isExiting ? "pointer-events-none" : ""
+        isExiting ? "pointer-events-none bg-transparent" : "bg-white"
       }`}
     >
+      {/* Solid underlay while loading so no seam can ever leak the home page */}
+      {!isExiting && <div className="absolute inset-0 bg-white z-0 pointer-events-none" />}
+
       {/* 
         ARCHITECTURAL CURTAIN PANELS (WHITE THEME)
         When exiting, each column slides upward in a staggered wave
@@ -97,7 +100,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           return (
             <div
               key={index}
-              className="flex-1 h-full bg-white will-change-transform"
+              className="flex-1 h-full bg-white will-change-transform scale-x-[1.02] -mr-[1px]"
               style={{
                 transform: isExiting ? "translateY(-101%)" : "translateY(0%)",
                 transition: "transform 800ms cubic-bezier(0.76, 0, 0.24, 1)",

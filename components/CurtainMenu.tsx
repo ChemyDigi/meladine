@@ -47,25 +47,28 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
       aria-modal="true"
       aria-label="Site Navigation"
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-40 overflow-hidden select-none transition-[visibility,opacity] duration-500 ${
+      className={`fixed inset-0 z-40 overflow-hidden select-none ${
         isOpen
           ? "visible opacity-100 pointer-events-auto"
-          : "invisible opacity-0 pointer-events-none delay-500"
+          : "invisible opacity-0 pointer-events-none delay-750"
       }`}
     >
+      {/* Solid red underlay while menu is fully open to ensure zero subpixel line bleed */}
+      {isOpen && <div className="absolute inset-0 bg-[#ed1438] pointer-events-none z-0" />}
+
       {/* 
         CURTAIN BACKGROUND PANELS (TOP TO BOTTOM ANIMATION)
         Staggered vertical blinds dropping from top to bottom like a closing curtain
       */}
-      <div className="absolute inset-0 flex w-full h-full pointer-events-none">
+      <div className="absolute inset-0 flex w-full h-full pointer-events-none z-0">
         {columns.map((_, index) => {
           const delayMs = isOpen ? index * 35 : (columnCount - 1 - index) * 20;
           return (
             <div
               key={index}
-              className="flex-1 h-full bg-[#ed1438] will-change-transform"
+              className="flex-1 h-full bg-[#ed1438] will-change-transform scale-x-[1.02] -mr-[1px]"
               style={{
-                transform: isOpen ? "translateY(0%)" : "translateY(-100%)",
+                transform: isOpen ? "translateY(0%)" : "translateY(-101%)",
                 transition: "transform 600ms cubic-bezier(0.76, 0, 0.24, 1)",
                 transitionDelay: `${delayMs}ms`,
               }}

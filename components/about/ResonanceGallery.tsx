@@ -453,7 +453,7 @@ export default function ResonanceGallery() {
             onMouseMove={handleScrubberMouseMove}
             onMouseUp={handleScrubberMouseUpOrLeave}
             onMouseLeave={handleScrubberMouseUpOrLeave}
-            className="mt-6 sm:mt-8 pt-6 border-t border-neutral-100 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none"
+            className="mt-6 sm:mt-8 pt-2 sm:pt-4 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
