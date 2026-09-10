@@ -134,3 +134,9 @@ html.lenis, html.lenis body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Hide footer exclusively on 404 / not found page */
+body:has(#not-found-page) #site-main-footer,
+body:has(#not-found-page) footer {
+  display: none !important;
+}

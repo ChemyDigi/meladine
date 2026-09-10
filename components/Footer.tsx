@@ -1,9 +1,19 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on 404 / events page
+  if (pathname === "/events") {
+    return null;
+  }
+
   return (
-    <footer className="w-full bg-white border-t border-neutral-100 py-10 px-6 sm:px-10 lg:px-14">
+    <footer id="site-main-footer" className="w-full bg-white border-t border-neutral-100 py-10 px-6 sm:px-10 lg:px-14">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs font-mono text-neutral-400">
         <div>&copy; {new Date().getFullYear()} MELADINE ARCHIVE. ALL RIGHTS RESERVED.</div>
         <div className="flex items-center gap-6">
