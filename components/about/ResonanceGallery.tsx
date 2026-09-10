@@ -17,7 +17,7 @@ export interface GalleryItem {
 export const ARCHIVE_ITEMS: GalleryItem[] = [
   {
     id: 1,
-    image: "/images/about/661558127_956225036791095_755917439884307675_n.jpg",
+    image: "/images/About/661558127_956225036791095_755917439884307675_n.jpg",
     title: "Acoustic Stage Showcase",
     category: "Live Concert",
     year: "2024",
@@ -26,7 +26,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 2,
-    image: "/images/about/660399686_957358356677763_1226881571608248548_n.jpg",
+    image: "/images/About/660399686_957358356677763_1226881571608248548_n.jpg",
     title: "Young Virtuosos Ensemble",
     category: "Masterclass",
     year: "2024",
@@ -35,7 +35,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 3,
-    image: "/images/about/660284851_957370970009835_6256830940297256480_n.jpg",
+    image: "/images/About/660284851_957370970009835_6256830940297256480_n.jpg",
     title: "Analog Synthesis & Keys",
     category: "Laboratory",
     year: "2023",
@@ -44,7 +44,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 4,
-    image: "/images/about/659000626_957382760008656_2098156908236609135_n.jpg",
+    image: "/images/About/659000626_957382760008656_2098156908236609135_n.jpg",
     title: "Rooftop Jam Session",
     category: "Live Session",
     year: "2024",
@@ -53,7 +53,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 5,
-    image: "/images/about/658774865_956240096789589_5130895450585705500_n.jpg",
+    image: "/images/About/658774865_956240096789589_5130895450585705500_n.jpg",
     title: "Percussion & Rhythm Array",
     category: "Workshop",
     year: "2023",
@@ -62,7 +62,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 6,
-    image: "/images/about/657346261_957363800010552_4140247321868341050_n.jpg",
+    image: "/images/About/657346261_957363800010552_4140247321868341050_n.jpg",
     title: "Violin Master Performance",
     category: "Stagecraft",
     year: "2024",
@@ -71,7 +71,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 7,
-    image: "/images/about/490127261_685425307204404_3560831706837257235_n.jpg",
+    image: "/images/About/490127261_685425307204404_3560831706837257235_n.jpg",
     title: "Youth Orchestra Academy",
     category: "Curriculum",
     year: "2023",
@@ -80,7 +80,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 8,
-    image: "/images/about/490126672_685424493871152_5248560093084004748_n.jpg",
+    image: "/images/About/490126672_685424493871152_5248560093084004748_n.jpg",
     title: "Vocal Mastery & Phrasing",
     category: "Mentorship",
     year: "2022",
@@ -89,7 +89,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 9,
-    image: "/images/about/484552410_665482035865398_2810937824235302766_n.jpg",
+    image: "/images/About/484552410_665482035865398_2810937824235302766_n.jpg",
     title: "Red Curtain Vocal Solos",
     category: "Performance",
     year: "2023",
@@ -98,7 +98,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 10,
-    image: "/images/about/484471202_665481882532080_6676798231539888660_n.jpg",
+    image: "/images/About/484471202_665481882532080_6676798231539888660_n.jpg",
     title: "Classical Guitar Prodigy",
     category: "Conservatory",
     year: "2023",
@@ -107,7 +107,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 11,
-    image: "/images/about/475139658_617750980627279_7745087480698847114_n.jpg",
+    image: "/images/About/475139658_617750980627279_7745087480698847114_n.jpg",
     title: "Annual Conservatory Gala",
     category: "Celebration",
     year: "2024",
@@ -116,7 +116,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 12,
-    image: "/images/about/475065646_617750867293957_7214440984021338380_n.jpg",
+    image: "/images/About/475065646_617750867293957_7214440984021338380_n.jpg",
     title: "15th Anniversary Awards",
     category: "Milestone",
     year: "2023",
@@ -125,7 +125,7 @@ export const ARCHIVE_ITEMS: GalleryItem[] = [
   },
   {
     id: 13,
-    image: "/images/about/474906707_617751810627196_5133242727328882039_n.jpg",
+    image: "/images/About/474906707_617751810627196_5133242727328882039_n.jpg",
     title: "Acoustic Band Residency",
     category: "Residency",
     year: "2024",

@@ -339,7 +339,7 @@ export default function AboutTimelineSection() {
               title="Click or scroll to rotate to next milestone"
             >
               <Image
-                src="/images/about/abouttimeline_centered.png"
+                src="/images/About/abouttimeline_centered.png"
                 alt="A Disc of History"
                 fill
                 priority
