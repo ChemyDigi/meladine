@@ -187,24 +187,6 @@ export default function ContactPage() {
                     revealed ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <span className="text-xs text-neutral-400 uppercase block">STUDENT &amp; COURSE SUPPORT</span>
-                  <a
-                    href="mailto:info@meladine.com"
-                    className="text-xl font-display uppercase text-black hover:text-[#ed1438] transition-colors"
-                  >
-                    info@meladine.com
-                  </a>
-                </div>
-
-                <div
-                  style={{
-                    transform: revealed ? "translateY(0) scale(1)" : "translateY(16px) scale(0.97)",
-                    transitionDelay: "780ms",
-                  }}
-                  className={`transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform ${
-                    revealed ? "opacity-100" : "opacity-0"
-                  }`}
-                >
                   <span className="text-xs text-neutral-400 uppercase block">DIRECT ACADEMY PHONE</span>
                   <a
                     href="tel:+905443237623"

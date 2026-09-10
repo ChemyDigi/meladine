@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import MentorsHeader from "@/components/mentors/MentorsHeader";
 import FeaturedMentor from "@/components/mentors/FeaturedMentor";
 import MentorsCta from "@/components/mentors/MentorsCta";
+import FloatingNotations from "@/components/mentors/FloatingNotations";
 
 export const metadata: Metadata = {
   title: "Mentors — Meladine Sound Collective",
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 
 export default function MentorsPage() {
   return (
-    <div className="w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24">
+    <div className="relative w-full bg-white text-neutral-900 pt-32 sm:pt-40 pb-24 overflow-hidden">
+      {/* Scattered Floating Musical Notations with Up/Down Animation */}
+      <FloatingNotations />
+
       {/* Header Block with Unique Elastic Letter Pop-up Animation */}
       <MentorsHeader />
 

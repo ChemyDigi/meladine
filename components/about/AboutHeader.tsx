@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 const WORD_1 = ["A", "B", "O", "U", "T"];
 const WORD_2 = ["M", "E", "L", "A", "D", "I", "N", "E"];
@@ -55,7 +56,7 @@ export default function AboutHeader() {
   }, []);
 
   return (
-    <div className="pb-4 sm:pb-8 text-center flex flex-col items-center">
+    <div className="relative z-20 pb-8 sm:pb-14 text-center flex flex-col items-center">
 
       {/* Giant "ABOUT MELADINE" with signature popped-up letters & staggered entrance */}
       <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-display uppercase tracking-tight text-black leading-[0.88] select-none text-center cursor-default pt-2 sm:pt-4 pb-4 sm:pb-8 flex flex-wrap justify-center gap-x-4 sm:gap-x-8">
@@ -143,6 +144,68 @@ export default function AboutHeader() {
           // Calculate when each word should highlight based on scroll progress
           const wordThreshold = index / WORDS.length;
           const isHighlighted = scrollProgress >= wordThreshold;
+
+          const isMeladine = index === 0;
+          const isVoltage = index === WORDS.length - 1;
+
+          if (isMeladine) {
+            return (
+              <span key={index} className="relative inline-block mr-[0.28em]">
+                {/* Notation 1 close to the word Meladine */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-4 sm:-top-6 md:-top-9 -left-16 sm:-left-20 md:-left-28 lg:-left-32 w-9 sm:w-13 md:w-16 lg:w-18 pointer-events-none select-none -rotate-12 transition-transform duration-500 hover:scale-110"
+                >
+                  <span className="block animate-notation-breathe">
+                    <Image
+                      src="/images/About/Notation1.png"
+                      alt=""
+                      width={120}
+                      height={160}
+                      className="w-full h-auto object-contain drop-shadow-xs"
+                      priority
+                    />
+                  </span>
+                </span>
+                <span
+                  className={`inline-block transition-colors duration-200 ${
+                    isHighlighted ? "text-black" : "text-neutral-300"
+                  }`}
+                >
+                  {word}
+                </span>
+              </span>
+            );
+          }
+
+          if (isVoltage) {
+            return (
+              <span key={index} className="relative inline-block mr-[0.28em]">
+                <span
+                  className={`inline-block transition-colors duration-200 ${
+                    isHighlighted ? "text-black" : "text-neutral-300"
+                  }`}
+                >
+                  {word}
+                </span>
+                {/* Notation 2 close to the word voltage */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-4 sm:-top-6 md:-top-9 -right-18 sm:-right-24 md:-right-32 lg:-right-36 w-9 sm:w-13 md:w-16 lg:w-18 pointer-events-none select-none rotate-12 transition-transform duration-500 hover:scale-110"
+                >
+                  <span className="block animate-notation-breathe" style={{ animationDelay: "-1.8s" }}>
+                    <Image
+                      src="/images/About/Notation2.png"
+                      alt=""
+                      width={120}
+                      height={168}
+                      className="w-full h-auto object-contain drop-shadow-xs"
+                    />
+                  </span>
+                </span>
+              </span>
+            );
+          }
 
           return (
             <span

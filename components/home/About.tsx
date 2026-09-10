@@ -63,6 +63,49 @@ const PROCESSED_WORDS: WordWithChars[] = WORDS.map((item) => {
 
 const TOTAL_CHARS = runningIndex;
 
+interface AboutNotationItem {
+  id: string;
+  src: string;
+  top: string;
+  left?: string;
+  right?: string;
+  sizeClass: string;
+  width: number;
+  height: number;
+  rotation: string;
+  delay: string;
+  duration: string;
+}
+
+const ABOUT_NOTATIONS: AboutNotationItem[] = [
+  // Upper Left: Floating above/beside "MELADINE"
+  {
+    id: "about-note-1",
+    src: "/images/About/Notation1.png",
+    top: "16%",
+    left: "5%",
+    sizeClass: "w-11 sm:w-14 md:w-18 lg:w-20",
+    width: 130,
+    height: 173,
+    rotation: "-rotate-[14deg]",
+    delay: "0s",
+    duration: "2.8s",
+  },
+  // Lower Right: Near bottom right flank
+  {
+    id: "about-note-4",
+    src: "/images/About/Notation2.png",
+    top: "72%",
+    right: "7%",
+    sizeClass: "w-10 sm:w-13 md:w-17 lg:w-20",
+    width: 120,
+    height: 168,
+    rotation: "rotate-[14deg]",
+    delay: "-0.8s",
+    duration: "2.9s",
+  },
+];
+
 export default function About() {
   const textRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -131,6 +174,46 @@ export default function About() {
             className="object-contain"
           />
         </div>
+      </div>
+
+      {/* ============================================================ */}
+      {/* Floating Musical Notations with Up/Down Floating Animation   */}
+      {/* ============================================================ */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none select-none z-10 overflow-hidden"
+      >
+        {ABOUT_NOTATIONS.map((item) => (
+          <div
+            key={item.id}
+            className="absolute"
+            style={{
+              top: item.top,
+              left: item.left,
+              right: item.right,
+            }}
+          >
+            <div className={`${item.rotation} opacity-100 transition-opacity duration-500`}>
+              <div
+                style={{
+                  animation: `notationFloat ${item.duration} ease-in-out infinite`,
+                  animationDelay: item.delay,
+                }}
+                className="will-change-transform"
+              >
+                <div className={item.sizeClass}>
+                  <Image
+                    src={item.src}
+                    alt=""
+                    width={item.width}
+                    height={item.height}
+                    className="w-full h-auto object-contain drop-shadow-xs"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* ============================================================ */}
