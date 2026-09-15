@@ -414,18 +414,18 @@ export default function Disciplines3D({
           targetRot.set(...cfg.rightRot);
         }
 
-        // Interpolations - gentler easing for smooth, stately transitions
-        grp.position.x += (targetX - grp.position.x) * 0.05;
-        grp.position.y += (targetY - grp.position.y) * 0.05;
-        grp.position.z += (targetZ - grp.position.z) * 0.05;
+        // Interpolations - smooth and responsive transitions
+        grp.position.x += (targetX - grp.position.x) * 0.08;
+        grp.position.y += (targetY - grp.position.y) * 0.08;
+        grp.position.z += (targetZ - grp.position.z) * 0.08;
 
         const currentScale = grp.scale.x;
-        const newScale = currentScale + (targetScale - currentScale) * 0.05;
+        const newScale = currentScale + (targetScale - currentScale) * 0.08;
         grp.scale.setScalar(newScale);
 
-        grp.rotation.x += (targetRot.x - grp.rotation.x) * 0.05;
-        grp.rotation.y += (targetRot.y - grp.rotation.y) * 0.05;
-        grp.rotation.z += (targetRot.z - grp.rotation.z) * 0.05;
+        grp.rotation.x += (targetRot.x - grp.rotation.x) * 0.08;
+        grp.rotation.y += (targetRot.y - grp.rotation.y) * 0.08;
+        grp.rotation.z += (targetRot.z - grp.rotation.z) * 0.08;
 
         // Smoothly interpolate white fill and reduced opacity for non-active models
         const isActive = slot === "center";
@@ -440,7 +440,7 @@ export default function Disciplines3D({
               : [mesh.material];
             mats.forEach((mat) => {
               // Smooth opacity transition
-              mat.opacity += (targetOpacity - mat.opacity) * 0.05;
+              mat.opacity += (targetOpacity - mat.opacity) * 0.08;
               mat.depthWrite = isActive;
 
               // Smooth white emissive fill
@@ -450,7 +450,7 @@ export default function Disciplines3D({
                   stdMat.userData.currentWhite = 0;
                 }
                 stdMat.userData.currentWhite +=
-                  (targetWhiteFill - stdMat.userData.currentWhite) * 0.05;
+                  (targetWhiteFill - stdMat.userData.currentWhite) * 0.08;
                 const w = stdMat.userData.currentWhite;
                 stdMat.emissive.setRGB(w, w, w);
               }

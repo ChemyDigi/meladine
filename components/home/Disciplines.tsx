@@ -113,7 +113,7 @@ export default function Disciplines() {
     const targetScroll = containerTop + totalScrollable * targetProgress;
 
     if (window.__lenis) {
-      window.__lenis.scrollTo(targetScroll, { duration: 1.6 });
+      window.__lenis.scrollTo(targetScroll, { duration: 0.85 });
     } else {
       window.scrollTo({ top: targetScroll, behavior: "smooth" });
     }
@@ -126,12 +126,12 @@ export default function Disciplines() {
     <section
       id="disciplines"
       ref={containerTrackRef}
-      className="relative w-full h-[800vh] bg-white text-neutral-900 select-none"
+      className="relative w-full h-[260vh] bg-white text-neutral-900 select-none"
     >
       {/* 
         Sticky Viewport:
-        Holds the screen frozen in place while the user scrolls through the 320vh runway.
-        As the user scrolls further, the 3D models smoothly rotate & swap.
+        Holds the screen pinned in place while the user scrolls through the 260vh runway.
+        As the user scrolls, the 3D models swiftly rotate and swap between Guitar, Piano, and Vocals.
         Once the runway ends, normal scrolling resumes down to the next section.
       */}
       <div className="sticky top-0 w-full h-screen min-h-[640px] max-h-screen bg-white text-neutral-900 overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
