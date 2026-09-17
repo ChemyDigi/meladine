@@ -58,26 +58,34 @@ export default function Hero() {
     }, 280);
   };
 
-  // Play all letters sequentially from left to right (M -> E)
+  // Play all letters sequentially forward (M -> E) and then backward (E -> M), then stop
   const playAllLetters = () => {
     if (isPlayingAll) return;
     setIsPlayingAll(true);
 
-    PIANO_NOTES.forEach((note, i) => {
+    // Sequence of indices: 0..7 (forward: M, E, L, A, D, I, N, E) then 7..0 (backward: E, N, I, D, A, L, E, M)
+    const forwardIndices = Array.from({ length: PIANO_NOTES.length }, (_, i) => i);
+    const backwardIndices = Array.from({ length: PIANO_NOTES.length }, (_, i) => PIANO_NOTES.length - 1 - i);
+    const fullSequence = [...forwardIndices, ...backwardIndices];
+
+    const noteInterval = 180;
+    const highlightDuration = 200;
+
+    fullSequence.forEach((idx, step) => {
       setTimeout(() => {
-        playPianoSound(note, 0.48);
-        setActiveClickIdx(i);
+        playPianoSound(PIANO_NOTES[idx], 0.48);
+        setActiveClickIdx(idx);
 
         setTimeout(() => {
-          setActiveClickIdx((curr) => (curr === i ? null : curr));
-        }, 220);
+          setActiveClickIdx((curr) => (curr === idx ? null : curr));
+        }, highlightDuration);
 
-        if (i === PIANO_NOTES.length - 1) {
+        if (step === fullSequence.length - 1) {
           setTimeout(() => {
             setIsPlayingAll(false);
-          }, 320);
+          }, 300);
         }
-      }, i * 180);
+      }, step * noteInterval);
     });
   };
 
@@ -242,8 +250,8 @@ export default function Hero() {
                             playAllLetters();
                           }}
                           disabled={isPlayingAll}
-                          aria-label="Play all letters from left to right"
-                          title="Play all letters from left to right"
+                          aria-label="Play octave scale up and down"
+                          title="Play octave scale up and down"
                           className="pointer-events-auto mt-2 flex items-center gap-2 group cursor-pointer focus:outline-none"
                         >
                           <span
