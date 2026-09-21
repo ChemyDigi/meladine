@@ -140,16 +140,33 @@ export default function GuitarModel() {
 
     animate();
 
-    // 9. Resize Handler
+    // 9. Resize Handler with responsive camera distance for mobile portrait
     const handleResize = () => {
       if (!container) return;
       const newWidth = container.clientWidth;
       const newHeight = container.clientHeight;
+      if (newWidth === 0 || newHeight === 0) return;
 
-      camera.aspect = newWidth / newHeight;
+      const aspect = newWidth / newHeight;
+      camera.aspect = aspect;
+
+      // On narrow mobile/portrait screens, increase camera distance so guitar stays in view
+      if (aspect < 0.9) {
+        camera.position.z = 4.75 * (0.9 / Math.max(0.48, aspect));
+      } else {
+        camera.position.z = 4.75;
+      }
+
       camera.updateProjectionMatrix();
       renderer.setSize(newWidth, newHeight);
     };
+
+    window.addEventListener("resize", handleResize);
+    const resizeObserver = new ResizeObserver(() => handleResize());
+    resizeObserver.observe(container);
+
+    // Initial check
+    handleResize();
 
     // 10. Pass-through Hit-testing & Click Forwarding for background piano letters
     let pointerDownPos: { x: number; y: number } | null = null;
@@ -216,6 +233,7 @@ export default function GuitarModel() {
     // 11. Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
       container.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointerup", onPointerUp);
       container.removeEventListener("pointermove", onPointerMove);
@@ -240,8 +258,6 @@ export default function GuitarModel() {
             : "opacity-0 scale-[0.84] translate-y-12 pointer-events-none"
         }`}
       />
-
-
     </div>
   );
 }

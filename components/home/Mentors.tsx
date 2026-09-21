@@ -9,7 +9,7 @@ export default function Mentors() {
   return (
     <section
       id="mentors"
-      className="relative w-full bg-white py-20 sm:py-28 md:py-32 px-6 sm:px-10 lg:px-14 overflow-hidden"
+      className="relative w-full bg-white py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-10 lg:px-14 overflow-hidden"
     >
       {/* Background Architectural Hairline Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-25 z-0">
@@ -22,7 +22,7 @@ export default function Mentors() {
 
       {/* Architectural Watermark Drawing: Treble Clef Blueprint Sketch */}
       <div className="absolute -left-16 sm:-left-24 md:-left-32 lg:-left-44 xl:-left-52 top-4 sm:top-8 md:top-12 lg:top-14 z-0 pointer-events-none select-none opacity-[0.07] -rotate-12 transition-opacity">
-        <div className="relative w-[300px] sm:w-[400px] md:w-[480px] lg:w-[560px] xl:w-[640px] aspect-[2/3]">
+        <div className="relative w-[260px] sm:w-[380px] md:w-[480px] lg:w-[560px] xl:w-[640px] aspect-[2/3]">
           <Image
             src="/images/Home/TrebelClef.png"
             alt="Treble Clef Architectural Blueprint Watermark"
@@ -35,14 +35,14 @@ export default function Mentors() {
 
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-start w-full">
         {/* Section Header (Left Aligned) */}
-        <div className="w-full flex flex-col items-start text-left mb-2 sm:mb-4 md:mb-6">
+        <div className="w-full flex flex-col items-start text-left mb-4 sm:mb-6">
           <div className="flex items-center gap-2 mb-2 select-none">
             <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold">
               {"// 03 RESIDENT FACULTY"}
             </span>
           </div>
 
-          <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.88]">
+          <h2 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.88]">
             READY TO MEET THE <span className="block">MENTORS?</span>
           </h2>
 
@@ -51,29 +51,29 @@ export default function Mentors() {
           </p>
         </div>
 
-        {/* Showcase Composition: Callout on the Left, Chair on the Right (Shifted Further Up) */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-center md:justify-end gap-6 sm:gap-10 md:gap-8 lg:gap-12 -mt-8 sm:-mt-16 md:-mt-28 lg:-mt-40 xl:-mt-52 md:translate-x-4 lg:translate-x-8 xl:translate-x-12">
+        {/* Showcase Composition: Callout on Left/Top, Chair on Right/Bottom */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-center md:justify-end gap-3 sm:gap-6 md:gap-8 lg:gap-12 mt-4 sm:mt-6 md:-mt-24 lg:-mt-36 xl:-mt-48 md:translate-x-4 lg:translate-x-8 xl:translate-x-12">
 
-          {/* Left Side: Callout */}
-          <div className="flex items-center gap-2 sm:gap-4 md:gap-5 z-20 shrink-0">
+          {/* Callout Annotation */}
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-5 z-20 shrink-0 self-center md:self-auto">
             {/* Handwriting Annotation + Arrow pointing close to the chair */}
             <div className="flex items-center gap-2 sm:gap-3 select-none">
               <div className="flex flex-col items-end text-right -rotate-2">
-                <span className="font-handwriting text-2xl sm:text-3xl md:text-4xl text-neutral-900 font-bold whitespace-nowrap leading-tight">
+                <span className="font-handwriting text-xl sm:text-2xl md:text-3xl lg:text-4xl text-neutral-900 font-bold whitespace-nowrap leading-tight">
                   curious behind the sound?
                 </span>
-                <span className="-mt-0.5 sm:-mt-1 font-handwriting text-xl sm:text-2xl md:text-3xl text-[#ed1438] font-bold whitespace-nowrap leading-tight">
+                <span className="-mt-0.5 sm:-mt-1 font-handwriting text-base sm:text-xl md:text-2xl lg:text-3xl text-[#ed1438] font-bold whitespace-nowrap leading-tight">
                   click the chair
                 </span>
               </div>
-              <div className="w-16 sm:w-20 md:w-24 lg:w-28 rotate-[-4deg] shrink-0 -mr-2 sm:-mr-4 md:-mr-6">
+              <div className="w-12 sm:w-16 md:w-22 lg:w-28 rotate-[15deg] md:rotate-[-4deg] shrink-0 -mr-1 sm:-mr-3 md:-mr-6">
                 <DoodleArrow className="w-full h-auto drop-shadow-xs" />
               </div>
             </div>
           </div>
 
-          {/* Right Side: Chair Image with Grayscale & Question Mark */}
-          <div className="relative w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] aspect-[1122/1402] flex items-center justify-center">
+          {/* Chair Image with Grayscale & Question Mark */}
+          <div className="relative w-full max-w-[240px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] aspect-[1122/1402] flex items-center justify-center">
             <Link
               href="/mentors"
               aria-label="Reveal mentor faculty on mentors page"
@@ -92,7 +92,7 @@ export default function Mentors() {
 
               {/* Standalone Question Mark '?' Icon Centered on Chair */}
               <div className="absolute z-30 flex items-center justify-center pointer-events-none">
-                <span className="font-display text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.7)] group-hover:text-[#ed1438] group-hover:drop-shadow-[0_10px_30px_rgba(237,20,56,0.6)] group-hover:scale-115 transition-all duration-300 select-none leading-none">
+                <span className="font-display text-7xl sm:text-9xl md:text-[10rem] lg:text-[12rem] text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.7)] group-hover:text-[#ed1438] group-hover:drop-shadow-[0_10px_30px_rgba(237,20,56,0.6)] group-hover:scale-115 transition-all duration-300 select-none leading-none">
                   ?
                 </span>
               </div>

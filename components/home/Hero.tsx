@@ -63,7 +63,7 @@ export default function Hero() {
     if (isPlayingAll) return;
     setIsPlayingAll(true);
 
-    // Sequence of indices: 0..7 (forward: M, E, L, A, D, I, N, E) then 7..0 (backward: E, N, I, D, A, L, E, M)
+    // Sequence of indices: 0..7 then 7..0
     const forwardIndices = Array.from({ length: PIANO_NOTES.length }, (_, i) => i);
     const backwardIndices = Array.from({ length: PIANO_NOTES.length }, (_, i) => PIANO_NOTES.length - 1 - i);
     const fullSequence = [...forwardIndices, ...backwardIndices];
@@ -92,7 +92,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full bg-white flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 px-6 sm:px-10 lg:px-14 overflow-hidden"
+      className="relative min-h-[100dvh] w-full bg-white flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-6 sm:pb-10 lg:pb-12 px-4 sm:px-8 md:px-10 lg:px-14 overflow-x-hidden overflow-y-visible"
     >
       {/* ============================================================ */}
       {/* Background Architectural Grid & Subtle Watermark Drawings    */}
@@ -106,8 +106,8 @@ export default function Hero() {
       </div>
 
       {/* Top Left Watermark: Acoustic Guitar Architectural Sketch */}
-      <div className="absolute -left-12 sm:-left-16 md:-left-20 top-16 sm:top-20 z-0 pointer-events-none select-none opacity-[0.16] -rotate-12 transition-opacity">
-        <div className="relative w-[340px] sm:w-[440px] md:w-[540px] aspect-[2/3]">
+      <div className="absolute -left-12 sm:-left-16 md:-left-20 top-16 sm:top-20 z-0 pointer-events-none select-none opacity-[0.14] sm:opacity-[0.16] -rotate-12 transition-opacity">
+        <div className="relative w-[240px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2/3]">
           <Image
             src="/images/Mentors/AcousticGuitar.png"
             alt="Acoustic Guitar Blueprint Watermark"
@@ -119,8 +119,8 @@ export default function Hero() {
       </div>
 
       {/* Bottom Right Watermark: Architectural Keyboard Sketch */}
-      <div className="absolute -right-12 sm:-right-16 md:-right-20 -bottom-16 sm:-bottom-20 z-0 pointer-events-none select-none opacity-[0.16] rotate-[8deg] transition-opacity">
-        <div className="relative w-[320px] sm:w-[420px] md:w-[500px] aspect-[1122/1402]">
+      <div className="absolute -right-10 sm:-right-16 md:-right-20 -bottom-10 sm:-bottom-16 md:-bottom-20 z-0 pointer-events-none select-none opacity-[0.14] sm:opacity-[0.16] rotate-[8deg] transition-opacity">
+        <div className="relative w-[220px] sm:w-[360px] md:w-[440px] lg:w-[500px] aspect-[1122/1402]">
           <Image
             src="/images/Mentors/Keyboard.png"
             alt="Keyboard Blueprint Watermark"
@@ -130,23 +130,20 @@ export default function Hero() {
         </div>
       </div>
 
-
-
       {/* ============================================================ */}
       {/* Main Center Stage: Giant Title, 3D Guitar & Doodle Annotations*/}
       {/* ============================================================ */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto my-auto -translate-y-16 sm:-translate-y-24 md:-translate-y-32 lg:-translate-y-40 xl:-translate-y-48 flex flex-col items-center justify-center text-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto my-auto flex flex-col items-center justify-center text-center -translate-y-4 sm:-translate-y-10 md:-translate-y-16 lg:-translate-y-28 xl:-translate-y-36">
         
         {/* Layered Composition Stage: Background Text (z-10) with Foreground 3D Guitar (z-20) */}
-        <div className="relative w-full flex items-center justify-center min-h-[440px] sm:min-h-[540px] md:min-h-[620px] lg:min-h-[700px]">
+        <div className="relative w-full flex items-center justify-center min-h-[360px] sm:min-h-[460px] md:min-h-[540px] lg:min-h-[660px] xl:min-h-[700px]">
           
-          {/* Hand-Drawn Annotation 1: Pointing to 3D Guitar (Left Side) */}
+          {/* Hand-Drawn Annotation 1: Pointing to 3D Guitar (Desktop >= lg) */}
           <div
-            className={`hidden lg:flex absolute right-[52%] sm:right-[53%] md:right-[54%] lg:right-[55%] xl:right-[55%] top-[56%] xl:top-[60%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            className={`hidden lg:flex absolute right-[52%] lg:right-[54%] xl:right-[55%] top-[56%] xl:top-[60%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               revealed ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
             }`}
           >
-            {/* 2 lines right-aligned text starting from the arrow head */}
             <div className="flex flex-col items-end text-right -rotate-2 hover:scale-105 transition-transform">
               <div className="font-handwriting text-2xl xl:text-3xl text-neutral-950 font-bold tracking-wide drop-shadow-xs whitespace-nowrap">
                 interactive 3D electric guitar
@@ -156,7 +153,6 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* DoodleArrow pointing left towards text, tail towards guitar */}
             <div className="w-20 sm:w-24 xl:w-28 rotate-[165deg] shrink-0 ml-1.5 sm:ml-2">
               <DoodleArrow className="w-full h-auto drop-shadow-sm" />
             </div>
@@ -164,7 +160,7 @@ export default function Hero() {
 
           {/* Giant Hero Title in Condensed Display Typography (Z-Index 10: Behind Guitar) */}
           <h1
-            className="relative z-10 -top-24 sm:-top-36 md:-top-44 lg:-top-52 w-full text-neutral-950 font-display text-7xl sm:text-9xl md:text-[11rem] lg:text-[14rem] leading-[0.85] tracking-tight uppercase select-none text-center whitespace-nowrap pt-4 sm:pt-6 pb-2 sm:pb-4"
+            className="relative z-10 -top-14 sm:-top-24 md:-top-32 lg:-top-44 xl:-top-52 w-full text-neutral-950 font-display text-[13.5vw] xs:text-[13vw] sm:text-[12.5vw] md:text-[12vw] lg:text-[13.5rem] xl:text-[14.5rem] leading-[0.85] tracking-tight uppercase select-none text-center whitespace-nowrap pt-2 sm:pt-4 pb-2"
             title="Click each letter to play piano notes"
           >
             {LETTERS.map((letter, i) => {
@@ -177,29 +173,29 @@ export default function Hero() {
               let filterStyle = "";
 
               if (isClicked) {
-                transformStyle = `translateY(-28px) scale(1.18) rotate(${ROTATIONS[i] * 1.5}deg)`;
+                transformStyle = `translateY(-20px) scale(1.15) rotate(${ROTATIONS[i] * 1.5}deg)`;
                 colorClass = "text-[#ed1438]";
-                filterStyle = "drop-shadow(0 20px 26px rgba(237, 20, 56, 0.35))";
+                filterStyle = "drop-shadow(0 16px 22px rgba(237, 20, 56, 0.32))";
               } else if (isDirectlyHovered) {
-                transformStyle = `translateY(-20px) scale(1.12) rotate(${ROTATIONS[i]}deg)`;
+                transformStyle = `translateY(-14px) scale(1.10) rotate(${ROTATIONS[i]}deg)`;
                 colorClass = "text-[#ed1438]";
-                filterStyle = "drop-shadow(0 16px 20px rgba(237, 20, 56, 0.22))";
+                filterStyle = "drop-shadow(0 14px 18px rgba(237, 20, 56, 0.20))";
               } else if (isNeighborHovered) {
-                transformStyle = "translateY(-7px) scale(1.04)";
+                transformStyle = "translateY(-6px) scale(1.03)";
                 colorClass = "text-neutral-800";
               } else if (revealed) {
                 transformStyle = "translateY(0) scale(1) rotate(0deg)";
               } else {
-                transformStyle = `translateY(70px) scale(0.65) rotate(${ROTATIONS[i] * 2}deg)`;
+                transformStyle = `translateY(50px) scale(0.7) rotate(${ROTATIONS[i] * 2}deg)`;
               }
 
               const delayStyle =
                 revealed && (isDirectlyHovered || isNeighborHovered || isClicked)
                   ? "0ms"
-                  : `${i * 55}ms`;
+                  : `${i * 45}ms`;
 
               return (
-                <span key={i} className="relative inline-block">
+                <span key={i} className="relative inline-block px-[0.5vw] sm:px-0">
                   <span
                     data-piano-letter={i}
                     onClick={(e) => handleLetterClick(i, e)}
@@ -214,8 +210,9 @@ export default function Hero() {
                       revealed ? "opacity-100" : "opacity-0"
                     }`}
                   >
+                    {/* Note pitch label (C, D, E...) */}
                     <span
-                      className={`absolute -top-3 sm:-top-5 md:-top-7 left-1/2 -translate-x-1/2 font-mono text-[10px] sm:text-xs md:text-sm font-semibold tracking-normal transition-colors duration-300 pointer-events-none select-none ${
+                      className={`absolute -top-2 sm:-top-4 md:-top-6 left-1/2 -translate-x-1/2 font-mono text-[9px] sm:text-xs md:text-sm font-semibold tracking-normal transition-colors duration-300 pointer-events-none select-none ${
                         isClicked || isDirectlyHovered ? "text-[#ed1438]" : "text-neutral-400"
                       }`}
                     >
@@ -224,10 +221,10 @@ export default function Hero() {
                     {letter}
                   </span>
 
-                  {/* Hand-Drawn Annotation: Anchored to letter 'E' slot, NOT moved by letter 'E' transform */}
+                  {/* Desktop Hand-Drawn Annotation: Anchored to letter 'E' slot (Desktop >= lg) */}
                   {i === 7 && (
                     <span
-                      className={`hidden lg:flex absolute left-[45%] sm:left-[50%] lg:left-[55%] top-[55%] sm:top-[60%] lg:top-[65%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-400 ease-[cubic-bezier(0.16,1,0.3,1)] normal-case tracking-normal ${
+                      className={`hidden lg:flex absolute left-[48%] lg:left-[55%] top-[55%] lg:top-[65%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-400 ease-[cubic-bezier(0.16,1,0.3,1)] normal-case tracking-normal ${
                         revealed ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95"
                       }`}
                     >
@@ -281,42 +278,77 @@ export default function Hero() {
               revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl h-full pointer-events-auto translate-y-16 sm:translate-y-22 md:translate-y-30 lg:translate-y-36 xl:translate-y-42">
+            <div className="w-full max-w-[320px] xs:max-w-[360px] sm:max-w-lg md:max-w-xl lg:max-w-2xl h-[300px] xs:h-[340px] sm:h-[420px] md:h-[500px] lg:h-full pointer-events-auto translate-y-8 xs:translate-y-12 sm:translate-y-18 md:translate-y-24 lg:translate-y-36 xl:translate-y-42">
               <GuitarModel />
             </div>
           </div>
 
         </div>
+
+        {/* Mobile & Tablet Interactive Bar: Shows Play Button & Hints (Visible on < lg) */}
+        <div
+          className={`lg:hidden relative z-30 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-4 mt-2 sm:mt-4 transition-all duration-700 delay-300 ease-out ${
+            revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
+          {/* Quick Play Octave Button */}
+          <button
+            type="button"
+            onClick={playAllLetters}
+            disabled={isPlayingAll}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/95 border border-neutral-200/90 shadow-xs active:scale-95 transition-all text-xs sm:text-sm font-semibold text-neutral-900 cursor-pointer"
+          >
+            <span
+              className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#ed1438] flex items-center justify-center text-white shrink-0 shadow-xs ${
+                isPlayingAll ? "animate-pulse" : ""
+              }`}
+            >
+              <svg className="w-2.5 h-2.5 fill-current translate-x-0.5" viewBox="0 0 24 24">
+                <polygon points="6 4 20 12 6 20 6 4" />
+              </svg>
+            </span>
+            <span className="font-handwriting text-base sm:text-lg font-bold text-neutral-900">
+              {isPlayingAll ? "playing scale..." : "Play octave scale"}
+            </span>
+          </button>
+
+          {/* Touch instructions badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100/80 text-neutral-600 text-[11px] sm:text-xs font-medium">
+            <span className="text-[#ed1438]">♫</span>
+            <span>Tap letters to play notes • Drag guitar 360°</span>
+          </div>
+        </div>
+
       </div>
 
       {/* ============================================================ */}
       {/* Bottom Bar: Conservatory Metrics & Mentors Page CTA Gateway  */}
       {/* ============================================================ */}
       <div
-        className={`relative z-20 w-full max-w-7xl mx-auto -mt-24 sm:-mt-32 md:-mt-44 lg:-mt-56 xl:-mt-64 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-800 delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`relative z-20 w-full max-w-7xl mx-auto mt-4 sm:mt-0 lg:-mt-36 xl:-mt-48 flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6 transition-all duration-800 delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
-        {/* Left: Conservatory Statistical Metrics (Direct Mentors Design) */}
-        <div className="flex items-center gap-6 sm:gap-8">
+        {/* Left: Conservatory Statistical Metrics */}
+        <div className="w-full sm:w-auto grid grid-cols-3 sm:flex sm:items-center gap-3 sm:gap-8 justify-items-center sm:justify-items-start">
           {/* Metric 1: 16+ Years Teaching */}
-          <div className="flex flex-col group cursor-default">
-            <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">
+          <div className="flex flex-col items-center sm:items-start group cursor-default text-center sm:text-left">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-center sm:origin-left">
               16+
             </div>
-            <div className="text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
+            <div className="text-[11px] sm:text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
               Years Teaching
             </div>
           </div>
 
-          <div className="w-px h-10 bg-neutral-200" />
+          <div className="hidden sm:block w-px h-10 bg-neutral-200" />
 
           {/* Metric 2: 250+ Students */}
-          <div className="flex flex-col group cursor-default">
-            <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">
+          <div className="flex flex-col items-center sm:items-start group cursor-default text-center sm:text-left">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-center sm:origin-left">
               250+
             </div>
-            <div className="text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
+            <div className="text-[11px] sm:text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
               Mentored Artists
             </div>
           </div>
@@ -324,23 +356,21 @@ export default function Hero() {
           <div className="hidden sm:block w-px h-10 bg-neutral-200" />
 
           {/* Metric 3: 3 Resident Disciplines */}
-          <div className="hidden sm:flex flex-col group cursor-default">
-            <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">
+          <div className="flex flex-col items-center sm:items-start group cursor-default text-center sm:text-left">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-center sm:origin-left">
               3
             </div>
-            <div className="text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
+            <div className="text-[11px] sm:text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
               Core Disciplines
             </div>
           </div>
         </div>
 
-
-
         {/* Right: Direct Mentors Gateway & Admissions CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center w-full sm:w-auto">
           <Link
             href="/mentors"
-            className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-neutral-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-[#ed1438] hover:shadow-lg active:scale-95 transition-all cursor-pointer group shadow-sm"
+            className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-neutral-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-[#ed1438] hover:shadow-lg active:scale-95 transition-all cursor-pointer group shadow-sm"
           >
             <span>Meet The Mentors</span>
             <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
@@ -350,4 +380,3 @@ export default function Hero() {
     </section>
   );
 }
-
