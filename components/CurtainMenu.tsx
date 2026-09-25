@@ -48,8 +48,8 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
       aria-label="Site Navigation"
       aria-hidden={!isOpen}
       className={`fixed inset-0 z-40 overflow-hidden select-none ${isOpen
-          ? "visible opacity-100 pointer-events-auto"
-          : "invisible opacity-0 pointer-events-none delay-750"
+        ? "visible opacity-100 pointer-events-auto"
+        : "invisible opacity-0 pointer-events-none delay-750"
         }`}
     >
       {/* 
@@ -88,9 +88,8 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
         Fits 100% of the screen in one view without scrolling
       */}
       <div
-        className={`relative z-10 w-full h-full h-dvh max-h-screen flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 md:pt-10 pb-1.5 sm:pb-2 overflow-hidden select-none transition-all duration-500 ${
-          isOpen ? "opacity-100 translate-y-0 delay-200" : "opacity-0 -translate-y-4 delay-0"
-        }`}
+        className={`relative z-10 w-full h-full h-dvh max-h-screen flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 md:pt-10 pb-1.5 sm:pb-2 overflow-hidden select-none transition-all duration-500 ${isOpen ? "opacity-100 translate-y-0 delay-200" : "opacity-0 -translate-y-4 delay-0"
+          }`}
       >
         {/* Minimal top spacer under navbar button */}
         <div className="w-full max-w-7xl mx-auto h-0.5 sm:h-1 shrink-0" aria-hidden="true" />
@@ -135,7 +134,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
         */}
         <div className="w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-8 md:gap-10 text-[11px] sm:text-xs md:text-sm font-medium text-black/90 pt-1 pb-1 shrink-0">
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/meladinemusic/?__pwa=1"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white transition-colors duration-200"
@@ -144,7 +143,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
           </a>
           <span className="hidden sm:inline text-black/30">•</span>
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/meladinemusicconservatory"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white transition-colors duration-200"
