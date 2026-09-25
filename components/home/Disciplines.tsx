@@ -134,85 +134,84 @@ export default function Disciplines() {
         As the user scrolls, the 3D models swiftly rotate and swap between Guitar, Piano, and Vocals.
         Once the runway ends, normal scrolling resumes down to the next section.
       */}
-      <div className="sticky top-0 w-full h-screen min-h-[640px] max-h-screen bg-white text-neutral-900 overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
-      {/* Background Architectural Grid Lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
-        <div className="curtain-grid-columns h-full">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="border-r border-neutral-100 h-full" />
-          ))}
-        </div>
-      </div>
-
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-between items-center min-h-0">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-1 sm:mb-2 z-20 shrink-0">
-          <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold mb-1">
-            {"// 02 ACADEMY"}
-          </span>
-          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.9]">
-            CORE DISCIPLINES
-          </h2>
-        </div>
-
-        {/* 3D Showcase Arena */}
-        <div className="relative w-full flex-1 flex flex-col items-center justify-center min-h-0">
-          {/* ============================================================ */}
-          {/* Subtle Background Concentric Acoustic Resonance Circles     */}
-          {/* ============================================================ */}
-          <div className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none flex items-center justify-center z-0">
-            {/* Ambient acoustic soft glow */}
-            <div className="absolute w-[360px] h-[360px] sm:w-[500px] sm:h-[500px] rounded-full bg-[radial-gradient(circle,rgba(237,20,56,0.045)_0%,rgba(0,0,0,0.015)_50%,rgba(255,255,255,0)_75%)] blur-2xl" />
-
-            {/* Inner Circle 1 */}
-            <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] md:w-[400px] md:h-[400px] rounded-full border border-neutral-200/70" />
-
-            {/* Middle Circle 2 */}
-            <div className="absolute w-[400px] h-[400px] sm:w-[520px] sm:h-[520px] md:w-[620px] md:h-[620px] rounded-full border border-neutral-200/50" />
-
-            {/* Middle Dashed Circle 3 */}
-            <div className="absolute w-[540px] h-[540px] sm:w-[700px] sm:h-[700px] md:w-[840px] md:h-[840px] rounded-full border border-dashed border-neutral-200/40" />
-
-            {/* Outer Subtle Circle 4 */}
-            <div className="absolute w-[680px] h-[680px] sm:w-[880px] sm:h-[880px] md:w-[1060px] md:h-[1060px] rounded-full border border-neutral-100/60" />
-
-            {/* Far Outer Ambient Ring 5 */}
-            <div className="hidden lg:block absolute w-[1280px] h-[1280px] rounded-full border border-neutral-100/40" />
+      <div className="sticky top-0 w-full h-[100dvh] bg-white text-neutral-900 overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-6 px-3 sm:px-6 lg:px-8">
+        {/* Background Architectural Grid Lines */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
+          <div className="curtain-grid-columns h-full">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="border-r border-neutral-100 h-full" />
+            ))}
           </div>
+        </div>
 
-
-
-          {/* Handwriting Annotation: Positioned below right arrow */}
-          <div className="absolute right-2 sm:right-6 md:right-10 lg:right-14 top-[58%] sm:top-[60%] md:top-[62%] z-30 flex flex-col items-end text-right -rotate-2 sm:-rotate-3 select-none pointer-events-none pr-1">
-            <span className="font-handwriting text-lg sm:text-xl md:text-2xl lg:text-[1.75rem] text-neutral-950 font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight transition-all duration-300">
-              interactive 3D {activeCategory === "guitar" ? "electric guitar" : activeCategory === "piano" ? "stage keyboard" : "studio mic"}
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-between items-center min-h-0">
+          {/* Section Header */}
+          <div className="flex flex-col items-center text-center mb-0 sm:mb-2 z-20 shrink-0">
+            <span className="text-[10px] sm:text-xs md:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold mb-0.5 sm:mb-1">
+              {"// 02 ACADEMY"}
             </span>
-            <span className="-mt-0.5 sm:-mt-1 font-handwriting text-xs sm:text-sm md:text-base lg:text-[1.15rem] text-[#ed1438] font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight">
-              drag and explore the instruments
-            </span>
+            <h2 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.9]">
+              CORE DISCIPLINES
+            </h2>
           </div>
 
-          {/* Three.js Interactive 3D Canvas */}
-          <div className="w-full relative z-10 flex-1 flex items-center justify-center">
-            <Disciplines3D
-              activeCategory={activeCategory}
-              onSelectCategory={scrollToCategory}
-            />
+          {/* 3D Showcase Arena */}
+          <div className="relative w-full flex-1 flex flex-col items-center justify-center min-h-0 -my-2 sm:my-0">
+            {/* ============================================================ */}
+            {/* Subtle Background Concentric Acoustic Resonance Circles     */}
+            {/* ============================================================ */}
+            <div className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none flex items-center justify-center z-0">
+              {/* Ambient acoustic soft glow */}
+              <div className="absolute w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full bg-[radial-gradient(circle,rgba(237,20,56,0.045)_0%,rgba(0,0,0,0.015)_50%,rgba(255,255,255,0)_75%)] blur-2xl" />
+
+              {/* Inner Circle 1 */}
+              <div className="absolute w-[220px] h-[220px] sm:w-[340px] sm:h-[340px] md:w-[400px] md:h-[400px] rounded-full border border-neutral-200/70" />
+
+              {/* Middle Circle 2 */}
+              <div className="absolute w-[320px] h-[320px] sm:w-[520px] sm:h-[520px] md:w-[620px] md:h-[620px] rounded-full border border-neutral-200/50" />
+
+              {/* Middle Dashed Circle 3 */}
+              <div className="absolute w-[420px] h-[420px] sm:w-[700px] sm:h-[700px] md:w-[840px] md:h-[840px] rounded-full border border-dashed border-neutral-200/40" />
+
+              {/* Outer Subtle Circle 4 */}
+              <div className="absolute w-[540px] h-[540px] sm:w-[880px] sm:h-[880px] md:w-[1060px] md:h-[1060px] rounded-full border border-neutral-100/60" />
+
+              {/* Far Outer Ambient Ring 5 */}
+              <div className="hidden lg:block absolute w-[1280px] h-[1280px] rounded-full border border-neutral-100/40" />
+            </div>
+
+            {/* Handwriting Annotation */}
+            <div className="absolute right-2 sm:right-6 md:right-10 lg:right-14 bottom-4 sm:bottom-auto sm:top-[60%] md:top-[62%] z-30 flex flex-col items-end text-right -rotate-2 sm:-rotate-3 select-none pointer-events-none pr-1">
+              <span className="font-handwriting text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.75rem] text-neutral-950 font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight transition-all duration-300">
+                interactive 3D {activeCategory === "guitar" ? "electric guitar" : activeCategory === "piano" ? "stage keyboard" : "studio mic"}
+              </span>
+              <span className="-mt-0.5 sm:-mt-1 font-handwriting text-[10px] xs:text-xs sm:text-sm md:text-base lg:text-[1.15rem] text-[#ed1438] font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight">
+                drag and explore the instruments
+              </span>
+            </div>
+
+            {/* Three.js Interactive 3D Canvas */}
+            <div className="w-full relative z-10 flex-1 flex items-center justify-center min-h-0">
+              <Disciplines3D
+                activeCategory={activeCategory}
+                onSelectCategory={scrollToCategory}
+              />
+            </div>
           </div>
-        </div>
+
           {/* The Iconic 3-Item Typography Bar */}
-          <div className="relative z-20 w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto grid grid-cols-[1fr_auto_1fr] items-end justify-center gap-3 sm:gap-6 md:gap-8 pt-2 sm:pt-4 pb-4">
+          <div className="relative z-20 w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto grid grid-cols-[1fr_auto_1fr] items-end justify-center gap-1.5 sm:gap-6 md:gap-8 pt-1 sm:pt-4 pb-1 sm:pb-4">
             {/* Left Flanking Label */}
-            <div className="flex flex-col items-end text-right pb-1 sm:pb-2">
+            <div className="flex flex-col items-end text-right pb-0.5 sm:pb-2">
               <button
                 type="button"
                 onClick={handlePrev}
                 className="group flex flex-col items-end cursor-pointer transition-transform active:scale-95 text-right"
               >
-                <span className="font-mono text-[9px] sm:text-[11px] text-neutral-400 tracking-widest uppercase mb-0.5 group-hover:text-[#ed1438] transition-colors whitespace-nowrap">
+                <span className="font-mono text-[8px] xs:text-[9px] sm:text-[11px] text-neutral-400 tracking-widest uppercase mb-0.5 group-hover:text-[#ed1438] transition-colors whitespace-nowrap">
                   &larr; {"//"} {leftData.number}
                 </span>
-                <span className="font-display uppercase text-2xl sm:text-4xl md:text-5xl tracking-tight text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200">
+                <span className="font-display uppercase text-xl xs:text-2xl sm:text-4xl md:text-5xl tracking-tight text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200">
                   {leftData.name}
                 </span>
               </button>
@@ -220,29 +219,29 @@ export default function Disciplines() {
 
             {/* Center Active Label */}
             <div className="flex flex-col items-center justify-center text-center px-1 sm:px-4">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="w-2 h-0.5 bg-[#ed1438]" />
-                <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#ed1438] uppercase whitespace-nowrap">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                <span className="w-1.5 sm:w-2 h-0.5 bg-[#ed1438]" />
+                <span className="font-mono text-[9px] xs:text-[10px] sm:text-sm font-semibold tracking-widest text-[#ed1438] uppercase whitespace-nowrap">
                   {activeData.number} {"//"} {activeData.subtitle}
                 </span>
-                <span className="w-2 h-0.5 bg-[#ed1438]" />
+                <span className="w-1.5 sm:w-2 h-0.5 bg-[#ed1438]" />
               </div>
-              <h3 className="font-display uppercase text-6xl sm:text-8xl md:text-9xl lg:text-[7.5rem] tracking-tight text-neutral-950 leading-[0.88] drop-shadow-xs transition-all duration-300 whitespace-nowrap">
+              <h3 className="font-display uppercase text-4xl xs:text-5xl sm:text-8xl md:text-9xl lg:text-[7.5rem] tracking-tight text-neutral-950 leading-[0.88] drop-shadow-xs transition-all duration-300 whitespace-nowrap">
                 {activeData.name}
               </h3>
             </div>
 
             {/* Right Flanking Label */}
-            <div className="flex flex-col items-start text-left pb-1 sm:pb-2">
+            <div className="flex flex-col items-start text-left pb-0.5 sm:pb-2">
               <button
                 type="button"
                 onClick={handleNext}
                 className="group flex flex-col items-start cursor-pointer transition-transform active:scale-95 text-left"
               >
-                <span className="font-mono text-[9px] sm:text-[11px] text-neutral-400 tracking-widest uppercase mb-0.5 group-hover:text-[#ed1438] transition-colors whitespace-nowrap">
+                <span className="font-mono text-[8px] xs:text-[9px] sm:text-[11px] text-neutral-400 tracking-widest uppercase mb-0.5 group-hover:text-[#ed1438] transition-colors whitespace-nowrap">
                   {"//"} {rightData.number} &rarr;
                 </span>
-                <span className="font-display uppercase text-2xl sm:text-4xl md:text-5xl tracking-tight text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200">
+                <span className="font-display uppercase text-xl xs:text-2xl sm:text-4xl md:text-5xl tracking-tight text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200">
                   {rightData.name}
                 </span>
               </button>

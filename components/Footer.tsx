@@ -113,11 +113,11 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Giant Bottom Brand Name Section with Interactive Light Red TextPressure in Roboto Flex */}
-      <div className="relative w-full mt-14 sm:mt-20 md:mt-24 pt-4 overflow-hidden">
-        {/* Meladine Text in Very Light Red */}
-        <div className="w-full h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] relative flex items-end justify-center">
-          <div className="w-full px-2 sm:px-6 -mb-6 sm:-mb-10 md:-mb-14">
+      {/* Giant Bottom Brand Name Section with Interactive Brand Text in Roboto Flex */}
+      <div className="relative w-full mt-10 sm:mt-16 md:mt-20 pt-2 overflow-hidden">
+        {/* Meladine Text in Clearer, More Visible Brand Tint */}
+        <div className="w-full h-[140px] xs:h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] relative flex items-end justify-center">
+          <div className="w-full px-2 sm:px-6 -mb-3 sm:-mb-8 md:-mb-12">
             <TextPressure
               text="Meladine"
               flex
@@ -126,30 +126,32 @@ export default function Footer() {
               width
               weight
               italic={false}
-              textColor="#ffd6dc"
-              strokeColor="#ffd6dc"
-              minFontSize={48}
+              textColor="#f7a8b4"
+              strokeColor="#f7a8b4"
+              minFontSize={64}
             />
           </div>
         </div>
       </div>
 
-      {/* Ultra-minimal bottom metadata bar */}
-      <div className="w-full border-t border-neutral-100 py-6 px-6 sm:px-10 bg-white">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 text-xs font-mono text-neutral-400">
-          <div>&copy; {new Date().getFullYear()} MELADINE ARCHIVE. ALL RIGHTS RESERVED.</div>
+      {/* Ultra-visible bottom metadata bar */}
+      <div className="w-full border-t border-neutral-200/80 py-6 sm:py-8 px-4 sm:px-10 bg-white">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-5 text-xs sm:text-sm font-mono font-medium text-neutral-600 text-center">
+          <div className="tracking-wider">
+            &copy; {new Date().getFullYear()} MELADINE ARCHIVE. ALL RIGHTS RESERVED.
+          </div>
 
           {/* Social Icons with Permanent Official Brand Colors: Facebook, Instagram, Spotify (in middle), YouTube, TikTok */}
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-5 sm:gap-6 py-1">
             {/* Facebook (Official Blue Circle Badge) */}
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="hover:scale-115 transition-transform p-1"
+              className="hover:scale-125 transition-transform p-1.5"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24">
                 <path
                   fill="#1877F2"
                   d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
@@ -163,9 +165,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:scale-115 transition-transform p-1"
+              className="hover:scale-125 transition-transform p-1.5"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24">
                 <radialGradient id="ig-grad-fixed" cx="20%" cy="105%" r="115%">
                   <stop offset="0%" stopColor="#fdf497" />
                   <stop offset="10%" stopColor="#fdf497" />
@@ -186,9 +188,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Spotify"
-              className="hover:scale-115 transition-transform p-1"
+              className="hover:scale-125 transition-transform p-1.5"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24">
                 <path
                   fill="#1ED760"
                   d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.503 17.308c-.215.353-.674.464-1.027.249-2.813-1.718-6.353-2.107-10.523-1.155-.403.092-.806-.16-.898-.563-.092-.403.16-.806.563-.898 4.567-1.043 8.479-.603 11.636 1.339.353.216.464.675.249 1.028zm1.47-3.264c-.27.44-.847.579-1.287.309-3.22-1.979-8.129-2.551-11.938-1.394-.495.15-1.023-.134-1.173-.629-.15-.495.134-1.023.629-1.173 4.356-1.322 9.775-.681 13.46 1.584.44.27.579.847.309 1.303zm.126-3.41c-3.861-2.293-10.231-2.505-13.914-1.387-.591.179-1.218-.16-1.398-.752-.179-.591.16-1.218.752-1.397 4.234-1.286 11.272-1.041 15.698 1.587.531.315.704 1.002.389 1.533-.315.531-1.002.704-1.527.416z"
@@ -202,9 +204,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-              className="hover:scale-115 transition-transform p-1"
+              className="hover:scale-125 transition-transform p-1.5"
             >
-              <svg className="w-5 h-4" viewBox="0 0 24 24">
+              <svg className="w-6 h-5 sm:w-6 sm:h-5" viewBox="0 0 24 24">
                 <path
                   fill="#FF0000"
                   d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"
@@ -219,9 +221,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="hover:scale-115 transition-transform p-1"
+              className="hover:scale-125 transition-transform p-1.5"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24">
                 {/* Cyan Layer */}
                 <path
                   fill="#25F4EE"
@@ -244,12 +246,12 @@ export default function Footer() {
           </div>
 
           {/* Designed and Developed By with Heart Icon */}
-          <div className="flex items-center gap-1.5 text-neutral-400">
+          <div className="flex items-center gap-1.5 text-neutral-600 tracking-wider">
             <span>DESIGNED &amp; DEVELOPED BY</span>
-            <span className="inline-flex items-center gap-1 font-semibold text-neutral-800 hover:text-[#ed1438] transition-colors cursor-default">
+            <span className="inline-flex items-center gap-1 font-bold text-neutral-950 hover:text-[#ed1438] transition-colors cursor-default">
               <svg
                 viewBox="0 0 24 24"
-                className="w-3.5 h-3.5 fill-[#ed1438] inline-block animate-pulse drop-shadow-[0_0_6px_rgba(237,20,56,0.5)]"
+                className="w-4 h-4 fill-[#ed1438] inline-block animate-pulse drop-shadow-[0_0_6px_rgba(237,20,56,0.5)]"
               >
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>

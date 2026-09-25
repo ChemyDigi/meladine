@@ -370,6 +370,9 @@ export default function Disciplines3D({
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
 
+    // Track responsive layout scale
+    let responsiveSpacingX = 1.65;
+
     // 10. Animation Loop
     let animId: number;
     const clock = new THREE.Clock();
@@ -378,6 +381,7 @@ export default function Disciplines3D({
       animId = requestAnimationFrame(animate);
 
       const elapsedTime = clock.getElapsedTime();
+      const spreadX = responsiveSpacingX;
 
       CATEGORIES.forEach((cat) => {
         const grp = groups[cat];
@@ -401,13 +405,13 @@ export default function Disciplines3D({
             cfg.centerRot[2]
           );
         } else if (slot === "left") {
-          targetX = -1.65;
+          targetX = -spreadX;
           targetY = -0.05 + Math.sin(elapsedTime * 1.2 + 1) * 0.02;
           targetZ = -0.7;
           targetScale = 0.65;
           targetRot.set(...cfg.leftRot);
         } else if (slot === "right") {
-          targetX = 1.65;
+          targetX = spreadX;
           targetY = -0.05 + Math.sin(elapsedTime * 1.2 + 2) * 0.02;
           targetZ = -0.7;
           targetScale = 0.65;
@@ -477,20 +481,38 @@ export default function Disciplines3D({
 
     animate();
 
-    // 11. Responsive Resize
+    // 11. Responsive Resize - Preserve exact same composition on all aspect ratios
     const handleResize = () => {
       if (!container) return;
       const newWidth = container.clientWidth;
       const newHeight = container.clientHeight;
 
       camera.aspect = newWidth / newHeight;
-      if (newWidth < 640) {
-        camera.position.z = 6.2;
-      } else if (newWidth < 1024) {
+
+      // When in portrait/mobile aspect ratio, adapt camera distance so all 3 instruments
+      // fit tightly without massive empty white space above and below
+      if (newWidth < 480) {
+        camera.position.z = 5.6;
+        responsiveSpacingX = 1.45;
+        leftShadow.position.x = -1.45;
+        rightShadow.position.x = 1.45;
+      } else if (newWidth < 640) {
         camera.position.z = 5.2;
+        responsiveSpacingX = 1.5;
+        leftShadow.position.x = -1.5;
+        rightShadow.position.x = 1.5;
+      } else if (newWidth < 1024) {
+        camera.position.z = 4.8;
+        responsiveSpacingX = 1.6;
+        leftShadow.position.x = -1.6;
+        rightShadow.position.x = 1.6;
       } else {
         camera.position.z = 4.6;
+        responsiveSpacingX = 1.65;
+        leftShadow.position.x = -1.65;
+        rightShadow.position.x = 1.65;
       }
+
       camera.updateProjectionMatrix();
       renderer.setSize(newWidth, newHeight);
     };
@@ -514,7 +536,7 @@ export default function Disciplines3D({
   }, []);
 
   return (
-    <div className="relative w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[500px] max-h-[55vh] flex items-center justify-center select-none overflow-visible">
+    <div className="relative w-full h-[280px] xs:h-[320px] sm:h-[400px] md:h-[460px] lg:h-[500px] flex items-center justify-center select-none overflow-visible">
       {/* Loading Pulse */}
       {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -530,9 +552,8 @@ export default function Disciplines3D({
       {/* Three.js Canvas Container */}
       <div
         ref={containerRef}
-        className={`w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 ease-out will-change-transform ${
-          isLoaded ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 ease-out will-change-transform ${isLoaded ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
       />
     </div>
   );
