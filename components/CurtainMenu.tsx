@@ -47,11 +47,10 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
       aria-modal="true"
       aria-label="Site Navigation"
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-40 overflow-hidden select-none ${
-        isOpen
+      className={`fixed inset-0 z-40 overflow-hidden select-none ${isOpen
           ? "visible opacity-100 pointer-events-auto"
           : "invisible opacity-0 pointer-events-none delay-750"
-      }`}
+        }`}
     >
       {/* 
         CURTAIN BACKGROUND PANELS (TOP TO BOTTOM ANIMATION)
@@ -86,30 +85,30 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
 
       {/* 
         CURTAIN CONTENT LAYER
-        Fades and slides smoothly into view once curtain begins dropping
+        Fits 100% of the screen in one view without scrolling
       */}
       <div
-        className={`relative z-10 w-full h-full flex flex-col justify-between px-6 sm:px-10 lg:px-14 pt-28 sm:pt-32 pb-6 md:pb-8 transition-all duration-500 ${
+        className={`relative z-10 w-full h-full h-dvh max-h-screen flex flex-col justify-between px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 md:pt-10 pb-1.5 sm:pb-2 overflow-hidden select-none transition-all duration-500 ${
           isOpen ? "opacity-100 translate-y-0 delay-200" : "opacity-0 -translate-y-4 delay-0"
         }`}
       >
-        {/* Top spacer to preserve alignment with the fixed top navbar */}
-        <div className="w-full max-w-7xl mx-auto h-4" aria-hidden="true" />
+        {/* Minimal top spacer under navbar button */}
+        <div className="w-full max-w-7xl mx-auto h-0.5 sm:h-1 shrink-0" aria-hidden="true" />
 
         {/* 
           CENTER NAVIGATION LINKS
-          Bold condensed typography matching reference image:
+          Even larger monumental condensed typography with wider gaps filling the screen:
           HOME, ABOUT, EVENTS, MENTORS, CONTACT
         */}
-        <div className="flex-1 flex flex-col items-center justify-center my-auto">
+        <div className="flex-1 flex flex-col items-center justify-center my-auto min-h-0">
           <nav aria-label="Main Curtain Navigation" className="w-full text-center">
-            <ul className="flex flex-col items-center justify-center gap-1 sm:gap-2 md:gap-3">
+            <ul className="flex flex-col items-center justify-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 xl:gap-3.5">
               {NAV_LINKS.map((link, idx) => {
                 const linkDelay = isOpen ? 200 + idx * 50 : 0;
                 return (
                   <li
                     key={link.label}
-                    className="overflow-hidden"
+                    className="leading-none overflow-visible"
                     style={{
                       transitionDelay: `${linkDelay}ms`,
                     }}
@@ -117,7 +116,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className="group block py-1 px-4 text-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-normal tracking-tight uppercase transition-all duration-300 hover:text-white hover:scale-105 active:scale-95 cursor-pointer"
+                      className="group block py-1 px-3 sm:px-4 text-black text-[clamp(3.3rem,13vh,12.5rem)] font-display font-normal leading-[0.86] tracking-tight uppercase transition-all duration-300 hover:text-white hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
                     >
                       <span className="relative inline-block transition-transform duration-300 group-hover:-translate-y-1">
                         {link.label}
@@ -134,7 +133,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
           BOTTOM FOOTER CREDITS & CONTACT INFO
           Minimalist metadata matching the reference image layout
         */}
-        <div className="w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-center gap-4 sm:gap-10 text-xs sm:text-sm font-medium text-black/90 pb-2">
+        <div className="w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-8 md:gap-10 text-[11px] sm:text-xs md:text-sm font-medium text-black/90 pt-1 pb-1 shrink-0">
           <a
             href="https://instagram.com"
             target="_blank"

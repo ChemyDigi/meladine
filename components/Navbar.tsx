@@ -13,16 +13,15 @@ export default function Navbar({ isMenuOpen, onToggleMenu }: NavbarProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-transparent transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-6 md:py-8 flex items-center justify-between">
-        
+
         {/* Top Left: Scaled-up Logo (Hidden when menu is open) */}
         <Link
           href="/"
           onClick={() => {
             if (isMenuOpen) onToggleMenu();
           }}
-          className={`group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-lg transition-all duration-300 ${
-            isMenuOpen ? "opacity-0 pointer-events-none scale-95" : "opacity-100 scale-100"
-          }`}
+          className={`group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-lg transition-all duration-300 ${isMenuOpen ? "opacity-0 pointer-events-none scale-95" : "opacity-100 scale-100"
+            }`}
           aria-label="Meladine Home"
         >
           <div className="relative h-14 sm:h-16 md:h-20 w-10 sm:w-12 md:w-15 flex items-center shrink-0">
@@ -30,6 +29,7 @@ export default function Navbar({ isMenuOpen, onToggleMenu }: NavbarProps) {
               src="/images/LOGO.png"
               alt="Meladine Logo"
               fill
+              sizes="(max-width: 640px) 40px, (max-width: 768px) 48px, 60px"
               className="object-contain object-left transition-transform duration-300 group-hover:scale-105"
               priority
             />
@@ -44,9 +44,8 @@ export default function Navbar({ isMenuOpen, onToggleMenu }: NavbarProps) {
             onClick={() => {
               if (isMenuOpen) onToggleMenu();
             }}
-            className={`inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-2.5 rounded-full border border-black/90 bg-white/80 backdrop-blur-xs text-xs md:text-sm font-semibold tracking-wider uppercase text-black hover:bg-black hover:text-white transition-all duration-300 shadow-xs hover:shadow-md active:scale-95 cursor-pointer ${
-              isMenuOpen ? "opacity-0 pointer-events-none scale-95" : "opacity-100 scale-100"
-            }`}
+            className={`inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-2.5 rounded-full border border-black/90 bg-white/80 backdrop-blur-xs text-xs md:text-sm font-semibold tracking-wider uppercase text-black hover:bg-black hover:text-white transition-all duration-300 shadow-xs hover:shadow-md active:scale-95 cursor-pointer ${isMenuOpen ? "opacity-0 pointer-events-none scale-95" : "opacity-100 scale-100"
+              }`}
             id="nav-contact-cta"
           >
             Contact Us
@@ -56,11 +55,10 @@ export default function Navbar({ isMenuOpen, onToggleMenu }: NavbarProps) {
           <button
             type="button"
             onClick={onToggleMenu}
-            className={`group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full transition-all duration-300 shadow-xs hover:shadow-md active:scale-95 focus:outline-none cursor-pointer ${
-              isMenuOpen
+            className={`group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full transition-all duration-300 shadow-xs hover:shadow-md active:scale-95 focus:outline-none cursor-pointer ${isMenuOpen
                 ? "bg-black text-white hover:bg-neutral-900 border border-black focus-visible:ring-2 focus-visible:ring-white"
                 : "border border-black/80 bg-white/80 backdrop-blur-xs text-black hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-black"
-            }`}
+              }`}
             aria-label={isMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
             aria-expanded={isMenuOpen}
             aria-controls="curtain-navigation-overlay"
