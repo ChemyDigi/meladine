@@ -145,7 +145,7 @@ export default function Footer() {
           <div className="flex items-center gap-5 sm:gap-6 py-1">
             {/* Facebook (Official Blue Circle Badge) */}
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/meladinemusicconservatory"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -161,7 +161,7 @@ export default function Footer() {
 
             {/* Instagram (Official Multi-Color Gradient) */}
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/meladinemusic/?__pwa=1"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -200,7 +200,7 @@ export default function Footer() {
 
             {/* YouTube (Official Red Badge with White Play Icon) */}
             <a
-              href="https://youtube.com"
+              href="https://www.youtube.com/@meladinemusicconservatory2231"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
@@ -217,7 +217,7 @@ export default function Footer() {
 
             {/* TikTok (Official Color Chromatic Offset Effect) */}
             <a
-              href="https://tiktok.com"
+              href="https://www.tiktok.com/@meladinemusic?is_from_webapp=1&sender_device=pc"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
