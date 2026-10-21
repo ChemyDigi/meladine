@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import EventsHero from "@/components/events/EventsHero";
+import EventsSharedSection from "@/components/events/EventsSharedSection";
 import UpcomingEventsSection from "@/components/events/UpcomingEventsSection";
 
 export const metadata: Metadata = {
@@ -12,8 +13,11 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <div className="w-full bg-white text-neutral-900">
-      {/* Hero Section matching design reference */}
+      {/* Hero Section */}
       <EventsHero />
+
+      {/* Events We've Shared Showcase Section */}
+      <EventsSharedSection />
 
       {/* Upcoming Events, Calendar & Pass Reservations */}
       <UpcomingEventsSection />
