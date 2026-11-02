@@ -6,7 +6,7 @@ import DriftWallSection from "@/components/about/DriftWallSection";
 
 export const metadata: Metadata = {
   title: "About — Meladine Sound Collective",
-  description: "Learn about Meladine, our underground electronic sound manifesto, acoustic laboratories, and global creative chapters.",
+  description: "Living Space for Musical Discovery. Meladine Music Conservatory is an independent music education community dedicated to developing musical talent, creative expression, and artistic individuality.",
 };
 
 export default function AboutPage() {

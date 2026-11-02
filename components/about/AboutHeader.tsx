@@ -12,7 +12,7 @@ const ROTATIONS_2 = [-3, 2, -2.5, 3, -2, 2.5, -2, 3];
 
 // Narrative text for the scroll reveal
 const PARAGRAPH_TEXT =
-  "Meladine is an independent underground sound laboratory and creative collective uniting music producers, acoustic scientists, and visual innovators. Founded on the conviction that electronic music should be experienced as physical acoustic pressure rather than digital quantization, we craft borderless sonic frequencies that communicate directly through living harmonics, analogue imperfections, and raw voltage.";
+  "Living Space for Musical Discovery. Meladine Music Conservatory is an independent music education community dedicated to developing musical talent, creative expression, and artistic individuality. Bringing together guitar, keyboard, and vocal education, Meladine connects musical foundations with practical experience, collaboration, and live performance. We believe music is more than a technical skill — it is a language of expression, connection, and discovery. Our vision is to cultivate confident musicians, encourage fearless creativity, and create meaningful musical experiences for every generation.";
 
 const WORDS = PARAGRAPH_TEXT.split(" ");
 
@@ -36,7 +36,7 @@ export default function AboutHeader() {
       const scrollY = window.scrollY || window.pageYOffset || 0;
       
       // Starts illuminating immediately as user scrolls (0px to 400px of scroll)
-      const maxScroll = 380;
+      const maxScroll = 440;
       const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
       setScrollProgress(progress);
     };
