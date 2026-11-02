@@ -6,8 +6,8 @@ import MentorsCta from "@/components/mentors/MentorsCta";
 import FloatingNotations from "@/components/mentors/FloatingNotations";
 
 export const metadata: Metadata = {
-  title: "Mentors — Meladine Sound Collective",
-  description: "Meet the resident artists, modular masters, and acoustic engineers leading Meladine sound residencies.",
+  title: "Mentors — Meladine Music Conservatory",
+  description: "Learn directly from seasoned artists and dedicated masters across guitar, vocals, and keyboard nurturing technique, musicality, and artistic expression.",
 };
 
 export default function MentorsPage() {

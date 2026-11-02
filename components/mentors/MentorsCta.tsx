@@ -52,7 +52,7 @@ export default function MentorsCta() {
         href="/contact"
         className="px-8 py-4 rounded-full bg-white text-black text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-[#ed1438] hover:text-white transition-all shrink-0 shadow-lg active:scale-95 cursor-pointer"
       >
-        Contact Us &rarr;
+        CONTACT US &rarr;
       </Link>
     </div>
   );
