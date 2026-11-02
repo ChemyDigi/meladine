@@ -9,27 +9,6 @@ interface WordItem {
   isHighlight?: boolean;
 }
 
-const WORDS: WordItem[] = [
-  { text: "MELADINE", isHighlight: true },
-  { text: "IS" },
-  { text: "A" },
-  { text: "LIVING" },
-  { text: "CONSERVATORY" },
-  { text: "FOUNDED" },
-  { text: "BY" },
-  { text: "TOURING", isHighlight: true },
-  { text: "ARTISTS", isHighlight: true },
-  { text: "CULTIVATING" },
-  { text: "REAL" },
-  { text: "STAGECRAFT,", isHighlight: true },
-  { text: "ANALOG" },
-  { text: "TONE," },
-  { text: "AND" },
-  { text: "FEARLESS" },
-  { text: "SONIC", isHighlight: true },
-  { text: "FREEDOM.", isHighlight: true },
-];
-
 interface CharData {
   char: string;
   globalIndex: number;
@@ -42,22 +21,112 @@ interface WordWithChars {
   chars: CharData[];
 }
 
+interface SectionConfig {
+  id: string;
+  className: string;
+  words: WordItem[];
+}
+
+const SECTION_CONFIGS: SectionConfig[] = [
+  {
+    id: "headline",
+    className:
+      "font-display uppercase tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[5.5rem] leading-[0.96] sm:leading-[0.93] select-none text-center",
+    words: [
+      { text: "MELADINE", isHighlight: true },
+      { text: "IS" },
+      { text: "A" },
+      { text: "LIVING" },
+      { text: "CONSERVATORY." },
+    ],
+  },
+  {
+    id: "body",
+    className:
+      "font-display uppercase tracking-tight text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.85rem] leading-[1.08] sm:leading-[1.04] select-none text-center mt-6 sm:mt-8 md:mt-10 max-w-5xl mx-auto",
+    words: [
+      { text: "A" },
+      { text: "PLACE" },
+      { text: "WHERE" },
+      { text: "MUSICAL" },
+      { text: "PASSION", isHighlight: true },
+      { text: "MEETS" },
+      { text: "PRACTICAL" },
+      { text: "LEARNING," },
+      { text: "CREATIVITY," },
+      { text: "AND" },
+      { text: "REAL-WORLD", isHighlight: true },
+      { text: "PERFORMANCE.", isHighlight: true },
+      { text: "WE" },
+      { text: "NURTURE" },
+      { text: "MUSICIANS" },
+      { text: "OF" },
+      { text: "ALL" },
+      { text: "AGES," },
+      { text: "BUILDING" },
+      { text: "STRONG" },
+      { text: "FOUNDATIONS," },
+      { text: "STAGE", isHighlight: true },
+      { text: "CONFIDENCE,", isHighlight: true },
+      { text: "AND" },
+      { text: "THE" },
+      { text: "FREEDOM" },
+      { text: "TO" },
+      { text: "DISCOVER" },
+      { text: "THEIR" },
+      { text: "OWN" },
+      { text: "MUSICAL", isHighlight: true },
+      { text: "IDENTITY.", isHighlight: true },
+    ],
+  },
+  {
+    id: "tagline",
+    className:
+      "font-display uppercase tracking-wider text-xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] leading-[1.1] select-none text-center mt-6 sm:mt-8 md:mt-10",
+    words: [
+      { text: "PASSION", isHighlight: true },
+      { text: "|", isHighlight: true },
+      { text: "MUSIC", isHighlight: true },
+      { text: "|", isHighlight: true },
+      { text: "PEOPLE", isHighlight: true },
+      { text: "|", isHighlight: true },
+      { text: "A" },
+      { text: "BRIGHTER" },
+      { text: "TOMORROW", isHighlight: true },
+    ],
+  },
+];
+
+interface ProcessedSection {
+  id: string;
+  className: string;
+  processedWords: WordWithChars[];
+}
+
 let runningIndex = 0;
-const PROCESSED_WORDS: WordWithChars[] = WORDS.map((item) => {
-  const chars: CharData[] = Array.from(item.text).map((char) => {
-    const charObj: CharData = {
-      char,
-      globalIndex: runningIndex,
+const PROCESSED_SECTIONS: ProcessedSection[] = SECTION_CONFIGS.map((section) => {
+  const processedWords: WordWithChars[] = section.words.map((item) => {
+    const chars: CharData[] = Array.from(item.text).map((char) => {
+      const charObj: CharData = {
+        char,
+        globalIndex: runningIndex,
+        isHighlight: item.isHighlight,
+      };
+      runningIndex++;
+      return charObj;
+    });
+
+    return {
+      word: item.text,
       isHighlight: item.isHighlight,
+      chars,
     };
-    runningIndex++;
-    return charObj;
   });
 
   return {
-    word: item.text,
-    isHighlight: item.isHighlight,
-    chars,
+    id: section.id,
+    className: section.className,
+    processedWords,
   };
 });
 
@@ -82,7 +151,7 @@ const ABOUT_NOTATIONS: AboutNotationItem[] = [
   {
     id: "about-note-1",
     src: "/images/About/Notation1.png",
-    top: "16%",
+    top: "14%",
     left: "5%",
     sizeClass: "w-11 sm:w-14 md:w-18 lg:w-20",
     width: 130,
@@ -95,7 +164,7 @@ const ABOUT_NOTATIONS: AboutNotationItem[] = [
   {
     id: "about-note-4",
     src: "/images/About/Notation2.png",
-    top: "72%",
+    top: "78%",
     right: "7%",
     sizeClass: "w-10 sm:w-13 md:w-17 lg:w-20",
     width: 120,
@@ -118,13 +187,12 @@ export default function About() {
       const rect = textRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight || 800;
 
-      // Start coloring immediately as the top of the text enters the lower screen
-      const startY = windowHeight * 0.85;
-      // Complete coloring as the text reaches the upper third of the screen
-      const endY = windowHeight * 0.22;
+      // Start coloring swiftly as the top enters viewport
+      const startY = windowHeight * 0.88;
+      // Complete coloring briskly over ~550px of scroll
+      const distance = Math.min(windowHeight * 0.7, 560);
 
-      // Calculate real-time progress during scroll
-      const rawProgress = (startY - rect.top) / (startY - endY);
+      const rawProgress = (startY - rect.top) / distance;
       const clamped = Math.max(0, Math.min(1, rawProgress));
 
       setScrollProgress(clamped);
@@ -137,19 +205,25 @@ export default function About() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
+    if (window.__lenis) {
+      window.__lenis.on("scroll", handleScroll);
+    }
     updateScrollProgress();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
+      if (window.__lenis) {
+        window.__lenis.off("scroll", handleScroll);
+      }
     };
   }, []);
 
   return (
     <section
       id="about"
-      className="relative w-full bg-white pt-20 sm:pt-28 md:pt-36 lg:pt-40 pb-6 sm:pb-8 px-6 sm:px-10 lg:px-16 overflow-hidden"
+      className="relative w-full bg-white pt-16 sm:pt-20 md:pt-28 lg:pt-32 pb-6 sm:pb-8 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
       {/* ============================================================ */}
       {/* Background Architectural Hairline Grid Overlay               */}
@@ -229,38 +303,40 @@ export default function About() {
 
         {/* Center: Large Bebas Neue Display Text Revealing Color Letter-by-Letter */}
         <div ref={textRef} className="my-auto max-w-6xl mx-auto py-4 sm:py-8 text-center">
-          <p className="font-display uppercase tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[6rem] leading-[0.98] sm:leading-[0.95] select-none text-center">
-            {PROCESSED_WORDS.map((wordItem, wordIdx) => (
-              <span key={wordIdx} className="inline-block whitespace-nowrap mx-[0.16em]">
-                {wordItem.chars.map((charObj) => {
-                  const charThreshold = charObj.globalIndex / TOTAL_CHARS;
-                  const isColored = scrollProgress >= charThreshold;
+          {PROCESSED_SECTIONS.map((section) => (
+            <p key={section.id} className={section.className}>
+              {section.processedWords.map((wordItem, wordIdx) => (
+                <span key={wordIdx} className="inline-block whitespace-nowrap mx-[0.16em]">
+                  {wordItem.chars.map((charObj) => {
+                    const charThreshold = charObj.globalIndex / TOTAL_CHARS;
+                    const isColored = scrollProgress >= charThreshold;
 
-                  let colorStyle = "text-neutral-300 opacity-25";
+                    let colorStyle = "text-neutral-300 opacity-25";
 
-                  if (isColored) {
-                    if (charObj.isHighlight) {
-                      colorStyle = "text-[#ed1438] opacity-100 drop-shadow-xs";
-                    } else {
-                      colorStyle = "text-neutral-950 opacity-100";
+                    if (isColored) {
+                      if (charObj.isHighlight) {
+                        colorStyle = "text-[#ed1438] opacity-100 drop-shadow-xs";
+                      } else {
+                        colorStyle = "text-neutral-950 opacity-100";
+                      }
                     }
-                  }
 
-                  return (
-                    <span
-                      key={charObj.globalIndex}
-                      className={`inline-block transition-colors duration-75 ease-out will-change-transform ${colorStyle}`}
-                    >
-                      {charObj.char}
-                    </span>
-                  );
-                })}
-              </span>
-            ))}
-          </p>
+                    return (
+                      <span
+                        key={charObj.globalIndex}
+                        className={`inline-block transition-colors duration-75 ease-out will-change-transform ${colorStyle}`}
+                      >
+                        {charObj.char}
+                      </span>
+                    );
+                  })}
+                </span>
+              ))}
+            </p>
+          ))}
 
           {/* CTA Redirecting to /about */}
-          <div className="mt-10 sm:mt-14 flex items-center justify-center">
+          <div className="mt-8 sm:mt-12 flex items-center justify-center">
             <Link
               href="/about"
               className="inline-flex items-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-neutral-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-[#ed1438] hover:shadow-lg hover:shadow-[#ed1438]/20 active:scale-95 transition-all duration-200 cursor-pointer group shadow-sm"

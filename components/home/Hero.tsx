@@ -331,10 +331,10 @@ export default function Hero() {
       >
         {/* Left: Conservatory Statistical Metrics */}
         <div className="w-full sm:w-auto grid grid-cols-3 sm:flex sm:items-center gap-3 sm:gap-8 justify-items-center sm:justify-items-start">
-          {/* Metric 1: 16+ Years Teaching */}
+          {/* Metric 1: 19+ Years Teaching */}
           <div className="flex flex-col items-center sm:items-start group cursor-default text-center sm:text-left">
             <div className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-center sm:origin-left">
-              16+
+              19+
             </div>
             <div className="text-[11px] sm:text-xs text-neutral-500 font-sans font-medium tracking-tight mt-1">
               Years Teaching
