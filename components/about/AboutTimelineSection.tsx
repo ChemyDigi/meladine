@@ -348,14 +348,14 @@ export default function AboutTimelineSection() {
               />
 
               {/* Center Disc Overlay Year & Tagline - Positioned higher and rotates WITH the CD */}
-              <div className="absolute top-[14%] left-1/2 -translate-x-1/2 text-center pointer-events-none z-30 transition-opacity duration-300 w-full px-4">
+              <div className="absolute top-[16%] left-1/2 -translate-x-1/2 text-center pointer-events-none z-30 transition-opacity duration-300 w-full px-4">
                 <span className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-neutral-900 block leading-none">
                   {currentMilestone.year}
                 </span>
                 <span className="text-xs sm:text-sm font-mono tracking-[0.3em] uppercase text-neutral-800 block mt-1 font-bold">
                   {currentMilestone.tagline}
                 </span>
-                <div className="w-10 sm:w-14 h-[2px] bg-neutral-900/80 mx-auto mt-2" />
+
               </div>
 
               {/* Left Side: Handwritten Signature Slogan (Rotates with CD, positioned clearly on the metallic sheen) */}
