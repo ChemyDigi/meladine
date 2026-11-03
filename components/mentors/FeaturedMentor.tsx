@@ -121,28 +121,28 @@ export default function FeaturedMentor() {
             <div className="absolute left-[88%] sm:left-[92%] md:left-[96%] lg:left-[100%] bottom-[32%] sm:bottom-[35%] md:bottom-[38%] lg:bottom-[41%] z-30 w-[350px] sm:w-[460px] md:w-[580px] lg:w-[680px] xl:w-[760px] pointer-events-auto">
               <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <p className="text-xs sm:text-sm md:text-base font-light text-neutral-700 leading-relaxed">
-                  The Meladine Music Conservatory, founded by &quot;Wings&quot; band co-founder and guitarist <strong className="font-semibold text-neutral-950">Saliya Illangasinghe</strong>, has been offering a range of music-focused courses for the past 16 years.
+                  A professional guitarist, music producer, music director, and educator with extensive experience in Sri Lanka&apos;s music industry. Co-Founder and former guitarist of &quot;WINGS&quot;, a Sumathi Awards-nominated music director and Raigam Tele&apos;es nominated best teledrama singer, <strong className="font-semibold text-neutral-950">Saliya</strong> founded Meladine Music Conservatory in 2007 with a vision to inspire the next generation of musicians.
                 </p>
 
                 <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base font-light text-neutral-600 leading-relaxed">
-                  In 2008, Saliya began a small guitar class at his home as a favor to friends, teaching them as best he could. What started as an informal gathering has since evolved into a conservatory where more than 250 students have refined their singing and instrumental skills.
+                  Combining professional stage experience with practical music education, he is dedicated to developing confident, creative, and skilled musicians through a passion-driven approach to teaching.
                 </p>
               </div>
 
               {/* Metrics Placed Below Descriptive Text */}
               <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor1 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <div className="flex items-center gap-8 sm:gap-10">
-                  {/* Metric 1: 16+ Years Teaching */}
+                  {/* Metric 1: 19+ Years Teaching */}
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">16+</div>
+                    <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">19+</div>
                     <div className="text-xs sm:text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Years Teaching</div>
                   </div>
 
                   <div className="w-px h-10 bg-neutral-200" />
 
-                  {/* Metric 2: Guitar / Music Theory Specializations */}
+                  {/* Metric 2: Guitar / Music Theory · Music Production Specializations */}
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-sm sm:text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Guitar / Music Theory</div>
+                    <div className="text-sm sm:text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Guitar / Music Theory · Music Production</div>
                     <div className="text-xs sm:text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Specializations</div>
                   </div>
                 </div>
@@ -161,10 +161,8 @@ export default function FeaturedMentor() {
         {/* Relative Container for the Guitar Artwork Package */}
         <div className="relative flex flex-col items-end">
 
-
           {/* Guitar Composition Container (Scaled Up, Lower Z-Index) */}
           <div className="relative w-[340px] sm:w-[420px] md:w-[500px] lg:w-[580px] xl:w-[660px] aspect-[2/3] z-0">
-
 
             {/* Architectural Guitar Image */}
             <Image
@@ -174,8 +172,6 @@ export default function FeaturedMentor() {
               className="object-contain object-center pointer-events-none opacity-10 z-0 rotate-[24deg] origin-center transition-transform"
               priority
             />
-
-
 
           </div>
 
@@ -243,7 +239,7 @@ export default function FeaturedMentor() {
                     meet Dileepa Liyanage
                   </div>
                   <div className="-mt-1 sm:-mt-2 font-handwriting text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#ed1438] font-bold -rotate-1 tracking-wide select-none drop-shadow-xs whitespace-nowrap hover:scale-105 transition-transform cursor-default">
-                    Keyboard specialist
+                    Vocal &amp; keyboard instructor
                   </div>
                 </div>
                 <div className="w-22 sm:w-28 md:w-36 lg:w-40 shrink-0 rotate-[8deg] translate-x-10 sm:translate-x-16 md:translate-x-22 lg:translate-x-26 xl:translate-x-30">
@@ -256,11 +252,11 @@ export default function FeaturedMentor() {
             <div className="mt-4 sm:mt-5 w-[330px] sm:w-[440px] md:w-[540px] lg:w-[620px] xl:w-[680px] text-right -translate-x-3 sm:-translate-x-5 md:-translate-x-7 lg:-translate-x-9 xl:-translate-x-12">
               <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor2 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <p className="text-xs sm:text-sm md:text-base font-light text-neutral-700 leading-relaxed">
-                  With a rich background in piano performance and contemporary harmony, <strong className="font-semibold text-neutral-950">Dileepa Liyanage</strong> guides students through classical mastery, chord voicings, and modern keyboard techniques.
+                  A Music Director, Vocalist, Keyboardist, and Music Producer. He serves as the Music Director of <strong className="font-semibold text-neutral-950">SIMPSON&apos;S</strong>, actively involved in live performance, vocal coaching, music production, and artist development.
                 </p>
 
                 <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base font-light text-neutral-600 leading-relaxed">
-                  From foundational scales, finger dexterity, and sheet reading to creative improvisation and synthesis, lessons are crafted to nurture both expressive musicianship and technical confidence behind the keys.
+                  He has performed with several international bands and gained professional performance experience in Qatar, while continuing to create original music and contemporary musical projects.
                 </p>
               </div>
 
@@ -275,9 +271,9 @@ export default function FeaturedMentor() {
 
                   <div className="w-px h-10 bg-neutral-200" />
 
-                  {/* Metric 2: Piano / Keyboard Specializations */}
+                  {/* Metric 2: Vocal & Keyboard · Music Production */}
                   <div className="flex flex-col items-end text-right group cursor-default">
-                    <div className="text-sm sm:text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-right">Piano / Keyboard</div>
+                    <div className="text-sm sm:text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-right">Vocal &amp; Keyboard · Music Production</div>
                     <div className="text-xs sm:text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Specializations</div>
                   </div>
                 </div>
@@ -308,7 +304,7 @@ export default function FeaturedMentor() {
       </div>
 
       {/* ============================================================ */}
-      {/* 3rd Mentor Showcase: Left Side (Vocals Specialist)           */}
+      {/* 3rd Mentor Showcase: Left Side (Tharindu Perera)              */}
       {/* ============================================================ */}
       <div id="mentor-block-3" data-mentor="mentor3" className="absolute left-0 top-[760px] sm:top-[940px] md:top-[1120px] lg:top-[1280px] xl:top-[1420px] z-20 flex flex-col items-start">
         <div className="relative flex flex-col items-start justify-start -ml-10 sm:-ml-16 md:-ml-24 lg:-ml-32 xl:-ml-40">
@@ -322,17 +318,17 @@ export default function FeaturedMentor() {
               className="object-contain object-left pointer-events-none"
             />
 
-            {/* Hand-drawn Loopy Arrow + "meet Dileepa Liyanage" handwriting on TOP of the description */}
+            {/* Hand-drawn Loopy Arrow + "meet Tharindu Perera" handwriting on TOP of the description */}
             <div className="absolute left-[70%] sm:left-[72%] md:left-[74%] bottom-[52%] sm:bottom-[54%] md:bottom-[56%] lg:bottom-[58%] z-30 flex flex-col items-start pointer-events-none">
               <div className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.93]"}`}>
                 <div className="w-24 sm:w-32 md:w-40 lg:w-44 rotate-[190deg]">
                   <DoodleArrow className="w-full h-auto drop-shadow-sm" />
                 </div>
                 <div className="-mt-6 sm:-mt-8 md:-mt-10 lg:-mt-12 ml-20 sm:ml-28 md:ml-36 lg:ml-42 xl:ml-46 font-handwriting text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-950 font-bold -rotate-3 tracking-wide select-none drop-shadow-xs whitespace-nowrap hover:scale-105 transition-transform cursor-default">
-                  meet Dileepa Liyanage
+                  meet Tharindu Perera
                 </div>
                 <div className="-mt-1 sm:-mt-2 ml-20 sm:ml-28 md:ml-36 lg:ml-42 xl:ml-46 font-handwriting text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#ed1438] font-bold -rotate-2 tracking-wide select-none drop-shadow-xs whitespace-nowrap hover:scale-105 transition-transform cursor-default">
-                  Vocals specialist
+                  Classical vocal &amp; guitar instructor
                 </div>
               </div>
             </div>
@@ -341,28 +337,28 @@ export default function FeaturedMentor() {
             <div className="absolute left-[88%] sm:left-[92%] md:left-[96%] lg:left-[100%] bottom-[28%] sm:bottom-[30%] md:bottom-[32%] lg:bottom-[34%] z-30 w-[350px] sm:w-[460px] md:w-[580px] lg:w-[680px] xl:w-[760px] pointer-events-auto">
               <div className={`transition-all duration-700 delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <p className="text-xs sm:text-sm md:text-base font-light text-neutral-700 leading-relaxed">
-                  Dedicated to unlocking each singer&apos;s natural resonance and authentic expression, our vocal coaching blends diaphragmatic breath control with contemporary phrasing and pitch precision.
+                  Classical Vocal and Guitar Instructor at Meladine Music Conservatory, mentoring students through foundational classical techniques, vocal resonance, and performance artistry.
                 </p>
 
-                <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base font-light text-neutral-600 leading-relaxed">
-                  From foundational vocal health, resonance placement, and range expansion to microphone technique and expressive stage performance, lessons are tailored to empower your unique voice.
+                <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-base font-light text-neutral-500 leading-relaxed italic">
+                  Full mentor biography and masterclass curriculum will be published shortly.
                 </p>
               </div>
 
               {/* Metrics Placed Below Descriptive Text */}
               <div className={`mt-6 transition-all duration-700 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${visible.mentor3 ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-[0.95]"}`}>
                 <div className="flex items-center gap-8 sm:gap-10">
-                  {/* Metric 1: 10+ Years Teaching */}
+                  {/* Metric 1: Faculty */}
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">10+</div>
-                    <div className="text-xs sm:text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Years Teaching</div>
+                    <div className="text-3xl sm:text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">Faculty</div>
+                    <div className="text-xs sm:text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Resident Instructor</div>
                   </div>
 
                   <div className="w-px h-10 bg-neutral-200" />
 
-                  {/* Metric 2: Vocal / Performance Specializations */}
+                  {/* Metric 2: Classical Vocal / Guitar Specializations */}
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-sm sm:text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Vocal / Performance</div>
+                    <div className="text-sm sm:text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Classical Vocal / Guitar</div>
                     <div className="text-xs sm:text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Specializations</div>
                   </div>
                 </div>
