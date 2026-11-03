@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TextPressure from "./TextPressure";
 import DoodleArrow from "./home/DoodleArrow";
@@ -113,25 +112,22 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Giant Bottom Brand Name Section with Interactive Brand Text in Roboto Flex */}
-      <div className="relative w-full mt-10 sm:mt-16 md:mt-20 pt-2 overflow-hidden">
-        {/* Meladine Text in Clearer, More Visible Brand Tint */}
-        <div className="w-full h-[140px] xs:h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] relative flex items-end justify-center">
-          <div className="w-full px-2 sm:px-6 -mb-3 sm:-mb-8 md:-mb-12">
-            <TextPressure
-              text="Meladine"
-              flex
-              alpha={false}
-              stroke={false}
-              width
-              weight
-              italic={false}
-              textColor="#f7a8b4"
-              strokeColor="#f7a8b4"
-              minFontSize={64}
-            />
-          </div>
-        </div>
+      {/* Full-Width Giant Bottom Brand Name Section (Static, Full-Width Edge-to-Edge) */}
+      <div className="relative w-full mt-10 sm:mt-14 md:mt-18 mb-4 sm:mb-6 md:mb-8 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden select-none">
+        <TextPressure
+          text="Meladine"
+          flex
+          alpha={false}
+          stroke={false}
+          width={false}
+          weight={false}
+          italic={false}
+          textColor="#f7a8b4"
+          strokeColor="#f7a8b4"
+          minFontSize={36}
+          maxFontSize={240}
+          animate={false}
+        />
       </div>
 
       {/* Ultra-visible bottom metadata bar */}

@@ -18,6 +18,9 @@ export interface TextPressureProps {
   strokeWidth?: number;
   className?: string;
   minFontSize?: number;
+  maxFontSize?: number;
+  charGap?: string;
+  animate?: boolean;
 }
 
 const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
@@ -31,7 +34,7 @@ const getAttr = (distance: number, maxDist: number, minVal: number, maxVal: numb
   return Math.max(minVal, val + minVal);
 };
 
-const debounce = <T extends (...args: any[]) => void>(func: T, delay: number) => {
+const debounce = <T extends (...args: unknown[]) => void>(func: T, delay: number) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   return (...args: Parameters<T>) => {
     clearTimeout(timeoutId);
@@ -56,7 +59,10 @@ const TextPressure: React.FC<TextPressureProps> = ({
   strokeColor = '#FF0000',
   strokeWidth = 2,
   className = '',
-  minFontSize = 24
+  minFontSize = 32,
+  maxFontSize,
+  charGap,
+  animate = true
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -67,11 +73,13 @@ const TextPressure: React.FC<TextPressureProps> = ({
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
-  const [lineHeight, setLineHeight] = useState(1);
+  const [lineHeight, setLineHeight] = useState(0.95);
 
   const chars = useMemo(() => text.split(''), [text]);
 
   useEffect(() => {
+    if (!animate) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
@@ -99,19 +107,24 @@ const TextPressure: React.FC<TextPressureProps> = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [animate]);
 
   const setSize = useCallback(() => {
     if (!containerRef.current || !titleRef.current) return;
 
     const { width: containerW, height: containerH } = containerRef.current.getBoundingClientRect();
+    if (!containerW) return;
 
-    let newFontSize = containerW / (chars.length / 2);
+    // Full-width scaling: characters take ~65% of container width, leaving ~35% for natural gaps
+    let newFontSize = containerW / (chars.length * 0.88);
     newFontSize = Math.max(newFontSize, minFontSize);
+    if (maxFontSize) {
+      newFontSize = Math.min(newFontSize, maxFontSize);
+    }
 
     setFontSize(newFontSize);
     setScaleY(1);
-    setLineHeight(1);
+    setLineHeight(0.95);
 
     requestAnimationFrame(() => {
       if (!titleRef.current) return;
@@ -123,18 +136,29 @@ const TextPressure: React.FC<TextPressureProps> = ({
         setLineHeight(yRatio);
       }
     });
-  }, [chars.length, minFontSize, scale]);
+  }, [chars.length, minFontSize, maxFontSize, scale]);
 
   useEffect(() => {
+    setSize();
     const debouncedSetSize = debounce(setSize, 100);
-    debouncedSetSize();
     window.addEventListener('resize', debouncedSetSize);
     return () => window.removeEventListener('resize', debouncedSetSize);
   }, [setSize]);
 
   useEffect(() => {
+    if (!animate) {
+      spansRef.current.forEach((span) => {
+        if (!span) return;
+        span.style.fontVariationSettings = "'wght' 700, 'wdth' 100, 'ital' 0";
+        if (alpha) {
+          span.style.opacity = '1';
+        }
+      });
+      return;
+    }
+
     let rafId: number;
-    const animate = () => {
+    const runAnimation = () => {
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
@@ -169,12 +193,12 @@ const TextPressure: React.FC<TextPressureProps> = ({
         });
       }
 
-      rafId = requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(runAnimation);
     };
 
-    animate();
+    runAnimation();
     return () => cancelAnimationFrame(rafId);
-  }, [width, weight, italic, alpha]);
+  }, [animate, width, weight, italic, alpha]);
 
   const styleElement = useMemo(() => {
     return (
@@ -196,24 +220,25 @@ const TextPressure: React.FC<TextPressureProps> = ({
         }
       `}</style>
     );
-  }, [fontFamily, fontUrl, stroke, textColor, strokeColor, strokeWidth]);
+  }, [fontUrl, stroke, textColor, strokeColor, strokeWidth]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full overflow-hidden bg-transparent">
+    <div ref={containerRef} className="relative w-full overflow-hidden bg-transparent">
       {styleElement}
       <h1
         ref={titleRef}
         className={`text-pressure-title ${className} ${
-          flex ? 'flex justify-between' : ''
-        } ${stroke ? 'stroke' : ''} uppercase text-center select-none`}
+          flex ? 'flex justify-between items-baseline w-full' : ''
+        } ${stroke ? 'stroke' : ''} uppercase select-none`}
         style={{
           fontFamily,
-          fontSize: fontSize,
-          lineHeight,
+          fontSize: fontSize ? `${fontSize}px` : 'clamp(2.5rem, 14vw, 13.5rem)',
+          lineHeight: 0.95,
+          gap: charGap,
           transform: `scale(1, ${scaleY})`,
           transformOrigin: 'center top',
           margin: 0,
-          fontWeight: 100,
+          fontWeight: animate ? 100 : 700,
           color: stroke ? undefined : textColor
         }}
       >
@@ -224,7 +249,14 @@ const TextPressure: React.FC<TextPressureProps> = ({
               spansRef.current[i] = el;
             }}
             data-char={char}
-            className="inline-block transition-transform duration-75"
+            className={`inline-block flex-shrink-0 select-none ${animate ? 'transition-transform duration-75' : ''}`}
+            style={
+              !animate
+                ? {
+                    fontVariationSettings: "'wght' 700, 'wdth' 100, 'ital' 0",
+                  }
+                : undefined
+            }
           >
             {char}
           </span>
