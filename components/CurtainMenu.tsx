@@ -11,8 +11,8 @@ interface CurtainMenuProps {
 const NAV_LINKS = [
   { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/about" },
-  { label: "EVENTS", href: "/events" },
   { label: "MENTORS", href: "/mentors" },
+  { label: "EVENTS", href: "/events" },
   { label: "CONTACT", href: "/contact" },
 ];
 
@@ -97,7 +97,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
         {/* 
           CENTER NAVIGATION LINKS
           Even larger monumental condensed typography with wider gaps filling the screen:
-          HOME, ABOUT, EVENTS, MENTORS, CONTACT
+          HOME, ABOUT, MENTORS, EVENTS, CONTACT
         */}
         <div className="flex-1 flex flex-col items-center justify-center my-auto min-h-0">
           <nav aria-label="Main Curtain Navigation" className="w-full text-center">
