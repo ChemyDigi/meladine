@@ -54,7 +54,7 @@ export default function Footer() {
       className="relative w-full bg-white text-neutral-900 pt-16 sm:pt-20 md:pt-24 pb-0 overflow-hidden select-none"
     >
       {/* ============================================================ */}
-      {/* 1. Decorative Background Elements (Treble Clef, Soundwave, Piano) */}
+      {/* 1. Decorative Background Elements (Treble Clef)              */}
       {/* ============================================================ */}
 
       {/* Left: Soft Pink Treble Clef Blueprint Watermark */}
@@ -65,19 +65,6 @@ export default function Footer() {
             alt="Treble Clef Watermark"
             fill
             className="object-contain filter hue-rotate-320 brightness-110"
-            priority
-          />
-        </div>
-      </div>
-
-      {/* Right: Angled Piano Keyboard Watermark */}
-      <div className="absolute right-0 bottom-16 sm:bottom-20 md:bottom-24 z-0 pointer-events-none select-none w-48 sm:w-72 md:w-96 lg:w-[460px] aspect-[224/180]">
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/Footer/piano-keys.png"
-            alt="Piano Keys Watermark"
-            fill
-            className="object-contain object-right-bottom [mask-image:linear-gradient(to_right,transparent,black_18%)]"
             priority
           />
         </div>
@@ -245,14 +232,14 @@ export default function Footer() {
           >
             {/* Glowing Red Accent Curve along the top edge */}
             <path
-              d="M0 58 C 120 22, 220 18, 340 32 C 520 54, 720 72, 940 55 C 1140 40, 1300 20, 1440 42"
+              d="M0 58 C 120 25, 200 18, 320 30 C 460 48, 600 70, 720 70 C 860 70, 960 30, 1060 30 C 1180 30, 1280 62, 1380 62 C 1400 62, 1420 58, 1440 54"
               stroke="#ed1438"
               strokeWidth="4"
               fill="none"
             />
             {/* Dark Charcoal / Black Wave Fill */}
             <path
-              d="M0 58 C 120 22, 220 18, 340 32 C 520 54, 720 72, 940 55 C 1140 40, 1300 20, 1440 42 L 1440 90 L 0 90 Z"
+              d="M0 58 C 120 25, 200 18, 320 30 C 460 48, 600 70, 720 70 C 860 70, 960 30, 1060 30 C 1180 30, 1280 62, 1380 62 C 1400 62, 1420 58, 1440 54 L 1440 90 L 0 90 Z"
               fill="#111111"
             />
           </svg>
