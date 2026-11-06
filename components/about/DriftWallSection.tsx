@@ -15,8 +15,8 @@ export default function DriftWallSection() {
       </div>
 
       {/* Architectural Watermark Drawing: Scaled-up Microphone Blueprint Sketch */}
-      <div className="absolute right-0 sm:right-4 md:right-8 lg:right-12 top-6 sm:top-10 md:top-14 z-0 pointer-events-none select-none opacity-[0.16] md:opacity-[0.18] rotate-12 transition-opacity">
-        <div className="relative w-[380px] sm:w-[500px] md:w-[620px] lg:w-[720px] aspect-[1122/1402]">
+      <div className="absolute right-0 sm:right-4 md:right-8 lg:right-12 top-6 sm:top-10 md:top-14 z-0 pointer-events-none select-none opacity-[0.1] sm:opacity-[0.16] md:opacity-[0.18] rotate-12 transition-opacity">
+        <div className="relative w-[260px] sm:w-[500px] md:w-[620px] lg:w-[720px] aspect-[1122/1402]">
           <Image
             src="/images/Mentors/Microphone.png"
             alt="Microphone Blueprint Architectural Sketch"

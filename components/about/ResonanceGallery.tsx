@@ -319,7 +319,7 @@ export default function ResonanceGallery() {
         >
           {/* Main Stage Container with Perspective Depth */}
           <div
-            className="relative w-full h-[450px] sm:h-[530px] md:h-[610px] lg:h-[650px] pt-8 sm:pt-10 flex items-center justify-center overflow-visible cursor-grab active:cursor-grabbing"
+            className="relative w-full h-[360px] sm:h-[470px] md:h-[540px] lg:h-[650px] pt-4 sm:pt-10 flex items-center justify-center overflow-visible cursor-grab active:cursor-grabbing"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -395,7 +395,7 @@ export default function ResonanceGallery() {
             </div>
 
             {/* Hand-Drawn Annotation: Positioned right next to the gallery in the open white space */}
-            <div className="absolute -top-20 right-2 sm:right-6 md:top-1/2 md:-translate-y-1/2 md:-right-16 lg:-right-24 xl:-right-32 2xl:-right-40 z-30 flex items-center pointer-events-auto select-none scale-75 sm:scale-85 md:scale-90 lg:scale-100 origin-right transition-all duration-300">
+            <div className="absolute bottom-0 right-0 sm:right-2 md:bottom-auto md:top-4 md:right-2 lg:top-1/2 lg:-translate-y-1/2 lg:-right-10 xl:-right-24 2xl:-right-32 z-30 flex items-center pointer-events-auto select-none scale-[0.7] sm:scale-85 md:scale-90 lg:scale-100 origin-bottom-right md:origin-top-right lg:origin-right transition-all duration-300">
               <span className="w-14 sm:w-16 md:w-20 lg:w-24 rotate-[-4deg] shrink-0 block -mr-1 sm:-mr-2">
                 <DoodleArrow className="w-full h-auto drop-shadow-xs" />
               </span>
@@ -526,7 +526,7 @@ export default function ResonanceGallery() {
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-bold text-[#ed1438] tracking-widest uppercase bg-black/60 px-2 py-0.5 rounded-full">
-                    // 0{item.id}
+                    {"// 0"}{item.id}
                   </span>
                   <span className="text-[10px] font-mono text-white/80 uppercase">
                     {item.year}

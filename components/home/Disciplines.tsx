@@ -5,6 +5,8 @@ import Disciplines3D, {
   DisciplineCategory,
   CATEGORIES,
 } from "./Disciplines3D";
+import DisciplinesStatic from "./DisciplinesStatic";
+import { useStaticInstruments } from "@/lib/useMediaQuery";
 
 interface DisciplineData {
   id: DisciplineCategory;
@@ -36,11 +38,17 @@ const DISCIPLINES: Record<DisciplineCategory, DisciplineData> = {
 
 export default function Disciplines() {
   const [activeCategory, setActiveCategory] = useState<DisciplineCategory>("guitar");
+  const activeCategoryRef = useRef<DisciplineCategory>("guitar");
   const containerTrackRef = useRef<HTMLElement>(null);
 
-  // Scroll pinning & scroll-driven category switching
+  // Phones, tablets and touch devices swap the WebGL stage for image renders.
+  const staticInstruments = useStaticInstruments();
+
+  // Scroll pinning & scroll-driven category switching with hysteresis and RAF throttling
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+
+    const checkScroll = () => {
       const container = containerTrackRef.current;
       if (!container) return;
 
@@ -54,26 +62,52 @@ export default function Disciplines() {
       const scrolled = -rect.top;
       const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
-      // Pacing thresholds across the 3 disciplines:
-      // 0.00 - 0.33 : Guitar (01) — generous scroll distance to inspect Guitar
-      // 0.33 - 0.67 : Piano (02) — requires substantial scroll to reach and explore Piano
-      // 0.67 - 1.00 : Vocals (03) — requires substantial scroll to reach and explore Vocals before continuing down
-      if (progress < 0.33) {
-        setActiveCategory("guitar");
-      } else if (progress < 0.67) {
-        setActiveCategory("piano");
+      // Deadband hysteresis prevents boundary flickering and bounce between categories:
+      // Once transitioned to a category, a small scroll reversal won't bounce back.
+      const currentCat = activeCategoryRef.current;
+      let newCat: DisciplineCategory = currentCat;
+
+      if (currentCat === "guitar") {
+        if (progress >= 0.36) {
+          newCat = progress >= 0.68 ? "vocals" : "piano";
+        }
+      } else if (currentCat === "piano") {
+        if (progress <= 0.30) {
+          newCat = "guitar";
+        } else if (progress >= 0.68) {
+          newCat = "vocals";
+        }
       } else {
-        setActiveCategory("vocals");
+        // vocals
+        if (progress <= 0.64) {
+          newCat = progress <= 0.30 ? "guitar" : "piano";
+        }
       }
+
+      if (newCat !== currentCat) {
+        activeCategoryRef.current = newCat;
+        setActiveCategory(newCat);
+      }
+    };
+
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        checkScroll();
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     if (window.__lenis) {
       window.__lenis.on("scroll", handleScroll);
     }
-    handleScroll();
+    checkScroll();
 
     return () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
       window.removeEventListener("scroll", handleScroll);
       if (window.__lenis) {
         window.__lenis.off("scroll", handleScroll);
@@ -94,6 +128,7 @@ export default function Disciplines() {
 
   // Smooth scroll to category when user clicks arrow buttons or models
   const scrollToCategory = useCallback((cat: DisciplineCategory) => {
+    activeCategoryRef.current = cat;
     setActiveCategory(cat);
 
     const idx = CATEGORIES.indexOf(cat);
@@ -134,7 +169,7 @@ export default function Disciplines() {
         As the user scrolls, the 3D models swiftly rotate and swap between Guitar, Piano, and Vocals.
         Once the runway ends, normal scrolling resumes down to the next section.
       */}
-      <div className="sticky top-0 w-full h-[100dvh] bg-white text-neutral-900 overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-6 px-3 sm:px-6 lg:px-8">
+      <div className="sticky top-0 w-full h-screen h-[100svh] min-h-[100svh] bg-white text-neutral-900 overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 px-3 sm:px-6 lg:px-8">
         {/* Background Architectural Grid Lines */}
         <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
           <div className="curtain-grid-columns h-full">
@@ -156,7 +191,7 @@ export default function Disciplines() {
           </div>
 
           {/* 3D Showcase Arena */}
-          <div className="relative w-full flex-1 flex flex-col items-center justify-center min-h-0 -my-2 sm:my-0">
+          <div className="relative w-full flex-1 flex flex-col items-center justify-center min-h-0 translate-y-3 xs:translate-y-5 sm:translate-y-2 lg:translate-y-0">
             {/* ============================================================ */}
             {/* Subtle Background Concentric Acoustic Resonance Circles     */}
             {/* ============================================================ */}
@@ -183,24 +218,33 @@ export default function Disciplines() {
             {/* Handwriting Annotation */}
             <div className="absolute right-2 sm:right-6 md:right-10 lg:right-14 bottom-4 sm:bottom-auto sm:top-[60%] md:top-[62%] z-30 flex flex-col items-end text-right -rotate-2 sm:-rotate-3 select-none pointer-events-none pr-1">
               <span className="font-handwriting text-sm xs:text-base sm:text-xl md:text-2xl lg:text-[1.75rem] text-neutral-950 font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight transition-all duration-300">
-                interactive 3D {activeCategory === "guitar" ? "electric guitar" : activeCategory === "piano" ? "stage keyboard" : "studio mic"}
+                {staticInstruments ? "" : "interactive 3D "}
+                {activeCategory === "guitar" ? "acoustic guitar" : activeCategory === "piano" ? "stage keyboard" : "studio mic"}
               </span>
               <span className="-mt-0.5 sm:-mt-1 font-handwriting text-[10px] xs:text-xs sm:text-sm md:text-base lg:text-[1.15rem] text-[#ed1438] font-bold tracking-wide drop-shadow-xs whitespace-nowrap leading-tight">
-                drag and explore the instruments
+                {staticInstruments ? "tap the names to switch" : "drag and explore the instruments"}
               </span>
             </div>
 
             {/* Three.js Interactive 3D Canvas */}
             <div className="w-full relative z-10 flex-1 flex items-center justify-center min-h-0">
-              <Disciplines3D
-                activeCategory={activeCategory}
-                onSelectCategory={scrollToCategory}
-              />
+              {staticInstruments === false && (
+                <Disciplines3D
+                  activeCategory={activeCategory}
+                  onSelectCategory={scrollToCategory}
+                />
+              )}
+              {staticInstruments === true && (
+                <DisciplinesStatic
+                  activeCategory={activeCategory}
+                  onSelectCategory={scrollToCategory}
+                />
+              )}
             </div>
           </div>
 
           {/* The Iconic 3-Item Typography Bar */}
-          <div className="relative z-20 w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto grid grid-cols-[1fr_auto_1fr] items-end justify-center gap-1.5 sm:gap-6 md:gap-8 pt-1 sm:pt-4 pb-1 sm:pb-4">
+          <div className="relative z-20 w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto grid grid-cols-[1fr_auto_1fr] items-end justify-center gap-1.5 sm:gap-6 md:gap-8 pt-0 sm:pt-2 pb-1 sm:pb-3 -translate-y-1 sm:translate-y-0">
             {/* Left Flanking Label */}
             <div className="flex flex-col items-end text-right pb-0.5 sm:pb-2">
               <button

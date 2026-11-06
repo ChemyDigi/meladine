@@ -309,19 +309,22 @@ export default function AboutTimelineSection() {
   return (
     <div
       ref={containerTrackRef}
-      className="relative w-full h-[500vh] bg-white font-sans"
+      // Negative margins cancel the About page's horizontal padding so the
+      // pinned stage spans the full viewport (its overflow clip otherwise cuts
+      // the orbit labels a few pixels early on tablets).
+      className="relative h-[500vh] bg-white font-sans -mx-6 sm:-mx-10 lg:-mx-14"
     >
       {/* 
         Sticky Viewport:
         Holds the screen in place while the user scrolls through the 500vh runway
       */}
-      <div className="sticky top-0 w-full h-screen min-h-[720px] max-h-screen bg-white text-neutral-900 overflow-hidden select-none flex flex-col justify-between py-10 px-6 sm:px-12 lg:px-20">
+      <div className="sticky top-0 w-full h-dvh min-h-[600px] sm:min-h-[720px] max-h-dvh bg-white text-neutral-900 overflow-hidden select-none flex flex-col justify-between py-6 sm:py-10 px-4 sm:px-12 lg:px-20">
 
         {/* Main Center Stage */}
         <div className="relative z-10 w-full flex-1 flex items-center justify-center">
 
           {/* Left Side: Consistent typography with website (font-display Bebas Neue & font-sans Inter) */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-30 max-w-sm xl:max-w-md hidden md:flex flex-col">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-30 xl:max-w-[320px] 2xl:max-w-md hidden xl:flex flex-col">
             <span className="text-sm sm:text-base font-mono tracking-[0.35em] text-[#ed1438] font-bold uppercase mb-3 block">
               The Evolution of Meladine
             </span>
@@ -329,12 +332,12 @@ export default function AboutTimelineSection() {
               A DISK<br />OF HISTORY
             </h2>
 
-            <p className="mt-5 text-sm sm:text-base text-neutral-600 font-normal leading-relaxed max-w-xs xl:max-w-sm">
+            <p className="mt-5 text-sm sm:text-base text-neutral-600 font-normal leading-relaxed max-w-xs 2xl:max-w-sm">
               2007 — 2026 · A journey of passion, creativity, and musical growth (19+ Years)
             </p>
 
             {/* Active Milestone Story Detail */}
-            <div className="mt-6 pt-5 border-t border-neutral-200/80 max-w-xs xl:max-w-sm transition-all duration-300">
+            <div className="mt-6 pt-5 border-t border-neutral-200/80 max-w-xs 2xl:max-w-sm transition-all duration-300">
               <span className="text-xs font-mono tracking-widest text-[#ed1438] font-bold uppercase block mb-1.5">
                 {currentMilestone.year} · {currentMilestone.tagline}
               </span>
@@ -385,7 +388,7 @@ export default function AboutTimelineSection() {
           </div>
 
           {/* Center Stage: Large CD Disc + Orbit Ring (Sized to fit perfectly within viewport height) */}
-          <div className="relative flex items-center justify-center w-[300px] h-[300px] sm:w-[440px] sm:h-[440px] md:w-[520px] md:h-[520px] lg:w-[580px] lg:h-[580px] xl:w-[620px] xl:h-[620px]">
+          <div className="relative flex items-center justify-center w-[270px] h-[270px] max-sm:-translate-x-7 sm:w-[440px] sm:h-[440px] md:w-[500px] md:h-[500px] lg:w-[560px] lg:h-[560px] xl:w-[480px] xl:h-[480px] 2xl:w-[620px] 2xl:h-[620px]">
 
             {/* The Light Orbital Guide Line: Exact 118% circle centered at (50%, 50%) */}
             <div className="absolute w-[118%] h-[118%] rounded-full border border-neutral-300 pointer-events-none" />
@@ -444,8 +447,10 @@ export default function AboutTimelineSection() {
             {MILESTONES.map((milestone, idx) => {
               const rad = (milestone.angleDeg * Math.PI) / 180;
               // Circle center is 50%, 50%
-              const dotLeftPct = 50 + ORBIT_RADIUS_PCT * Math.cos(rad);
-              const dotTopPct = 50 + ORBIT_RADIUS_PCT * Math.sin(rad);
+              // Rounded so the server-rendered style string matches what the
+              // browser serialises (avoids a hydration attribute mismatch).
+              const dotLeftPct = Number((50 + ORBIT_RADIUS_PCT * Math.cos(rad)).toFixed(2));
+              const dotTopPct = Number((50 + ORBIT_RADIUS_PCT * Math.sin(rad)).toFixed(2));
 
               const isActive = activeIdx === idx;
               const isPast = activeIdx > idx;
@@ -494,7 +499,7 @@ export default function AboutTimelineSection() {
                         {milestone.year}
                       </span>
                       <span
-                        className={`text-[9px] sm:text-[11px] font-mono tracking-[0.16em] uppercase block mt-0.5 transition-colors ${
+                        className={`text-[9px] sm:text-[11px] font-mono tracking-[0.16em] uppercase hidden xl:block mt-0.5 transition-colors ${
                           isActive
                             ? "text-neutral-900 font-bold"
                             : "text-neutral-500"
@@ -513,11 +518,11 @@ export default function AboutTimelineSection() {
         </div>
 
         {/* Mobile active milestone description banner */}
-        <div className="md:hidden w-full pb-2 px-2 text-center z-30 pointer-events-none">
-          <p className="text-xs font-mono text-[#ed1438] font-bold uppercase tracking-wider mb-0.5">
+        <div className="xl:hidden w-full pb-2 px-2 text-center z-30 pointer-events-none">
+          <p className="text-xs sm:text-sm font-mono text-[#ed1438] font-bold uppercase tracking-wider mb-0.5">
             {currentMilestone.year} · {currentMilestone.tagline}
           </p>
-          <p className="text-xs text-neutral-600 line-clamp-2 px-4">
+          <p className="text-xs sm:text-sm text-neutral-600 line-clamp-3 px-4 max-w-md mx-auto">
             {currentMilestone.description}
           </p>
         </div>

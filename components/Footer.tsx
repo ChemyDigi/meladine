@@ -132,7 +132,21 @@ export default function Footer() {
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+
+    // Belt and braces: smooth-scroll libraries can starve the observer during
+    // fast momentum scrolls, so also reveal from plain scroll position.
+    const onScroll = () => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) reveal();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.__lenis?.on("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.__lenis?.off("scroll", onScroll);
+    };
   }, [pathname]);
 
   // The events page closes with its own notify form, so it keeps no footer.

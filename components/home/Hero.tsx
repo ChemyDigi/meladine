@@ -6,6 +6,7 @@ import Link from "next/link";
 import GuitarModel from "./GuitarModel";
 import DoodleArrow from "./DoodleArrow";
 import { playPianoSound } from "@/lib/piano";
+import { useStaticInstruments } from "@/lib/useMediaQuery";
 
 const LETTERS = ["M", "E", "L", "A", "D", "I", "N", "E"];
 const NOTE_LABELS = ["C", "D", "E", "F", "G", "A", "B", "C"];
@@ -30,6 +31,10 @@ export default function Hero() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeClickIdx, setActiveClickIdx] = useState<number | null>(null);
   const [isPlayingAll, setIsPlayingAll] = useState(false);
+
+  // Phones, tablets and touch devices get a pre-rendered image of the guitar
+  // instead of the 35 MB WebGL model. `undefined` until hydrated.
+  const staticInstruments = useStaticInstruments();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -138,7 +143,8 @@ export default function Hero() {
         {/* Layered Composition Stage: Background Text (z-10) with Foreground 3D Guitar (z-20) */}
         <div className="relative w-full flex items-center justify-center min-h-[360px] sm:min-h-[460px] md:min-h-[540px] lg:min-h-[660px] xl:min-h-[700px]">
           
-          {/* Hand-Drawn Annotation 1: Pointing to 3D Guitar (Desktop >= lg) */}
+          {/* Hand-Drawn Annotation 1: Pointing to 3D Guitar (Desktop >= lg, WebGL only) */}
+          {staticInstruments === false && (
           <div
             className={`hidden lg:flex absolute right-[52%] lg:right-[54%] xl:right-[55%] top-[56%] xl:top-[60%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               revealed ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
@@ -157,10 +163,11 @@ export default function Hero() {
               <DoodleArrow className="w-full h-auto drop-shadow-sm" />
             </div>
           </div>
+          )}
 
-          {/* Giant Hero Title in Condensed Display Typography (Z-Index 10: Behind Guitar) */}
+          {/* Giant Hero Title in Condensed Display Typography (Z-Index 10: Positioned above Guitar) */}
           <h1
-            className="relative z-10 -top-14 sm:-top-24 md:-top-32 lg:-top-44 xl:-top-52 w-full text-neutral-950 font-display text-[13.5vw] xs:text-[13vw] sm:text-[12.5vw] md:text-[12vw] lg:text-[13.5rem] xl:text-[14.5rem] leading-[0.85] tracking-tight uppercase select-none text-center whitespace-nowrap pt-2 sm:pt-4 pb-2"
+            className="relative z-10 -top-30 xs:-top-34 sm:-top-40 md:-top-46 lg:-top-52 xl:-top-58 w-full text-neutral-950 font-display text-[13.5vw] xs:text-[13vw] sm:text-[12.5vw] md:text-[12vw] lg:text-[13.5rem] xl:text-[14.5rem] leading-[0.85] tracking-tight uppercase select-none text-center whitespace-nowrap pt-2 sm:pt-4 pb-2"
             title="Click each letter to play piano notes"
           >
             {LETTERS.map((letter, i) => {
@@ -224,7 +231,7 @@ export default function Hero() {
                   {/* Desktop Hand-Drawn Annotation: Anchored to letter 'E' slot (Desktop >= lg) */}
                   {i === 7 && (
                     <span
-                      className={`hidden lg:flex absolute left-[48%] lg:left-[55%] top-[55%] lg:top-[65%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-400 ease-[cubic-bezier(0.16,1,0.3,1)] normal-case tracking-normal ${
+                      className={`hidden xl:flex absolute left-[40%] 2xl:left-[55%] top-[55%] lg:top-[65%] z-30 items-center pointer-events-none select-none transition-all duration-800 delay-400 ease-[cubic-bezier(0.16,1,0.3,1)] normal-case tracking-normal ${
                         revealed ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95"
                       }`}
                     >
@@ -278,8 +285,30 @@ export default function Hero() {
               revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <div className="w-full max-w-[320px] xs:max-w-[360px] sm:max-w-lg md:max-w-xl lg:max-w-2xl h-[300px] xs:h-[340px] sm:h-[420px] md:h-[500px] lg:h-full pointer-events-auto translate-y-8 xs:translate-y-12 sm:translate-y-18 md:translate-y-24 lg:translate-y-36 xl:translate-y-42">
-              <GuitarModel />
+            <div
+              className={`w-full max-w-[320px] xs:max-w-[360px] sm:max-w-lg md:max-w-xl lg:max-w-2xl h-[300px] xs:h-[340px] sm:h-[420px] md:h-[500px] lg:h-full translate-y-10 xs:translate-y-12 sm:translate-y-18 md:translate-y-24 lg:translate-y-36 xl:translate-y-42 ${
+                staticInstruments ? "pointer-events-none" : "pointer-events-auto"
+              }`}
+            >
+              {staticInstruments === false && <GuitarModel />}
+
+              {/* Static render of the same model for phones, tablets and touch devices */}
+              {staticInstruments === true && (
+                <div
+                  className="relative w-full h-full flex items-center justify-center pointer-events-none select-none"
+                  aria-hidden="true"
+                >
+                  <div className="relative h-[94%] sm:h-[86%] aspect-[446/1138]">
+                    <Image
+                      src="/images/3d/electric-guitar.png"
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 45vw, 360px"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -287,7 +316,7 @@ export default function Hero() {
 
         {/* Mobile & Tablet Interactive Bar: Shows Play Button & Hints (Visible on < lg) */}
         <div
-          className={`lg:hidden relative z-30 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-4 mt-2 sm:mt-4 transition-all duration-700 delay-300 ease-out ${
+          className={`xl:hidden relative z-30 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-4 mt-2 sm:mt-4 transition-all duration-700 delay-300 ease-out ${
             revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
@@ -315,7 +344,11 @@ export default function Hero() {
           {/* Touch instructions badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100/80 text-neutral-600 text-[11px] sm:text-xs font-medium">
             <span className="text-[#ed1438]">♫</span>
-            <span>Tap letters to play notes • Drag guitar 360°</span>
+            <span>
+              {staticInstruments
+                ? "Tap letters to play notes"
+                : "Tap letters to play notes • Drag guitar 360°"}
+            </span>
           </div>
         </div>
 

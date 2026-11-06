@@ -7,6 +7,9 @@
 }
 
 @theme inline {
+  /* Extra-small breakpoint (480px). The components already use `xs:` utilities;
+     without this definition Tailwind v4 silently ignored them. */
+  --breakpoint-xs: 30rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-curtain: var(--curtain-red);
@@ -39,6 +42,7 @@ html.lenis, html.lenis body {
   height: auto;
 }
 
+html.lenis,
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }

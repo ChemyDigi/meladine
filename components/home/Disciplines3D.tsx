@@ -536,7 +536,7 @@ export default function Disciplines3D({
   }, []);
 
   return (
-    <div className="relative w-full h-[280px] xs:h-[320px] sm:h-[400px] md:h-[460px] lg:h-[500px] flex items-center justify-center select-none overflow-visible">
+    <div className="relative w-full h-[340px] xs:h-[380px] sm:h-[420px] md:h-[480px] lg:h-[500px] flex items-center justify-center select-none overflow-visible">
       {/* Loading Pulse */}
       {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
