@@ -115,7 +115,7 @@ export default function CurtainMenu({ isOpen, onClose }: CurtainMenuProps) {
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className="group block py-1 px-3 sm:px-4 text-black text-[clamp(3.3rem,13vh,12.5rem)] font-display font-normal leading-[0.86] tracking-tight uppercase transition-all duration-300 hover:text-white hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
+                      className="group block py-1 px-3 sm:px-4 text-black text-[clamp(2.5rem,8vh,4.5rem)] md:text-[clamp(3.3rem,13vh,12.5rem)] font-display font-normal leading-[0.86] tracking-tight uppercase transition-all duration-300 hover:text-white hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
                     >
                       <span className="relative inline-block transition-transform duration-300 group-hover:-translate-y-1">
                         {link.label}
