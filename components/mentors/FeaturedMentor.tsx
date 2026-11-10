@@ -62,7 +62,7 @@ const MENTORS: Mentor[] = [
     anchor: "next-mentor",
     name: "meet Dileepa Liyanage",
     role: "Vocal & keyboard instructor",
-    image: "/images/Home/dileepa.png",
+    image: "/images/Mentors/Dileepa.png",
     imageAlt: "Meladine Artist Dileepa Liyanage",
     sketch: "/images/Mentors/Keyboard.png",
     sketchAspect: "aspect-[1122/1402]",
@@ -85,7 +85,7 @@ const MENTORS: Mentor[] = [
     anchor: "mentor-block-3",
     name: "meet Tharindu Perera",
     role: "Vocal & guitar instructor",
-    image: "/images/Home/tharindu.png",
+    image: "/images/Mentors/Tharindu.png",
     imageAlt: "Meladine Artist Tharindu Perera",
     sketch: "/images/Mentors/Microphone.png",
     sketchAspect: "aspect-[1122/1402]",
@@ -400,7 +400,7 @@ function DesktopShowcase({
       {/* 2nd Mentor Showcase: Right Side (Dileepa Liyanage)           */}
       {/* ============================================================ */}
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
-        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1086/1449] -mr-32 2xl:-mr-40 drop-shadow-2xl">
+        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1086/1448] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
             src="/images/Home/dileepa.png"
             alt="Meladine Artist Dileepa Liyanage"
