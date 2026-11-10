@@ -2,19 +2,38 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { getDb } from "@/lib/firebase";
 
 export default function UpcomingEventsSection() {
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
+    const value = email.trim().toLowerCase();
+    if (!value || saving || submitted) return;
+
+    setSaving(true);
+    setError("");
+    try {
+      await addDoc(collection(getDb(), "eventSubscribers"), {
+        email: value,
+        source: "events-page",
+        createdAt: serverTimestamp(),
+      });
       setSubmitted(true);
       setTimeout(() => {
         setIsSubscribing(false);
       }, 3000);
+    } catch (err) {
+      console.error("Failed to save subscriber", err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -280,9 +299,10 @@ export default function UpcomingEventsSection() {
                   <div className="flex items-center gap-2 w-full sm:w-auto">
                     <button
                       type="submit"
-                      className="flex-1 sm:flex-none px-5 py-2.5 rounded-full bg-[#ed1438] text-white hover:bg-[#c90f2e] text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+                      disabled={saving || submitted}
+                      className="flex-1 sm:flex-none px-5 py-2.5 rounded-full bg-[#ed1438] text-white hover:bg-[#c90f2e] disabled:opacity-70 disabled:cursor-default text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
                     >
-                      {submitted ? "Subscribed!" : "Subscribe"}
+                      {submitted ? "Subscribed!" : saving ? "Saving…" : "Subscribe"}
                     </button>
                     <button
                       type="button"
@@ -299,6 +319,10 @@ export default function UpcomingEventsSection() {
                 <p className="text-xs text-[#ed1438] font-semibold mt-2">
                   ✓ You&apos;re all set! We will notify you as soon as the next event is announced.
                 </p>
+              )}
+
+              {error && (
+                <p className="text-xs text-[#ed1438] font-semibold mt-2">{error}</p>
               )}
             </div>
           </div>
