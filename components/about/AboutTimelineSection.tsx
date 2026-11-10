@@ -22,7 +22,7 @@ const MILESTONES: Milestone[] = [
       "Meladine began as a small guitar class, founded on a passion for music and a vision to inspire aspiring musicians.",
     rotation: 0,
     angleDeg: -60,
-    audioTrack: "/audio/milestone-2010.wav",
+    audioTrack: "/audio/milestone-2010.mp3",
   },
   {
     year: "2012",
@@ -31,7 +31,7 @@ const MILESTONES: Milestone[] = [
       "Meladine organized its first talent show, featuring 16 students and a pioneering Sri Lankan artist as the guest judge.",
     rotation: -26.25,
     angleDeg: -45,
-    audioTrack: "/audio/milestone-2012.wav",
+    audioTrack: "/audio/milestone-2012.mp3",
   },
   {
     year: "2013",
@@ -40,7 +40,7 @@ const MILESTONES: Milestone[] = [
       "Meladine conducted its first visiting teaching session at Sara Music Academy – Kiribathgoda, in collaboration with partners of Yamaha Music Center.",
     rotation: -52.5,
     angleDeg: -30,
-    audioTrack: "/audio/milestone-2012.wav",
+    audioTrack: "/audio/milestone-2012.mp3",
   },
   {
     year: "2014",
@@ -49,7 +49,7 @@ const MILESTONES: Milestone[] = [
       "Meladine presented its first-ever Pocket Show in Kiribathgoda, bringing music beyond the classroom and into the local community.",
     rotation: -78.75,
     angleDeg: -15,
-    audioTrack: "/audio/milestone-2015.wav",
+    audioTrack: "/audio/milestone-2015.mp3",
   },
   {
     year: "2015",
@@ -58,7 +58,7 @@ const MILESTONES: Milestone[] = [
       "Meladine hosted its first workshop, bringing together more than 100 music lovers for a shared musical experience.",
     rotation: -105,
     angleDeg: 0,
-    audioTrack: "/audio/milestone-2015.wav",
+    audioTrack: "/audio/milestone-2015.mp3",
   },
   {
     year: "2018",
@@ -67,7 +67,7 @@ const MILESTONES: Milestone[] = [
       "Meladine introduced a studio-based learning environment, giving students the opportunity to experience music education in a music studio setting.",
     rotation: -131.25,
     angleDeg: 15,
-    audioTrack: "/audio/milestone-2018.wav",
+    audioTrack: "/audio/milestone-2018.mp3",
   },
   {
     year: "2022",
@@ -76,7 +76,7 @@ const MILESTONES: Milestone[] = [
       "A celebration of student talent, creativity, and musical expression that continued Meladine's tradition of encouraging performers.",
     rotation: -157.5,
     angleDeg: 30,
-    audioTrack: "/audio/milestone-2020.wav",
+    audioTrack: "/audio/milestone-2020.mp3",
   },
   {
     year: "2025",
@@ -85,7 +85,7 @@ const MILESTONES: Milestone[] = [
       "Meladine expanded its educational offerings with the introduction of vocal and keyboard training classes.",
     rotation: -183.75,
     angleDeg: 45,
-    audioTrack: "/audio/milestone-2018.wav",
+    audioTrack: "/audio/milestone-2018.mp3",
   },
   {
     year: "2026",
@@ -94,7 +94,7 @@ const MILESTONES: Milestone[] = [
       "A landmark celebration bringing Meladine's students together on one stage to showcase their musical development, dedication, and passion for performance.",
     rotation: -210,
     angleDeg: 60,
-    audioTrack: "/audio/milestone-2020.wav",
+    audioTrack: "/audio/milestone-2020.mp3",
   },
 ];
 
@@ -237,21 +237,27 @@ export default function AboutTimelineSection() {
     };
   }, []);
 
-  // Preload and initialize audio tracks for each milestone + transition chime
+  // Create the milestone players + transition chime. Nothing is fetched here:
+  // preload is "none" (set before src, so the browser does not even request
+  // metadata). warmAudio() switches the active track and the chime to
+  // preload "auto" once the timeline is on screen; other tracks load when
+  // first played.
   useEffect(() => {
     const audios: { [key: number]: HTMLAudioElement } = {};
 
     MILESTONES.forEach((milestone, idx) => {
-      const audio = new Audio(milestone.audioTrack || "/audio/cd-ambient-journey.wav");
+      const audio = new Audio();
+      audio.preload = "none";
+      audio.src = milestone.audioTrack || "/audio/cd-ambient-journey.mp3";
       audio.loop = true;
       audio.volume = 0.75; // Crisp volume
-      audio.preload = "auto";
       audios[idx] = audio;
     });
 
-    const trans = new Audio("/audio/milestone-transition.wav");
+    const trans = new Audio();
+    trans.preload = "none";
+    trans.src = "/audio/milestone-transition.mp3";
     trans.volume = 0.85;
-    trans.preload = "auto";
     transitionAudioRef.current = trans;
 
     audioMapRef.current = audios;
@@ -318,6 +324,15 @@ export default function AboutTimelineSection() {
     Object.values(audioMapRef.current).forEach((a) => a.pause());
   }, []);
 
+  // Start fetching the active track and the transition chime (≈200 KB)
+  // once the timeline is on screen, so pressing play / switching is instant.
+  const warmAudio = useCallback(() => {
+    const current = audioMapRef.current[currentActiveIdxRef.current];
+    if (current && current.preload === "none") current.preload = "auto";
+    const trans = transitionAudioRef.current;
+    if (trans && trans.preload === "none") trans.preload = "auto";
+  }, []);
+
   // Standard scroll speed tracking milestones + audio track switching
   useEffect(() => {
     const handleScroll = () => {
@@ -332,6 +347,7 @@ export default function AboutTimelineSection() {
       const inView = rect.top <= windowH * 0.45 && rect.bottom >= windowH * 0.15;
       if (inView !== isInViewRef.current) {
         isInViewRef.current = inView;
+        if (inView) warmAudio();
         if (inView && isAudioEnabled) {
           playCurrentAudio();
         } else {
@@ -407,7 +423,7 @@ export default function AboutTimelineSection() {
       window.removeEventListener("click", handleUserInteraction);
       window.removeEventListener("touchstart", handleUserInteraction);
     };
-  }, [isAudioEnabled, playCurrentAudio, pauseAllAudio, switchTrackTo, applyPin]);
+  }, [isAudioEnabled, playCurrentAudio, pauseAllAudio, switchTrackTo, applyPin, warmAudio]);
 
   const toggleAudio = () => {
     const nextState = !isAudioEnabled;

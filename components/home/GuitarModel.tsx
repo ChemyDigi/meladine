@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 
 export default function GuitarModel() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -94,8 +95,10 @@ export default function GuitarModel() {
     shadowPlane.position.y = -targetHeight / 2 + yOffset - 0.02;
     scene.add(shadowPlane);
 
-    // 7. Load Guitar 3D Model
+    // 7. Load Guitar 3D Model (meshopt-compressed GLB with WebP textures,
+    // produced by gltf-transform — see scripts/optimize-media/README.md)
     const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
 
     loader.load(
       "/models/electric_guitar.glb",

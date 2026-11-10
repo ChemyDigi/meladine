@@ -17,6 +17,7 @@
 <script type="module">
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 
 const q = new URLSearchParams(location.search);
 const preset = q.get("preset");
@@ -44,6 +45,7 @@ function shadowTexture(stops) {
 
 let camera;
 const loader = new GLTFLoader();
+loader.setMeshoptDecoder(MeshoptDecoder); // public/models are meshopt-compressed
 
 function finish() {
   // Render a few frames so textures settle, then expose the PNG.

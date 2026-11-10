@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 
 export type DisciplineCategory = "guitar" | "piano" | "vocals";
 
@@ -184,8 +185,9 @@ export default function Disciplines3D({
 
     const clickableMeshes: { mesh: THREE.Object3D; category: DisciplineCategory }[] = [];
 
-    // 7. Load GLTF Models
+    // 7. Load GLTF Models (meshopt-compressed GLBs with WebP textures)
     const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
     let loadedCount = 0;
 
     CATEGORIES.forEach((cat) => {
