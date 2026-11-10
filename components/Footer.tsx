@@ -165,7 +165,7 @@ export default function Footer() {
   return (
     <footer
       id="site-main-footer"
-      className="relative w-full bg-white text-neutral-900 overflow-hidden border-t border-neutral-200/80"
+      className="relative w-full bg-white text-neutral-900 overflow-hidden"
     >
       {/* ============================================================ */}
       {/* Background: architectural hairline grid (shared by sections) */}

@@ -97,7 +97,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[100dvh] w-full bg-white flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-6 sm:pb-10 lg:pb-12 px-4 sm:px-8 md:px-10 lg:px-14 overflow-x-hidden overflow-y-visible"
+      className="relative min-h-[100dvh] w-full bg-white flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-6 sm:pb-10 lg:pb-12 px-4 sm:px-8 md:px-10 lg:px-14 overflow-x-clip"
     >
       {/* ============================================================ */}
       {/* Background Architectural Grid & Subtle Watermark Drawings    */}
