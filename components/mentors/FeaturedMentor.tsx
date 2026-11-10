@@ -62,8 +62,8 @@ const MENTORS: Mentor[] = [
     anchor: "next-mentor",
     name: "meet Dileepa Liyanage",
     role: "Vocal & keyboard instructor",
-    image: "/images/Mentors/Chair.png",
-    imageAlt: "Meladine Conservatory Chair",
+    image: "/images/Home/dileepa.png",
+    imageAlt: "Meladine Artist Dileepa Liyanage",
     sketch: "/images/Mentors/Keyboard.png",
     sketchAspect: "aspect-[1122/1402]",
     paragraphs: [
@@ -85,8 +85,8 @@ const MENTORS: Mentor[] = [
     anchor: "mentor-block-3",
     name: "meet Tharindu Perera",
     role: "Vocal & guitar instructor",
-    image: "/images/Mentors/Chair.png",
-    imageAlt: "Meladine Conservatory Chair",
+    image: "/images/Home/tharindu.png",
+    imageAlt: "Meladine Artist Tharindu Perera",
     sketch: "/images/Mentors/Microphone.png",
     sketchAspect: "aspect-[1122/1402]",
     paragraphs: [
@@ -400,10 +400,10 @@ function DesktopShowcase({
       {/* 2nd Mentor Showcase: Right Side (Dileepa Liyanage)           */}
       {/* ============================================================ */}
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
-        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1122/1402] -mr-32 2xl:-mr-40 drop-shadow-2xl">
+        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1086/1449] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
-            src="/images/Mentors/Chair.png"
-            alt="Meladine Conservatory Chair"
+            src="/images/Home/dileepa.png"
+            alt="Meladine Artist Dileepa Liyanage"
             fill
             sizes="700px"
             className="object-contain object-right pointer-events-none"
@@ -486,10 +486,10 @@ function DesktopShowcase({
         <div className="relative flex flex-col items-start justify-start -ml-32 2xl:-ml-40">
 
           {/* Image + Attached Doodle Arrow & Text Package */}
-          <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1122/1402] drop-shadow-2xl">
+          <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1086/1448] drop-shadow-2xl">
             <Image
-              src="/images/Mentors/Chair.png"
-              alt="Meladine Conservatory Chair"
+              src="/images/Home/tharindu.png"
+              alt="Meladine Artist Tharindu Perera"
               fill
               sizes="740px"
               className="object-contain object-left pointer-events-none"
