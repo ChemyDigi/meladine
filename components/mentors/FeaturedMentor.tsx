@@ -62,7 +62,7 @@ const MENTORS: Mentor[] = [
     anchor: "next-mentor",
     name: "meet Dileepa Liyanage",
     role: "Vocal & keyboard instructor",
-    image: "/images/Mentors/Dileepa.png",
+    image: "/images/Mentors/dileepa-vocal.png",
     imageAlt: "Meladine Artist Dileepa Liyanage",
     sketch: "/images/Mentors/Keyboard.png",
     sketchAspect: "aspect-[1122/1402]",
@@ -402,7 +402,7 @@ function DesktopShowcase({
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
         <div className="relative w-[620px] 2xl:w-[700px] aspect-[1122/1402] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
-            src="/images/Mentors/Dileepa.png"
+            src="/images/Mentors/dileepa-vocal.png"
             alt="Meladine Artist Dileepa Liyanage"
             fill
             sizes="700px"
