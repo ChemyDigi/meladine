@@ -62,8 +62,8 @@ const MENTORS: Mentor[] = [
     anchor: "next-mentor",
     name: "meet Dileepa Liyanage",
     role: "Vocal & keyboard instructor",
-    image: "/images/Mentors/Chair.png",
-    imageAlt: "Meladine Conservatory Chair",
+    image: "/images/Mentors/Dileepa.png",
+    imageAlt: "Meladine Artist Dileepa Liyanage",
     sketch: "/images/Mentors/Keyboard.png",
     sketchAspect: "aspect-[1122/1402]",
     paragraphs: [
@@ -84,22 +84,22 @@ const MENTORS: Mentor[] = [
     id: "mentor3",
     anchor: "mentor-block-3",
     name: "meet Tharindu Perera",
-    role: "Classical vocal & guitar instructor",
-    image: "/images/Mentors/Chair.png",
-    imageAlt: "Meladine Conservatory Chair",
+    role: "Vocal & guitar instructor",
+    image: "/images/Mentors/Tharindu.png",
+    imageAlt: "Meladine Artist Tharindu Perera",
     sketch: "/images/Mentors/Microphone.png",
     sketchAspect: "aspect-[1122/1402]",
     paragraphs: [
       <React.Fragment key="tharindu-1">
-        Classical Vocal and Guitar Instructor at Meladine Music Conservatory, mentoring students through foundational classical techniques, vocal resonance, and performance artistry.
+        A music producer, vocalist, lyricist, and educator with 5 years experience in music education. Graduated from the University of Visual and Performing Arts, Visharadha in North Indian Vocal and North Indian Violin, and Founder of <strong className="font-semibold text-neutral-950">SoulFrame Studios</strong>.
       </React.Fragment>,
-      <span key="tharindu-2" className="italic text-neutral-500">
-        Full mentor biography and masterclass curriculum will be published shortly.
-      </span>,
+      <React.Fragment key="tharindu-2">
+        Learn the proper theory and break the frame with creativity and confidence.
+      </React.Fragment>,
     ],
     metrics: [
-      { value: "Faculty", label: "Resident Instructor" },
-      { value: "Classical Vocal / Guitar", label: "Specializations", small: true },
+      { value: "5+", label: "Years Experience" },
+      { value: "Teaching Guitar · Vocal · Local School Syllabus", label: "Specializations", small: true },
     ],
     align: "left",
   },
@@ -402,8 +402,8 @@ function DesktopShowcase({
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
         <div className="relative w-[620px] 2xl:w-[700px] aspect-[1122/1402] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
-            src="/images/Mentors/Chair.png"
-            alt="Meladine Conservatory Chair"
+            src="/images/Mentors/Dileepa.png"
+            alt="Meladine Artist Dileepa Liyanage"
             fill
             sizes="700px"
             className="object-contain object-right pointer-events-none"
@@ -488,8 +488,8 @@ function DesktopShowcase({
           {/* Image + Attached Doodle Arrow & Text Package */}
           <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1122/1402] drop-shadow-2xl">
             <Image
-              src="/images/Mentors/Chair.png"
-              alt="Meladine Conservatory Chair"
+              src="/images/Mentors/Tharindu.png"
+              alt="Meladine Artist Tharindu Perera"
               fill
               sizes="740px"
               className="object-contain object-left pointer-events-none"
@@ -505,7 +505,7 @@ function DesktopShowcase({
                   meet Tharindu Perera
                 </div>
                 <div className="-mt-2 ml-42 2xl:ml-46 font-handwriting text-4xl text-[#ed1438] font-bold -rotate-2 tracking-wide select-none drop-shadow-xs whitespace-nowrap hover:scale-105 transition-transform cursor-default">
-                  Classical vocal &amp; guitar instructor
+                  Vocal &amp; guitar instructor
                 </div>
               </div>
             </div>
@@ -514,11 +514,11 @@ function DesktopShowcase({
             <div className="absolute left-[100%] bottom-[24%] 2xl:bottom-[34%] z-30 w-[600px] 2xl:w-[760px] pointer-events-auto">
               <div className={`${EASE} delay-150 ${visible.mentor3 ? ENTER : HIDDEN}`}>
                 <p className="text-base font-light text-neutral-700 leading-relaxed">
-                  Classical Vocal and Guitar Instructor at Meladine Music Conservatory, mentoring students through foundational classical techniques, vocal resonance, and performance artistry.
+                  A music producer, vocalist, lyricist, and educator with 5 years experience in music education. Graduated from the University of Visual and Performing Arts, Visharadha in North Indian Vocal and North Indian Violin, and Founder of <strong className="font-semibold text-neutral-950">SoulFrame Studios</strong>.
                 </p>
 
-                <p className="mt-2.5 text-base font-light text-neutral-500 leading-relaxed italic">
-                  Full mentor biography and masterclass curriculum will be published shortly.
+                <p className="mt-2.5 text-base font-light text-neutral-600 leading-relaxed">
+                  Learn the proper theory and break the frame with creativity and confidence.
                 </p>
               </div>
 
@@ -526,14 +526,14 @@ function DesktopShowcase({
               <div className={`mt-6 ${EASE} delay-300 ${visible.mentor3 ? ENTER : HIDDEN}`}>
                 <div className="flex items-center gap-10">
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">Faculty</div>
-                    <div className="text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Resident Instructor</div>
+                    <div className="text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">5+</div>
+                    <div className="text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Years Experience</div>
                   </div>
 
                   <div className="w-px h-10 bg-neutral-200" />
 
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Classical Vocal / Guitar</div>
+                    <div className="text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Teaching Guitar · Vocal · Local School Syllabus</div>
                     <div className="text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Specializations</div>
                   </div>
                 </div>
