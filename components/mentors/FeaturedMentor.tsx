@@ -85,7 +85,7 @@ const MENTORS: Mentor[] = [
     anchor: "mentor-block-3",
     name: "meet Tharindu Perera",
     role: "Vocal & guitar instructor",
-    image: "/images/Mentors/Tharindu.png",
+    image: "/images/Mentors/tharindu-vocal.png",
     imageAlt: "Meladine Artist Tharindu Perera",
     sketch: "/images/Mentors/Microphone.png",
     sketchAspect: "aspect-[1122/1402]",
@@ -267,7 +267,7 @@ function DesktopShowcase({
   onNextMentor: () => void;
 }) {
   return (
-    <section className="relative w-full min-h-[2200px] 2xl:min-h-[2380px] pt-16 pb-10 flex flex-col items-start justify-start overflow-hidden">
+    <section className="relative w-full min-h-[2260px] 2xl:min-h-[2480px] pt-16 pb-10 flex flex-col items-start justify-start overflow-hidden">
       {/* Background Architectural Subtle Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
         <div className="curtain-grid-columns h-full">
@@ -400,9 +400,9 @@ function DesktopShowcase({
       {/* 2nd Mentor Showcase: Right Side (Dileepa Liyanage)           */}
       {/* ============================================================ */}
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
-        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1086/1448] -mr-32 2xl:-mr-40 drop-shadow-2xl">
+        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1122/1402] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
-            src="/images/Home/dileepa.png"
+            src="/images/Mentors/Dileepa.png"
             alt="Meladine Artist Dileepa Liyanage"
             fill
             sizes="700px"
@@ -486,9 +486,9 @@ function DesktopShowcase({
         <div className="relative flex flex-col items-start justify-start -ml-32 2xl:-ml-40">
 
           {/* Image + Attached Doodle Arrow & Text Package */}
-          <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1086/1448] drop-shadow-2xl">
+          <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1122/1402] drop-shadow-2xl">
             <Image
-              src="/images/Home/tharindu.png"
+              src="/images/Mentors/tharindu-vocal.png"
               alt="Meladine Artist Tharindu Perera"
               fill
               sizes="740px"
