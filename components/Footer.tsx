@@ -149,11 +149,6 @@ export default function Footer() {
     };
   }, [pathname]);
 
-  // The events page closes with its own notify form, so it keeps no footer.
-  if (pathname === "/events") {
-    return null;
-  }
-
   const scrollToTop = () => {
     if (window.__lenis) {
       window.__lenis.scrollTo(0, { duration: 1.4 });
@@ -165,7 +160,7 @@ export default function Footer() {
   return (
     <footer
       id="site-main-footer"
-      className="relative w-full bg-white text-neutral-900 overflow-hidden border-t border-neutral-200/80"
+      className="relative w-full bg-white text-neutral-900 overflow-hidden"
     >
       {/* ============================================================ */}
       {/* Background: architectural hairline grid (shared by sections) */}

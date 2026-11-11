@@ -91,15 +91,15 @@ const MENTORS: Mentor[] = [
     sketchAspect: "aspect-[1122/1402]",
     paragraphs: [
       <React.Fragment key="tharindu-1">
-        A music producer, vocalist, lyricist, and educator with 5 years experience in music education. Graduated from the University of Visual and Performing Arts, Visharadha in North Indian Vocal and North Indian Violin, and Founder of <strong className="font-semibold text-neutral-950">SoulFrame Studios</strong>.
+        A Music Producer, Vocalist, Lyricist, and Educator with 5 years of experience in music education. He graduated from the University of Visual and Performing Arts, holds a Visharadha in North Indian Vocal and North Indian Violin, and is the Founder of <strong className="font-semibold text-neutral-950">SoulFrame Studios</strong>.
       </React.Fragment>,
       <React.Fragment key="tharindu-2">
-        Learn the proper theory and break the frame with creativity and confidence.
+        Teaching guitar, vocals, and the local school syllabus, he helps students learn proper theory and break the frame with creativity and confidence.
       </React.Fragment>,
     ],
     metrics: [
-      { value: "5+", label: "Years Experience" },
-      { value: "Teaching Guitar · Vocal · Local School Syllabus", label: "Specializations", small: true },
+      { value: "5+", label: "Years Teaching" },
+      { value: "Guitar · Vocal · Local School Syllabus", label: "Specializations", small: true },
     ],
     align: "left",
   },
@@ -400,9 +400,9 @@ function DesktopShowcase({
       {/* 2nd Mentor Showcase: Right Side (Dileepa Liyanage)           */}
       {/* ============================================================ */}
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
-        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1122/1402] -mr-32 2xl:-mr-40 drop-shadow-2xl">
+        <div className="relative w-[620px] 2xl:w-[700px] aspect-[1086/1448] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
-            src="/images/Mentors/Dileepa.png"
+            src="/images/Home/dileepa.png"
             alt="Meladine Artist Dileepa Liyanage"
             fill
             sizes="700px"
@@ -486,9 +486,9 @@ function DesktopShowcase({
         <div className="relative flex flex-col items-start justify-start -ml-32 2xl:-ml-40">
 
           {/* Image + Attached Doodle Arrow & Text Package */}
-          <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1122/1402] drop-shadow-2xl">
+          <div className="relative z-20 w-[660px] 2xl:w-[740px] aspect-[1086/1448] drop-shadow-2xl">
             <Image
-              src="/images/Mentors/Tharindu.png"
+              src="/images/Home/tharindu.png"
               alt="Meladine Artist Tharindu Perera"
               fill
               sizes="740px"
@@ -514,11 +514,11 @@ function DesktopShowcase({
             <div className="absolute left-[100%] bottom-[24%] 2xl:bottom-[34%] z-30 w-[600px] 2xl:w-[760px] pointer-events-auto">
               <div className={`${EASE} delay-150 ${visible.mentor3 ? ENTER : HIDDEN}`}>
                 <p className="text-base font-light text-neutral-700 leading-relaxed">
-                  A music producer, vocalist, lyricist, and educator with 5 years experience in music education. Graduated from the University of Visual and Performing Arts, Visharadha in North Indian Vocal and North Indian Violin, and Founder of <strong className="font-semibold text-neutral-950">SoulFrame Studios</strong>.
+                  A Music Producer, Vocalist, Lyricist, and Educator with 5 years of experience in music education. He graduated from the University of Visual and Performing Arts, holds a Visharadha in North Indian Vocal and North Indian Violin, and is the Founder of <strong className="font-semibold text-neutral-950">SoulFrame Studios</strong>.
                 </p>
 
                 <p className="mt-2.5 text-base font-light text-neutral-600 leading-relaxed">
-                  Learn the proper theory and break the frame with creativity and confidence.
+                  Teaching guitar, vocals, and the local school syllabus, he helps students learn proper theory and break the frame with creativity and confidence.
                 </p>
               </div>
 
@@ -527,13 +527,13 @@ function DesktopShowcase({
                 <div className="flex items-center gap-10">
                   <div className="flex flex-col group cursor-default">
                     <div className="text-4xl font-display font-bold text-[#ed1438] leading-none group-hover:scale-105 transition-transform duration-200 origin-left">5+</div>
-                    <div className="text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Years Experience</div>
+                    <div className="text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Years Teaching</div>
                   </div>
 
                   <div className="w-px h-10 bg-neutral-200" />
 
                   <div className="flex flex-col group cursor-default">
-                    <div className="text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Teaching Guitar · Vocal · Local School Syllabus</div>
+                    <div className="text-base font-bold font-sans text-[#ed1438] leading-tight group-hover:scale-105 transition-transform duration-200 origin-left">Guitar · Vocal · Local School Syllabus</div>
                     <div className="text-sm text-neutral-500 font-sans font-medium tracking-tight mt-1">Specializations</div>
                   </div>
                 </div>
