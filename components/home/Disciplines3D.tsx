@@ -1,13 +1,21 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
+import { createSafeWebGLRenderer } from "@/lib/threeSafeRenderer";
 
 export type DisciplineCategory = "guitar" | "piano" | "vocals";
 
 export const CATEGORIES: DisciplineCategory[] = ["guitar", "piano", "vocals"];
+
+const FALLBACK_IMAGES: Record<DisciplineCategory, string> = {
+  guitar: "/images/3d/acoustic-guitar.png",
+  piano: "/images/3d/keyboard.png",
+  vocals: "/images/3d/microphone.png",
+};
 
 interface Disciplines3DProps {
   activeCategory: DisciplineCategory;
@@ -20,6 +28,8 @@ export default function Disciplines3D({
 }: Disciplines3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasWebGLError, setHasWebGLError] = useState(false);
+
   const activeCategoryRef = useRef(activeCategory);
   activeCategoryRef.current = activeCategory;
 
@@ -40,6 +50,8 @@ export default function Disciplines3D({
     if (!container) return;
 
     let isDisposed = false;
+    let animId: number;
+    let renderer: THREE.WebGLRenderer | null = null;
 
     const width = container.clientWidth || 900;
     const height = container.clientHeight || 560;
@@ -51,17 +63,25 @@ export default function Disciplines3D({
     const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
     camera.position.set(0, 0.0, 4.6);
 
-    // 3. Renderer with transparent background
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
+    // 3. Renderer with transparent background and safe WebGL initialization
+    renderer = createSafeWebGLRenderer();
+    if (!renderer) {
+      setHasWebGLError(true);
+      return;
+    }
+
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.35;
     container.appendChild(renderer.domElement);
+
+    // Prevent browser from blocking page if context loss occurs
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn("Disciplines3D WebGL context lost; prevented browser block.");
+    };
+    renderer.domElement.addEventListener("webglcontextlost", handleContextLost, false);
 
     // 4. Studio Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 2.1);
@@ -291,7 +311,8 @@ export default function Disciplines3D({
         },
         undefined,
         (err) => {
-          console.error(`Error loading 3D model for ${cat}:`, err);
+          console.warn(`Could not load 3D model for ${cat}, falling back to 2D:`, err);
+          if (!isDisposed) setHasWebGLError(true);
         }
       );
     });
@@ -376,13 +397,12 @@ export default function Disciplines3D({
     let responsiveSpacingX = 1.65;
 
     // 10. Animation Loop
-    let animId: number;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
 
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) / 1000;
       const spreadX = responsiveSpacingX;
 
       CATEGORIES.forEach((cat) => {
@@ -530,12 +550,77 @@ export default function Disciplines3D({
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerUp);
       cancelAnimationFrame(animId);
-      renderer.dispose();
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
+
+      if (renderer) {
+        renderer.domElement.removeEventListener("webglcontextlost", handleContextLost);
+        try {
+          renderer.dispose();
+          renderer.forceContextLoss();
+        } catch {}
+        if (container && renderer.domElement && container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
       }
     };
   }, []);
+
+  if (hasWebGLError) {
+    const activeIdx = CATEGORIES.indexOf(activeCategory);
+    const leftCat = CATEGORIES[(activeIdx - 1 + CATEGORIES.length) % CATEGORIES.length];
+    const rightCat = CATEGORIES[(activeIdx + 1) % CATEGORIES.length];
+
+    return (
+      <div className="relative w-full h-[340px] xs:h-[380px] sm:h-[420px] md:h-[480px] lg:h-[500px] flex items-center justify-center select-none overflow-hidden">
+        {/* Left instrument thumbnail button */}
+        <button
+          type="button"
+          onClick={() => onSelectCategory(leftCat)}
+          className="absolute left-[4%] sm:left-[8%] md:left-[12%] w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 opacity-35 hover:opacity-75 transition-all duration-300 scale-75 cursor-pointer z-0 group"
+          aria-label={`Switch to ${leftCat}`}
+        >
+          <div className="relative w-full h-full filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300">
+            <Image
+              src={FALLBACK_IMAGES[leftCat]}
+              alt={leftCat}
+              fill
+              sizes="(max-width: 640px) 128px, (max-width: 768px) 176px, 224px"
+              className="object-contain"
+            />
+          </div>
+        </button>
+
+        {/* Center active instrument */}
+        <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 z-10 transition-all duration-500 transform hover:scale-105">
+          <Image
+            src={FALLBACK_IMAGES[activeCategory]}
+            alt={activeCategory}
+            fill
+            sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, 320px"
+            className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.22)]"
+            priority
+          />
+        </div>
+
+        {/* Right instrument thumbnail button */}
+        <button
+          type="button"
+          onClick={() => onSelectCategory(rightCat)}
+          className="absolute right-[4%] sm:right-[8%] md:right-[12%] w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 opacity-35 hover:opacity-75 transition-all duration-300 scale-75 cursor-pointer z-0 group"
+          aria-label={`Switch to ${rightCat}`}
+        >
+          <div className="relative w-full h-full filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300">
+            <Image
+              src={FALLBACK_IMAGES[rightCat]}
+              alt={rightCat}
+              fill
+              sizes="(max-width: 640px) 128px, (max-width: 768px) 176px, 224px"
+              className="object-contain"
+            />
+          </div>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-[340px] xs:h-[380px] sm:h-[420px] md:h-[480px] lg:h-[500px] flex items-center justify-center select-none overflow-visible">

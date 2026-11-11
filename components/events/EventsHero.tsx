@@ -26,16 +26,6 @@ export default function EventsHero() {
       id="events-hero"
       className="relative w-full min-h-[92vh] lg:min-h-screen bg-white overflow-hidden flex flex-col justify-center pt-28 sm:pt-32 md:pt-36 lg:pt-28 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-14 select-none"
     >
-      {/* ============================================================ */}
-      {/* Background Architectural Grid Lines                          */}
-      {/* ============================================================ */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 z-0" aria-hidden="true">
-        <div className="curtain-grid-columns h-full">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="border-r border-neutral-200 h-full" />
-          ))}
-        </div>
-      </div>
 
       {/* ============================================================ */}
       {/* Floating 3D Glossy Musical Note (Bottom Left)                */}

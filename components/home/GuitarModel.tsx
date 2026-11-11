@@ -1,44 +1,59 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
+import { createSafeWebGLRenderer } from "@/lib/threeSafeRenderer";
 
 export default function GuitarModel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasWebGLError, setHasWebGLError] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    let isDisposed = false;
+    let animationFrameId: number;
+    let controls: OrbitControls | null = null;
+
     const width = container.clientWidth || 600;
     const height = container.clientHeight || 450;
 
-    // 1. Scene Setup
+    // 1. Safe WebGL Renderer Setup (prevents unhandled context loss crashes and Next.js dev overlays)
+    const renderer = createSafeWebGLRenderer();
+    if (!renderer) {
+      setHasWebGLError(true);
+      return;
+    }
+
+    // 2. Scene Setup
     const scene = new THREE.Scene();
 
-    // 2. Camera Setup
+    // 3. Camera Setup
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
     const yOffset = 0.04;
     camera.position.set(0, yOffset, 4.75);
 
-    // 3. Renderer Setup with transparent background
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.35;
     container.appendChild(renderer.domElement);
 
+    // Prevent browser from blocking page if context loss occurs
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn("GuitarModel WebGL context lost; prevented browser block.");
+    };
+    renderer.domElement.addEventListener("webglcontextlost", handleContextLost, false);
+
     // 4. Orbit Controls (Locked to single horizontal rotation axis)
-    const controls = new OrbitControls(camera, renderer.domElement);
+    controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, yOffset, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
@@ -95,14 +110,14 @@ export default function GuitarModel() {
     shadowPlane.position.y = -targetHeight / 2 + yOffset - 0.02;
     scene.add(shadowPlane);
 
-    // 7. Load Guitar 3D Model (meshopt-compressed GLB with WebP textures,
-    // produced by gltf-transform — see scripts/optimize-media/README.md)
+    // 7. Load Guitar 3D Model (meshopt-compressed GLB with WebP textures)
     const loader = new GLTFLoader();
     loader.setMeshoptDecoder(MeshoptDecoder);
 
     loader.load(
       "/models/electric_guitar.glb",
       (gltf) => {
+        if (isDisposed) return;
         const root = gltf.scene;
 
         // 1. Calculate raw bounding box
@@ -110,8 +125,8 @@ export default function GuitarModel() {
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        // 2. Scale model to 2.10 units
-        const scale = targetHeight / size.y;
+        // 2. Scale model to targetHeight units
+        const scale = targetHeight / (size.y || 1);
         root.scale.setScalar(scale);
 
         // 3. Center the model with yOffset
@@ -123,21 +138,21 @@ export default function GuitarModel() {
         scene.add(root);
         renderer.render(scene, camera);
         requestAnimationFrame(() => {
-          setIsLoaded(true);
+          if (!isDisposed) setIsLoaded(true);
         });
       },
       undefined,
       (error) => {
-        console.error("Error loading electric guitar 3D model:", error);
+        console.warn("Could not load electric guitar 3D model, falling back to 2D:", error);
+        if (!isDisposed) setHasWebGLError(true);
       }
     );
 
     // 8. Render Loop
-    let animationFrameId: number;
-
     const animate = () => {
+      if (isDisposed) return;
       animationFrameId = requestAnimationFrame(animate);
-      controls.update();
+      controls?.update();
       renderer.render(scene, camera);
     };
 
@@ -145,17 +160,18 @@ export default function GuitarModel() {
 
     // 9. Resize Handler with responsive camera distance for mobile portrait
     const handleResize = () => {
-      if (!container) return;
+      if (!container || !renderer) return;
       const newWidth = container.clientWidth;
       const newHeight = container.clientHeight;
       if (newWidth === 0 || newHeight === 0) return;
 
-      const aspect = newWidth / newHeight;
-      camera.aspect = aspect;
+      camera.aspect = newWidth / newHeight;
 
-      // On narrow mobile/portrait screens, increase camera distance so guitar stays in view
-      if (aspect < 0.9) {
-        camera.position.z = 4.75 * (0.9 / Math.max(0.48, aspect));
+      // Adjust camera distance for narrower viewports
+      if (newWidth < 480) {
+        camera.position.z = 5.6;
+      } else if (newWidth < 768) {
+        camera.position.z = 5.1;
       } else {
         camera.position.z = 4.75;
       }
@@ -164,66 +180,50 @@ export default function GuitarModel() {
       renderer.setSize(newWidth, newHeight);
     };
 
-    window.addEventListener("resize", handleResize);
-    const resizeObserver = new ResizeObserver(() => handleResize());
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
     resizeObserver.observe(container);
+    window.addEventListener("resize", handleResize);
 
-    // Initial check
+    // Initial camera distance sync
     handleResize();
 
-    // 10. Pass-through Hit-testing & Click Forwarding for background piano letters
-    let pointerDownPos: { x: number; y: number } | null = null;
+    // 10. Pointer Interactions: Coordinate with Hero Letters
+    let isInteracting = false;
+    let startX = 0;
 
     const onPointerDown = (e: PointerEvent) => {
-      pointerDownPos = { x: e.clientX, y: e.clientY };
+      isInteracting = true;
+      startX = e.clientX;
     };
 
-    const onPointerUp = (e: PointerEvent) => {
-      if (!pointerDownPos) return;
-      const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
-      pointerDownPos = null;
-
-      // If it was a click/tap (not an orbit drag)
-      if (dist < 6) {
-        const elements = document.elementsFromPoint(e.clientX, e.clientY);
-        const letterEl = elements.find(
-          (el) => el.hasAttribute("data-piano-letter") || el.closest("[data-piano-letter]")
-        );
-        if (letterEl) {
-          const target = (letterEl.closest("[data-piano-letter]") || letterEl) as HTMLElement;
-          target.click();
-        }
+    const onPointerUp = () => {
+      isInteracting = false;
+      const win = window as unknown as { __setMeladineHoveredLetter?: (l: string | null) => void };
+      if (typeof win.__setMeladineHoveredLetter === "function") {
+        win.__setMeladineHoveredLetter(null);
       }
     };
 
     const onPointerMove = (e: PointerEvent) => {
-      if (e.buttons > 0) return; // Don't trigger hover during active drag
-
-      const elements = document.elementsFromPoint(e.clientX, e.clientY);
-      const letterEl = elements.find(
-        (el) => el.hasAttribute("data-piano-letter") || el.closest("[data-piano-letter]")
+      if (!isInteracting) return;
+      const dx = e.clientX - startX;
+      const letters = ["M", "E", "L", "A", "D", "I", "N", "E"];
+      const step = 28;
+      const index = Math.min(
+        letters.length - 1,
+        Math.max(0, Math.floor((dx + 112) / step))
       );
-
-      const win = window as unknown as { __setMeladineHoveredLetter?: (idx: number | null) => void };
-
-      if (letterEl) {
-        const target = (letterEl.closest("[data-piano-letter]") || letterEl) as HTMLElement;
-        const letterIdx = parseInt(target.getAttribute("data-piano-letter") || "-1", 10);
-        if (letterIdx >= 0 && win.__setMeladineHoveredLetter) {
-          win.__setMeladineHoveredLetter(letterIdx);
-        }
-        if (container) container.style.cursor = "pointer";
-      } else {
-        if (win.__setMeladineHoveredLetter) {
-          win.__setMeladineHoveredLetter(null);
-        }
-        if (container) container.style.cursor = "grab";
+      const win = window as unknown as { __setMeladineHoveredLetter?: (l: string | null) => void };
+      if (typeof win.__setMeladineHoveredLetter === "function") {
+        win.__setMeladineHoveredLetter(letters[index]);
       }
     };
 
     const onPointerLeave = () => {
-      const win = window as unknown as { __setMeladineHoveredLetter?: (idx: number | null) => void };
-      if (win.__setMeladineHoveredLetter) {
+      const win = window as unknown as { __setMeladineHoveredLetter?: (l: string | null) => void };
+      if (typeof win.__setMeladineHoveredLetter === "function") {
         win.__setMeladineHoveredLetter(null);
       }
     };
@@ -235,6 +235,7 @@ export default function GuitarModel() {
 
     // 11. Cleanup
     return () => {
+      isDisposed = true;
       window.removeEventListener("resize", handleResize);
       resizeObserver.disconnect();
       container.removeEventListener("pointerdown", onPointerDown);
@@ -242,13 +243,56 @@ export default function GuitarModel() {
       container.removeEventListener("pointermove", onPointerMove);
       container.removeEventListener("pointerleave", onPointerLeave);
       cancelAnimationFrame(animationFrameId);
-      controls.dispose();
-      renderer.dispose();
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
+
+      if (controls) {
+        controls.dispose();
       }
+
+      if (renderer) {
+        renderer.domElement.removeEventListener("webglcontextlost", handleContextLost);
+        try {
+          renderer.dispose();
+          renderer.forceContextLoss();
+        } catch {}
+        if (container && renderer.domElement && container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
+      }
+
+      // Deep dispose scene geometries & materials
+      scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh) {
+          const mesh = obj as THREE.Mesh;
+          mesh.geometry?.dispose();
+          if (Array.isArray(mesh.material)) {
+            mesh.material.forEach((m) => m.dispose());
+          } else if (mesh.material) {
+            mesh.material.dispose();
+          }
+        }
+      });
+      shadowGeo.dispose();
+      shadowMat.dispose();
+      shadowTexture.dispose();
     };
   }, []);
+
+  if (hasWebGLError) {
+    return (
+      <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
+        <div className="relative w-full h-full max-h-[500px] flex items-center justify-center">
+          <Image
+            src="/images/3d/electric-guitar.png"
+            alt="Meladine Guitar"
+            fill
+            sizes="(max-width: 640px) 300px, (max-width: 1024px) 460px, 600px"
+            className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.18)]"
+            priority
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none">
