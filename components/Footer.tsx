@@ -371,9 +371,9 @@ export default function Footer() {
 
           {/* Navigate */}
           <nav aria-label="Footer navigation" className="lg:col-span-2 lg:col-start-6">
-            <span className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase mb-3 select-none">
-              {"// NAVIGATE"}
-            </span>
+            <h3 className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase font-semibold mb-3 select-none">
+              NAVIGATE
+            </h3>
             <ul className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>
@@ -390,9 +390,9 @@ export default function Footer() {
 
           {/* Disciplines */}
           <div className="lg:col-span-2">
-            <span className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase mb-3 select-none">
-              {"// DISCIPLINES"}
-            </span>
+            <h3 className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase font-semibold mb-3 select-none">
+              DISCIPLINES
+            </h3>
             <ul className="flex flex-col gap-1">
               {DISCIPLINES.map((item) => (
                 <li key={item.label} className="flex items-baseline gap-2">
@@ -408,32 +408,31 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="lg:col-span-3 lg:col-start-10 flex flex-col gap-5">
-            <div>
-              <span className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase mb-1 select-none">
-                {"// ADMISSIONS & INQUIRIES"}
-              </span>
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="font-display text-xl sm:text-2xl uppercase text-neutral-950 hover:text-[#ed1438] transition-colors duration-200 break-all"
-              >
-                {CONTACT_EMAIL}
-              </a>
+          <div className="lg:col-span-3 lg:col-start-10 flex flex-col">
+            <h3 className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase font-semibold mb-3 select-none">
+              CONTACT
+            </h3>
+            <div className="flex flex-col gap-4">
+              <div>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="font-display text-xl sm:text-2xl uppercase text-neutral-950 hover:text-[#ed1438] transition-colors duration-200 break-all"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </div>
+              <div>
+                <a
+                  href={CONTACT_PHONE_HREF}
+                  className="font-display text-xl sm:text-2xl uppercase text-neutral-950 hover:text-[#ed1438] transition-colors duration-200"
+                >
+                  {CONTACT_PHONE_DISPLAY}
+                </a>
+              </div>
+              <p className="text-xs text-neutral-500 font-light leading-relaxed">
+                Our mentors respond within 48 hours.
+              </p>
             </div>
-            <div>
-              <span className="block text-[10px] sm:text-xs font-mono tracking-widest text-neutral-400 uppercase mb-1 select-none">
-                {"// DIRECT ACADEMY LINE"}
-              </span>
-              <a
-                href={CONTACT_PHONE_HREF}
-                className="font-display text-xl sm:text-2xl uppercase text-neutral-950 hover:text-[#ed1438] transition-colors duration-200"
-              >
-                {CONTACT_PHONE_DISPLAY}
-              </a>
-            </div>
-            <p className="text-xs text-neutral-500 font-light leading-relaxed">
-              Our mentors respond within 48 hours.
-            </p>
           </div>
         </div>
       </div>
