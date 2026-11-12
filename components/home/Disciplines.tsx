@@ -183,7 +183,7 @@ export default function Disciplines() {
           {/* Section Header */}
           <div className="flex flex-col items-center text-center mb-0 sm:mb-2 z-20 shrink-0">
             <span className="text-[10px] sm:text-xs md:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold mb-0.5 sm:mb-1">
-              {"// 02 ACADEMY"}
+              02 ACADEMY
             </span>
             <h2 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-neutral-950 leading-[0.9]">
               CORE DISCIPLINES
@@ -253,7 +253,7 @@ export default function Disciplines() {
                 className="group flex flex-col items-end cursor-pointer transition-transform active:scale-95 text-right"
               >
                 <span className="font-mono text-[8px] xs:text-[9px] sm:text-[11px] text-neutral-400 tracking-widest uppercase mb-0.5 group-hover:text-[#ed1438] transition-colors whitespace-nowrap">
-                  &larr; {"//"} {leftData.number}
+                  &larr; {leftData.number}
                 </span>
                 <span className="font-display uppercase text-xl xs:text-2xl sm:text-4xl md:text-5xl tracking-tight text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200">
                   {leftData.name}
@@ -266,7 +266,7 @@ export default function Disciplines() {
               <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
                 <span className="w-1.5 sm:w-2 h-0.5 bg-[#ed1438]" />
                 <span className="font-mono text-[9px] xs:text-[10px] sm:text-sm font-semibold tracking-widest text-[#ed1438] uppercase whitespace-nowrap">
-                  {activeData.number} {"//"} {activeData.subtitle}
+                  {activeData.number} · {activeData.subtitle}
                 </span>
                 <span className="w-1.5 sm:w-2 h-0.5 bg-[#ed1438]" />
               </div>
@@ -283,7 +283,7 @@ export default function Disciplines() {
                 className="group flex flex-col items-start cursor-pointer transition-transform active:scale-95 text-left"
               >
                 <span className="font-mono text-[8px] xs:text-[9px] sm:text-[11px] text-neutral-400 tracking-widest uppercase mb-0.5 group-hover:text-[#ed1438] transition-colors whitespace-nowrap">
-                  {"//"} {rightData.number} &rarr;
+                  {rightData.number} &rarr;
                 </span>
                 <span className="font-display uppercase text-xl xs:text-2xl sm:text-4xl md:text-5xl tracking-tight text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200">
                   {rightData.name}

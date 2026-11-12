@@ -210,7 +210,7 @@ export default function Footer() {
             </div>
 
             <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold select-none">
-              {"// 05 FINAL MOVEMENT"}
+              05 FINAL MOVEMENT
             </span>
 
             <h2

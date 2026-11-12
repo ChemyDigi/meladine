@@ -12,7 +12,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-6">
             <span className="text-xs font-mono tracking-widest text-[#ed1438] uppercase font-bold">
-              // 04 CONNECT
+              04 CONNECT
             </span>
             <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-black mt-2">
               CONTACT US

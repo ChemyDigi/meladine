@@ -526,7 +526,7 @@ export default function ResonanceGallery() {
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-bold text-[#ed1438] tracking-widest uppercase bg-black/60 px-2 py-0.5 rounded-full">
-                    {"// 0"}{item.id}
+                    {"0"}{item.id}
                   </span>
                   <span className="text-[10px] font-mono text-white/80 uppercase">
                     {item.year}

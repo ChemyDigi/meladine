@@ -297,7 +297,7 @@ export default function About() {
         {/* Top Architectural Header */}
         <div className="flex items-center justify-center mb-4 sm:mb-6 md:mb-8 select-none">
           <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold">
-            {"// 01 ABOUT MELADINE"}
+            01 ABOUT MELADINE
           </span>
         </div>
 

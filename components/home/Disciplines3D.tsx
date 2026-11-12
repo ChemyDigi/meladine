@@ -630,7 +630,7 @@ export default function Disciplines3D({
           <div className="flex flex-col items-center gap-3 text-neutral-400">
             <div className="w-8 h-8 border-2 border-[#ed1438] border-t-transparent rounded-full animate-spin" />
             <span className="font-mono text-xs tracking-widest uppercase">
-              // CALIBRATING 3D ACOUSTICS...
+              CALIBRATING 3D ACOUSTICS...
             </span>
           </div>
         </div>

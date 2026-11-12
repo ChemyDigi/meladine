@@ -32,7 +32,7 @@ export default function DriftWallSection() {
         <div className="w-full flex flex-col items-center text-center">
           <div className="flex items-center gap-2 mb-2 select-none">
             <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold">
-              {"// 02 GALLERY ARCHIVE"}
+              02 GALLERY ARCHIVE
             </span>
           </div>
 

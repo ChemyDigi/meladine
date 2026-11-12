@@ -134,7 +134,7 @@ export default function ContactPage() {
                   revealed ? "opacity-100" : "opacity-0"
                 }`}
               >
-                // ADMISSIONS &amp; INQUIRIES
+                ADMISSIONS &amp; INQUIRIES
               </span>
               <h2
                 style={{

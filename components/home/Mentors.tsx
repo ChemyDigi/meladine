@@ -38,7 +38,7 @@ export default function Mentors() {
         <div className="w-full flex flex-col items-start text-left mb-4 sm:mb-6">
           <div className="flex items-center gap-2 mb-2 select-none">
             <span className="text-xs sm:text-sm font-mono tracking-widest text-[#ed1438] uppercase font-bold">
-              {"// 03 RESIDENT FACULTY"}
+              03 RESIDENT FACULTY
             </span>
           </div>
 

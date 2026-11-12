@@ -16,7 +16,7 @@ export default function Events() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <span className="text-xs font-mono tracking-widest text-[#ed1438] uppercase font-bold">
-              // 02 LIVE DATES
+              02 LIVE DATES
             </span>
             <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display uppercase tracking-tight text-black mt-2">
               UPCOMING SESSIONS
