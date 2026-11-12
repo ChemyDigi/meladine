@@ -75,20 +75,6 @@ const NOTATIONS: NotationItem[] = [
     duration: "2.9s",
     opacity: "opacity-100",
   },
-  // 7. Lower Section Left (Vocals / Microphone area)
-  {
-    id: 7,
-    src: "/images/About/Notation2.png",
-    top: "61%",
-    left: "3%",
-    sizeClass: "w-11 sm:w-14 md:w-18",
-    width: 120,
-    height: 168,
-    rotation: "rotate-[12deg]",
-    delay: "-2.4s",
-    duration: "3.3s",
-    opacity: "opacity-100",
-  },
   // 8. Lower Section Right
   {
     id: 8,
