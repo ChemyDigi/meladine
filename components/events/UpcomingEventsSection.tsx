@@ -73,7 +73,7 @@ export default function UpcomingEventsSection() {
           </div>
 
           {/* Subtitle text */}
-          <div className="max-w-md lg:pb-2">
+          <div className="max-w-xl lg:pb-2">
             <p className="text-neutral-500 text-sm sm:text-base leading-relaxed">
               Stay tuned for our next live session, workshop or showcase.
               <br className="hidden sm:inline" /> We&apos;ll be sharing updates soon.
