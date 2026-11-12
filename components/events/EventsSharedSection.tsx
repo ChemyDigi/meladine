@@ -59,16 +59,16 @@ export default function EventsSharedSection() {
           </div>
 
           {/* Description & View All Button */}
-          <div className="flex flex-col sm:flex-row sm:items-center lg:items-end gap-6 lg:gap-10 max-w-2xl">
-            <p className="text-neutral-600 text-sm sm:text-base leading-relaxed">
-              From intimate acoustic sessions to large-scale showcases, here are
-              some of the memorable moments we&apos;ve created together with our
-              students, mentors and guests.
+          <div className="flex flex-col items-start lg:items-end gap-4 max-w-2xl">
+            <p className="text-neutral-600 text-sm sm:text-base leading-relaxed text-left lg:text-right">
+              From intimate acoustic sessions to large-scale showcases, here are some of the
+              <br className="hidden sm:inline" />{" "}
+              memorable moments we&apos;ve created together with our students, mentors and guests.
             </p>
 
             <Link
               href="#upcoming-events"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-neutral-300 text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-900 hover:text-neutral-950 hover:bg-neutral-50 transition-all whitespace-nowrap shrink-0 group self-start sm:self-auto"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-neutral-300 text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-900 hover:text-neutral-950 hover:bg-neutral-50 transition-all whitespace-nowrap shrink-0 group self-start lg:self-end"
             >
               <span>VIEW ALL EVENTS</span>
               <span className="transform group-hover:translate-x-1 transition-transform">
