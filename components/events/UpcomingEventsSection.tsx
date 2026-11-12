@@ -40,7 +40,7 @@ export default function UpcomingEventsSection() {
   return (
     <section
       id="upcoming-events"
-      className="relative w-full bg-white py-16 sm:py-24 lg:py-28 px-4 sm:px-8 md:px-12 lg:px-14 overflow-hidden border-t border-neutral-100"
+      className="relative w-full bg-white py-16 sm:py-24 lg:py-28 px-4 sm:px-8 md:px-12 lg:px-14 overflow-hidden"
     >
       {/* Background Treble Clef Blueprint Watermark (Right side) */}
       <div

@@ -162,16 +162,6 @@ export default function Footer() {
       id="site-main-footer"
       className="relative w-full bg-white text-neutral-900 overflow-hidden"
     >
-      {/* ============================================================ */}
-      {/* Background: architectural hairline grid (shared by sections) */}
-      {/* ============================================================ */}
-      <div className="absolute inset-0 pointer-events-none opacity-25 z-0" aria-hidden="true">
-        <div className="curtain-grid-columns h-full">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="border-r border-neutral-100 h-full" />
-          ))}
-        </div>
-      </div>
 
       {/* ============================================================ */}
       {/* Background: blueprint treble clef watermark (bottom right)   */}
@@ -319,7 +309,7 @@ export default function Footer() {
       {/* ============================================================ */}
       {/* 2. Directory: brand, navigation, disciplines, contact        */}
       {/* ============================================================ */}
-      <div className="relative z-10 border-t border-neutral-200/80">
+      <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-12 sm:py-14 md:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-10 lg:gap-y-0">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-4 flex flex-col items-start">

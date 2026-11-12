@@ -43,7 +43,7 @@ export default function EventsSharedSection() {
   return (
     <section
       id="events-shared"
-      className="relative w-full bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-8 md:px-12 lg:px-14 border-t border-neutral-100"
+      className="relative w-full bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-8 md:px-12 lg:px-14"
     >
       <div className="max-w-7xl mx-auto">
         {/* ============================================================ */}
