@@ -62,7 +62,7 @@ const MENTORS: Mentor[] = [
     anchor: "next-mentor",
     name: "meet Dileepa Liyanage",
     role: "Vocal & keyboard instructor",
-    image: "/images/Mentors/dileepa-vocal.png",
+    image: "/images/Mentors/Stylish Man in Red Egg Chair.png",
     imageAlt: "Meladine Artist Dileepa Liyanage",
     sketch: "/images/Mentors/Keyboard.png",
     sketchAspect: "aspect-[1122/1402]",
@@ -141,11 +141,9 @@ function CompactShowcase({ visible }: { visible: Visibility }) {
             >
               {/* Blueprint instrument sketch behind the block */}
               <div
-                className={`absolute -top-8 ${
-                  isRight ? "-left-20 sm:-left-28" : "-right-20 sm:-right-28"
-                } w-[240px] sm:w-[320px] md:w-[400px] ${mentor.sketchAspect} opacity-[0.08] pointer-events-none select-none z-0 ${
-                  isRight ? "-rotate-6" : "rotate-12"
-                }`}
+                className={`absolute -top-8 ${isRight ? "-left-20 sm:-left-28" : "-right-20 sm:-right-28"
+                  } w-[240px] sm:w-[320px] md:w-[400px] ${mentor.sketchAspect} opacity-[0.08] pointer-events-none select-none z-0 ${isRight ? "-rotate-6" : "rotate-12"
+                  }`}
                 aria-hidden="true"
               >
                 <Image src={mentor.sketch} alt="" fill sizes="400px" className="object-contain" />
@@ -154,44 +152,38 @@ function CompactShowcase({ visible }: { visible: Visibility }) {
               <div className="relative z-10 grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 md:gap-10 items-center">
                 {/* Portrait / chair */}
                 <div
-                  className={`sm:col-span-5 flex ${
-                    isRight ? "sm:order-2 justify-end" : "justify-start"
-                  }`}
+                  className={`sm:col-span-5 flex ${isRight ? "sm:order-2 justify-end" : "justify-start"
+                    }`}
                 >
                   <div
-                    className={`relative w-[250px] xs:w-[290px] sm:w-full max-w-[400px] aspect-[1122/1402] drop-shadow-2xl ${EASE} ${
-                      shown ? ENTER : HIDDEN
-                    }`}
+                    className={`relative w-[250px] xs:w-[290px] sm:w-full max-w-[400px] aspect-[1122/1402] drop-shadow-2xl ${EASE} ${shown ? ENTER : HIDDEN
+                      }`}
                   >
                     <Image
                       src={mentor.image}
                       alt={mentor.imageAlt}
                       fill
                       sizes="(max-width: 640px) 290px, 400px"
-                      className={`object-contain pointer-events-none ${
-                        isRight ? "object-right" : "object-left"
-                      }`}
+                      className={`object-contain pointer-events-none ${isRight ? "object-right" : "object-left"
+                        }`}
                     />
                   </div>
                 </div>
 
                 {/* Annotation, story and metrics */}
                 <div
-                  className={`sm:col-span-7 flex flex-col items-start ${
-                    isRight ? "sm:order-1 sm:items-end sm:text-right" : ""
-                  }`}
+                  className={`sm:col-span-7 flex flex-col items-start ${isRight ? "sm:order-1 sm:items-end sm:text-right" : ""
+                    }`}
                 >
                   <div
-                    className={`flex items-end gap-2 sm:gap-3 select-none ${
-                      isRight ? "sm:flex-row-reverse" : "flex-row-reverse sm:flex-row"
-                    } ${EASE} ${shown ? ENTER : HIDDEN}`}
+                    className={`flex items-end gap-2 sm:gap-3 select-none ${isRight ? "sm:flex-row-reverse" : "flex-row-reverse sm:flex-row"
+                      } ${EASE} ${shown ? ENTER : HIDDEN}`}
                   >
                     <div
-                      className={`w-12 sm:w-16 md:w-20 shrink-0 ${
-                        isRight
+                      className={`w-12 sm:w-16 md:w-20 shrink-0 ${isRight
                           ? "-rotate-[100deg] sm:rotate-[8deg]"
                           : "-rotate-[80deg] sm:rotate-[190deg]"
-                      }`}
+                        }`}
                     >
                       <DoodleArrow className="w-full h-auto drop-shadow-sm" />
                     </div>
@@ -209,9 +201,8 @@ function CompactShowcase({ visible }: { visible: Visibility }) {
                     {mentor.paragraphs.map((text, i) => (
                       <p
                         key={i}
-                        className={`text-sm md:text-base font-light leading-relaxed ${
-                          i === 0 ? "text-neutral-700" : "mt-2.5 text-neutral-600"
-                        }`}
+                        className={`text-sm md:text-base font-light leading-relaxed ${i === 0 ? "text-neutral-700" : "mt-2.5 text-neutral-600"
+                          }`}
                       >
                         {text}
                       </p>
@@ -224,9 +215,8 @@ function CompactShowcase({ visible }: { visible: Visibility }) {
                         <React.Fragment key={metric.label}>
                           {i > 0 && <div className="w-px h-10 bg-neutral-200 shrink-0" />}
                           <div
-                            className={`flex flex-col group cursor-default ${
-                              isRight ? "sm:items-end sm:text-right" : ""
-                            }`}
+                            className={`flex flex-col group cursor-default ${isRight ? "sm:items-end sm:text-right" : ""
+                              }`}
                           >
                             <div
                               className={
@@ -402,7 +392,7 @@ function DesktopShowcase({
       <div id="next-mentor" data-mentor="mentor2" className="absolute right-0 top-[680px] 2xl:top-[760px] z-20 flex flex-col items-end">
         <div className="relative w-[620px] 2xl:w-[700px] aspect-[1122/1402] -mr-32 2xl:-mr-40 drop-shadow-2xl">
           <Image
-            src="/images/Mentors/dileepa-vocal.png"
+            src="/images/Mentors/Stylish Man in Red Egg Chair.png"
             alt="Meladine Artist Dileepa Liyanage"
             fill
             sizes="700px"
